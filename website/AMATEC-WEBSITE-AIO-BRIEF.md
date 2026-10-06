@@ -15,7 +15,7 @@ You are rewriting the visible copy of the Amatec WordPress theme so it reads lik
 | Apply script | `website/tools/apply_edits.py` |
 | Tests | `website/tools/test_render.php`, `website/tools/dump_lp.php` |
 | Live site | https://amatec.in (WordPress, Yoast SEO, LiteSpeed) |
-| Size of change | 106 edits in 41 theme files, 3 new files, 11 Yoast title and description updates |
+| Size of change | 102 edits in 41 theme files, 3 new files, 11 Yoast title and description updates |
 
 ### Rules you must not break
 
@@ -26,24 +26,24 @@ You are rewriting the visible copy of the Amatec WordPress theme so it reads lik
 5. No em dash or en dash in any visible text. Code comments do not matter.
 6. Do not deploy if any test in section 3, step 3 fails.
 
-## 2. Fact gate (Anirban fills this in before handing over)
+## 2. Decisions already made
 
-Some current claims could not be verified. Each row has a default. If Anirban leaves the answer blank, use the default. If he writes YES or NO, follow the last column.
+Anirban answered these on 6 Oct 2026 and the edit list already reflects them. Apply every edit in section 4. Do not skip any and do not reopen these.
 
-| ID | Claim | Default (blank answer) | If Anirban answers | Anirban's answer |
-|---|---|---|---|---|
-| F1 | Years in business. Site says '9 years' (About, platform pages) and '5+ years' (landing pages). | Use 'since 2020' everywhere. The Produits du Cap testimonial already says 'partner since 2020'. | If the real first-client year differs, replace 2020 with it in every edit tagged F1 and in summary.php, llms.txt and inc/aio.php. | |
-| F2 | Free call length. Site says 45 minutes in some places, 30 in others. | 30 minutes. Verified 6 Oct 2026: the Cal.com event amatec/meeting is 30 minutes. | No decision needed. | |
-| F3 | Stat cards '250+ workflows shipped' and '120+ satisfied clients' on the Make, monday and Zoho pages. | Replace with checkable facts (edits P01 to P03). | YES (Anirban can show the count): skip P01, P02, P03, then by hand change only the '9 yrs' card to '2020' / 'Building client automations since'. | |
-| F4 | Homepage results: '40+ hrs/month saved per workflow on average' and '2 wks typical from audit to live'. | Replace with checkable facts (edits H06 to H08). | YES (there is data behind both): skip H06, H07, H08. | |
-| F5 | Certifications: Make Advanced Certified Partner, Zoho Certified Partner, monday.com Work Management Core. | Keep the platform-page badges (Make, Zoho, monday) as they are. Remove the blanket 'certified across all four' lines (A04, A07, A10, A12). | YES for all four platforms including n8n: skip A04, A07, A10, A12. NO for Zoho partner: also change H01 and Z01 as their notes say. NO for Make Advanced or monday Core: tell Anirban, do not ship those pages until the badge text is fixed. | |
-| F6 | Blink Energy Services (TX) listed as a client on About. | Remove it (edit A13). The deal was lost on 6 Jul 2026. | YES (paid work was delivered and they agree to be named): skip A13. | |
-| F7 | Make.com public app 'Aurora Solar' claimed on About. | Keep. New copy also says 'an app on Make'. | NO (app is not live): remove 'one on Make' / 'an app on Make' from A05, A07, H06, summary.php, llms.txt, and change the counts from 3 to 2. | |
-| F8 | Anonymous quote 'Operations lead, Multi-department onboarding rollout' on /hr-operations-automation/. | Delete it (edit L24). No name and no company reads as invented. | No decision needed. | |
-| F9 | T-Chat channels. Product copy says Twilio SMS and MMS. The live meta description says WhatsApp. | Treat T-Chat as SMS and MMS only (TC01, TC02, Yoast row). | YES (T-Chat also sends WhatsApp through Twilio): skip TC01 and TC02 and add WhatsApp to the T-Chat FAQ answer in inc/aio.php. | |
-| F10 | MCP server work (ChatGPT or Claude reading Zoho data). | Keep. This is live client work (Zoho Inventory and Books MCP, Sep 2026). | NO: skip A08, A09, AI04 and delete the MCP FAQ items in inc/aio.php ('Can ChatGPT or Claude read our Zoho data?' and 'What is an MCP server?'). | |
-| F11 | AI page 'Built on' list showed Google Cloud AI, Azure Cognitive Services and custom-trained models. | Replace with OpenAI Whisper, Anthropic Claude and n8n AI agents (edit AI05). | If Amatec has shipped Google Cloud AI or Azure work for a client, skip AI05. | |
-| F12 | 'Case Studies' menu item points to #case-studies, which exists on no page. | Remove the menu item (edit NAV01). | If a case studies page exists, skip NAV01 and change that line's href to the page URL instead. | |
+| ID | Claim | Decision |
+|---|---|---|
+| F1 | Years in business (site said 9 years and 5+ years) | Since 2020 everywhere. |
+| F2 | Free call length (site said 45 and 30 minutes) | 30 minutes, matching the Cal.com event amatec/meeting. |
+| F3 | '250+ workflows shipped' and '120+ satisfied clients' | True. Keep both. Only the '9 yrs' card changes to 2020. |
+| F4 | Homepage '40+ hrs saved per workflow' and '2 wks typical' | No data behind them. Replace with checkable facts (H06 to H08). |
+| F5 | Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four' | All real. Keep every certification claim. |
+| F6 | Blink Energy Services listed as a client | Keep it. |
+| F7 | Make.com public app (Aurora Solar) | Real. Copy says 'an app on Make'. |
+| F8 | Anonymous 'Operations lead' quote on /hr-operations-automation/ | Delete it (L24). |
+| F9 | T-Chat channels | SMS and MMS only. Never mention WhatsApp. |
+| F10 | MCP server work | Real client work. Keep. |
+| F11 | AI page 'Built on' list | OpenAI GPT, Whisper, Claude, n8n AI agents (AI05). |
+| F12 | 'Case Studies' menu item pointing to #case-studies | Keep the menu item. Do not remove or change it. |
 
 ## 3. Steps
 
@@ -63,14 +63,12 @@ curl -s https://amatec.in/ | grep -c 'Stop doing what'   # must print 1 or more
 
 ### Step 2. Apply the edits
 
-Build the skip list from section 2 (empty if every answer is blank), then run:
-
 ```bash
-python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --dry-run --skip <IDS>
-python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --skip <IDS>
+python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --dry-run
+python3 website/tools/apply_edits.py /tmp/amatec-build/amatec
 ```
 
-Leave out `--skip <IDS>` when there is nothing to skip. The script refuses to write anything if a single find string fails to match, so a partial apply cannot happen. Then make any by-hand changes that section 2 asked for.
+The script refuses to write anything if a single find string fails to match, so a partial apply cannot happen.
 
 If you cannot run Python, apply section 4 by hand in order, and copy the section 5 files into the theme. Each find string must match exactly once (edit L27 matches 14 times and replaces all of them).
 
@@ -141,15 +139,15 @@ If anything looks broken, reinstall the backup zip and purge the cache.
 
 ### Step 7. Report back
 
-Tell Anirban which edits were applied or skipped, the result of every check in step 6, and anything you stopped on.
+Tell Anirban which edits were applied, the result of every check in step 6, and anything you stopped on.
 
 ## 4. Edit catalogue
 
-Paths are relative to the theme folder. Indentation in multi-line finds is tabs. Facts in brackets refer to section 2.
+Paths are relative to the theme folder. Indentation in multi-line finds is tabs. Tags in brackets refer to the decisions in section 2.
 
 ### `template-parts/home/hero.php`
 
-**H01** [F5]. Keep only if F5 Zoho partner = YES. If NO, replace with: ZOHO · n8n · MAKE · MONDAY
+**H01** [F5]. Zoho partner status confirmed by Anirban. Leave as is.
 
 Check only, no change by default. Confirm this text exists:
 
@@ -362,20 +360,6 @@ Replace with:
 array( 'fig' => '2020', 'unit' => 'since',   'label' => 'building client automations' ),
 ```
 
-**A04** [F5]. Default drops 'certified' from this label. If F5 is YES for all four platforms, skip this edit.
-
-Find:
-
-```
-'label' => 'certified: Make · n8n · Zoho · Monday' ),
-```
-
-Replace with:
-
-```
-'label' => 'Make · n8n · Zoho · Monday' ),
-```
-
 **A05** [F7]. The two Zoho Marketplace extensions were missing from the About page entirely.
 
 Find:
@@ -408,7 +392,7 @@ if software can do the work, a human shouldn't. He has built client workflows si
 						conviction still decides which jobs we take.
 ```
 
-**A07** [F5]. Default drops 'certified across all four'. If F5 is YES for all four, keep the word 'certified' by writing: '...Monday.com</strong>, is certified on all four, and has published two extensions'.
+**A07**. Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification kept (confirmed by Anirban, 6 Oct 2026).
 
 Find:
 
@@ -420,8 +404,8 @@ He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, certified
 Replace with:
 
 ```
-He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, has published two extensions
-						on the Zoho Marketplace and an app on Make.
+He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, is certified
+						on all four, and has published two extensions on the Zoho Marketplace and an app on Make.
 ```
 
 **A08** [F10]. Adds the MCP work, which is current and specific, and is what people now ask AI assistants about.
@@ -453,20 +437,6 @@ Replace with:
 array( 'icon' => 'bot',         'text' => 'AI builds: GPT-4o · Whisper · MCP servers' ),
 ```
 
-**A10** [F5]. Default removes the certification claim. If F5 is YES for all four platforms, skip this edit.
-
-Find:
-
-```
-array( 'icon' => 'badge-check', 'text' => 'Certified: Make · n8n · Zoho · Monday' ),
-```
-
-Replace with:
-
-```
-array( 'icon' => 'badge-check', 'text' => 'Builds on Make · n8n · Zoho · Monday' ),
-```
-
 ### `template-parts/about/values.php`
 
 **A11**. Removes the 'not X, not Y' pattern.
@@ -485,7 +455,7 @@ Replace with:
 
 ### `template-parts/about/certs.php`
 
-**A12** [F5]. Default swaps the certification claim for proof a reader can check. If F5 is YES for all four, use: 'Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.'
+**A12**. Adds the Zoho Marketplace proof. Certification kept (confirmed by Anirban).
 
 Find:
 
@@ -496,21 +466,7 @@ Find:
 Replace with:
 
 ```
-<p class="lead">Two extensions on the Zoho Marketplace and an app on Make. You can install them and judge the work yourself.</p>
-```
-
-**A13** [F6]. Default removes Blink Energy (that deal was lost in July 2026) and names two clients who already appear in testimonials on this site. If F6 = YES, keep Blink Energy.
-
-Find:
-
-```
-$clients = array( 'Blink Energy Services · TX', 'Chaoshi Limited', 'Recurring EU clients' );
-```
-
-Replace with:
-
-```
-$clients = array( 'Chaoshi Limited', 'Produits du Cap', 'Dr. Miami' );
+<p class="lead">Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.</p>
 ```
 
 **A14**. Plainer and matches the shorter list.
@@ -559,62 +515,50 @@ Thirty minutes with the person who&rsquo;ll actually build it.
 
 ### `template-parts/platforms/monday-why.php`
 
-**P01** [F3]. Default replaces unsourced counts with checkable facts. If F3 = YES (Anirban can back 250+ and 120+), keep those two and change only '9 yrs' to '2020' / 'Building client automations since'.
+**P01** [F1]. Years made consistent with the rest of the site. The 250+ workflows and 120+ clients cards stay (confirmed by Anirban).
 
 Find:
 
 ```
-array( 'n' => '250+', 'l' => 'Workflows shipped' ),
-	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
 ```
 
 Replace with:
 
 ```
 array( 'n' => '2020', 'l' => 'Building client automations since' ),
-	array( 'n' => '2', 'l' => 'Apps on the Zoho Marketplace' ),
-	array( 'n' => '4', 'l' => 'Platforms we build on' ),
 ```
 
 ### `template-parts/platforms/n8n-control.php`
 
-**P02** [F3]. Default replaces unsourced counts with checkable facts. If F3 = YES (Anirban can back 250+ and 120+), keep those two and change only '9 yrs' to '2020' / 'Building client automations since'.
+**P02** [F1]. Years made consistent with the rest of the site. The 250+ workflows and 120+ clients cards stay (confirmed by Anirban).
 
 Find:
 
 ```
-array( 'n' => '250+', 'l' => 'Workflows shipped' ),
-	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
 ```
 
 Replace with:
 
 ```
 array( 'n' => '2020', 'l' => 'Building client automations since' ),
-	array( 'n' => '2', 'l' => 'Apps on the Zoho Marketplace' ),
-	array( 'n' => '4', 'l' => 'Platforms we build on' ),
 ```
 
 ### `template-parts/platforms/zoho-why.php`
 
-**P03** [F3]. Default replaces unsourced counts with checkable facts. If F3 = YES (Anirban can back 250+ and 120+), keep those two and change only '9 yrs' to '2020' / 'Building client automations since'.
+**P03** [F1]. Years made consistent with the rest of the site. The 250+ workflows and 120+ clients cards stay (confirmed by Anirban).
 
 Find:
 
 ```
-array( 'n' => '250+', 'l' => 'Workflows shipped' ),
-	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
 ```
 
 Replace with:
 
 ```
 array( 'n' => '2020', 'l' => 'Building client automations since' ),
-	array( 'n' => '2', 'l' => 'Apps on the Zoho Marketplace' ),
-	array( 'n' => '4', 'l' => 'Platforms we build on' ),
 ```
 
 ### `template-parts/platforms/make-services.php`
@@ -822,7 +766,7 @@ get_template_part( 'template-parts/landing/book', null, array( 'data' => array(
 
 ### `template-parts/platforms/zoho-hero.php`
 
-**Z01** [F5]. Keep only if F5 Zoho = YES. If NO, change 'certified partners' to 'Zoho app developers' (we have two Marketplace apps).
+**Z01** [F5]. Zoho partner status confirmed by Anirban. Leave as is.
 
 Check only, no change by default. Confirm this text exists:
 
@@ -1746,19 +1690,6 @@ Replace with:
 ```
 We’ll map your process and show you what’s worth automating. No obligation.
 ```
-
-### `functions.php`
-
-**NAV01** [F12]. The Case Studies menu item points to #case-studies, which does not exist on any page. Default removes it. If F12 gives a real URL, set 'href' to that URL instead of deleting the line.
-
-Find:
-
-```
-		array( 'label' => 'Case Studies', 'href' => '#case-studies' ),
-
-```
-
-Replace with nothing (delete the found text).
 
 ### `template-parts/landing/faq.php`
 

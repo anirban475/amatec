@@ -35,42 +35,18 @@ YOAST = [
 ]
 
 FACTS = [
-    ("F1", "Years in business. Site says '9 years' (About, platform pages) and '5+ years' (landing pages).",
-     "Use 'since 2020' everywhere. The Produits du Cap testimonial already says 'partner since 2020'.",
-     "If the real first-client year differs, replace 2020 with it in every edit tagged F1 and in summary.php, llms.txt and inc/aio.php."),
-    ("F2", "Free call length. Site says 45 minutes in some places, 30 in others.",
-     "30 minutes. Verified 6 Oct 2026: the Cal.com event amatec/meeting is 30 minutes.",
-     "No decision needed."),
-    ("F3", "Stat cards '250+ workflows shipped' and '120+ satisfied clients' on the Make, monday and Zoho pages.",
-     "Replace with checkable facts (edits P01 to P03).",
-     "YES (Anirban can show the count): skip P01, P02, P03, then by hand change only the '9 yrs' card to '2020' / 'Building client automations since'."),
-    ("F4", "Homepage results: '40+ hrs/month saved per workflow on average' and '2 wks typical from audit to live'.",
-     "Replace with checkable facts (edits H06 to H08).",
-     "YES (there is data behind both): skip H06, H07, H08."),
-    ("F5", "Certifications: Make Advanced Certified Partner, Zoho Certified Partner, monday.com Work Management Core.",
-     "Keep the platform-page badges (Make, Zoho, monday) as they are. Remove the blanket 'certified across all four' lines (A04, A07, A10, A12).",
-     "YES for all four platforms including n8n: skip A04, A07, A10, A12. NO for Zoho partner: also change H01 and Z01 as their notes say. NO for Make Advanced or monday Core: tell Anirban, do not ship those pages until the badge text is fixed."),
-    ("F6", "Blink Energy Services (TX) listed as a client on About.",
-     "Remove it (edit A13). The deal was lost on 6 Jul 2026.",
-     "YES (paid work was delivered and they agree to be named): skip A13."),
-    ("F7", "Make.com public app 'Aurora Solar' claimed on About.",
-     "Keep. New copy also says 'an app on Make'.",
-     "NO (app is not live): remove 'one on Make' / 'an app on Make' from A05, A07, H06, summary.php, llms.txt, and change the counts from 3 to 2."),
-    ("F8", "Anonymous quote 'Operations lead, Multi-department onboarding rollout' on /hr-operations-automation/.",
-     "Delete it (edit L24). No name and no company reads as invented.",
-     "No decision needed."),
-    ("F9", "T-Chat channels. Product copy says Twilio SMS and MMS. The live meta description says WhatsApp.",
-     "Treat T-Chat as SMS and MMS only (TC01, TC02, Yoast row).",
-     "YES (T-Chat also sends WhatsApp through Twilio): skip TC01 and TC02 and add WhatsApp to the T-Chat FAQ answer in inc/aio.php."),
-    ("F10", "MCP server work (ChatGPT or Claude reading Zoho data).",
-     "Keep. This is live client work (Zoho Inventory and Books MCP, Sep 2026).",
-     "NO: skip A08, A09, AI04 and delete the MCP FAQ items in inc/aio.php ('Can ChatGPT or Claude read our Zoho data?' and 'What is an MCP server?')."),
-    ("F11", "AI page 'Built on' list showed Google Cloud AI, Azure Cognitive Services and custom-trained models.",
-     "Replace with OpenAI Whisper, Anthropic Claude and n8n AI agents (edit AI05).",
-     "If Amatec has shipped Google Cloud AI or Azure work for a client, skip AI05."),
-    ("F12", "'Case Studies' menu item points to #case-studies, which exists on no page.",
-     "Remove the menu item (edit NAV01).",
-     "If a case studies page exists, skip NAV01 and change that line's href to the page URL instead."),
+    ("F1", "Years in business (site said 9 years and 5+ years)", "Since 2020 everywhere."),
+    ("F2", "Free call length (site said 45 and 30 minutes)", "30 minutes, matching the Cal.com event amatec/meeting."),
+    ("F3", "'250+ workflows shipped' and '120+ satisfied clients'", "True. Keep both. Only the '9 yrs' card changes to 2020."),
+    ("F4", "Homepage '40+ hrs saved per workflow' and '2 wks typical'", "No data behind them. Replace with checkable facts (H06 to H08)."),
+    ("F5", "Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four'", "All real. Keep every certification claim."),
+    ("F6", "Blink Energy Services listed as a client", "Keep it."),
+    ("F7", "Make.com public app (Aurora Solar)", "Real. Copy says 'an app on Make'."),
+    ("F8", "Anonymous 'Operations lead' quote on /hr-operations-automation/", "Delete it (L24)."),
+    ("F9", "T-Chat channels", "SMS and MMS only. Never mention WhatsApp."),
+    ("F10", "MCP server work", "Real client work. Keep."),
+    ("F11", "AI page 'Built on' list", "OpenAI GPT, Whisper, Claude, n8n AI agents (AI05)."),
+    ("F12", "'Case Studies' menu item pointing to #case-studies", "Keep the menu item. Do not remove or change it."),
 ]
 
 
@@ -109,14 +85,14 @@ def main():
     w("5. No em dash or en dash in any visible text. Code comments do not matter.")
     w("6. Do not deploy if any test in section 3, step 3 fails.")
     w("")
-    w("## 2. Fact gate (Anirban fills this in before handing over)")
+    w("## 2. Decisions already made")
     w("")
-    w("Some current claims could not be verified. Each row has a default. If Anirban leaves the answer blank, use the default. If he writes YES or NO, follow the last column.")
+    w("Anirban answered these on 6 Oct 2026 and the edit list already reflects them. Apply every edit in section 4. Do not skip any and do not reopen these.")
     w("")
-    w("| ID | Claim | Default (blank answer) | If Anirban answers | Anirban's answer |")
-    w("|---|---|---|---|---|")
-    for fid, claim, default, alt in FACTS:
-        w(f"| {fid} | {claim} | {default} | {alt} | |")
+    w("| ID | Claim | Decision |")
+    w("|---|---|---|")
+    for fid, claim, decision in FACTS:
+        w(f"| {fid} | {claim} | {decision} |")
     w("")
     w("## 3. Steps")
     w("")
@@ -133,13 +109,11 @@ def main():
     w("")
     w("### Step 2. Apply the edits")
     w("")
-    w("Build the skip list from section 2 (empty if every answer is blank), then run:")
-    w("")
     w(fence(
-        "python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --dry-run --skip <IDS>\n"
-        "python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --skip <IDS>", "bash"))
+        "python3 website/tools/apply_edits.py /tmp/amatec-build/amatec --dry-run\n"
+        "python3 website/tools/apply_edits.py /tmp/amatec-build/amatec", "bash"))
     w("")
-    w("Leave out `--skip <IDS>` when there is nothing to skip. The script refuses to write anything if a single find string fails to match, so a partial apply cannot happen. Then make any by-hand changes that section 2 asked for.")
+    w("The script refuses to write anything if a single find string fails to match, so a partial apply cannot happen.")
     w("")
     w("If you cannot run Python, apply section 4 by hand in order, and copy the section 5 files into the theme. Each find string must match exactly once (edit L27 matches 14 times and replaces all of them).")
     w("")
@@ -199,11 +173,11 @@ def main():
     w("")
     w("### Step 7. Report back")
     w("")
-    w("Tell Anirban which edits were applied or skipped, the result of every check in step 6, and anything you stopped on.")
+    w("Tell Anirban which edits were applied, the result of every check in step 6, and anything you stopped on.")
     w("")
     w("## 4. Edit catalogue")
     w("")
-    w("Paths are relative to the theme folder. Indentation in multi-line finds is tabs. Facts in brackets refer to section 2.")
+    w("Paths are relative to the theme folder. Indentation in multi-line finds is tabs. Tags in brackets refer to the decisions in section 2.")
     w("")
     current = None
     for ed in EDITS:

@@ -22,7 +22,7 @@ def e(id, file, find, replace, why, fact=None, all=False):
 e("H01", "template-parts/home/hero.php",
   "ZOHO PARTNER · n8n · MAKE · MONDAY",
   "ZOHO PARTNER · n8n · MAKE · MONDAY",
-  "Keep only if F5 Zoho partner = YES. If NO, replace with: ZOHO · n8n · MAKE · MONDAY",
+  "Zoho partner status confirmed by Anirban. Leave as is.",
   fact="F5")
 
 e("H02", "template-parts/home/hero.php",
@@ -102,11 +102,6 @@ e("A03", "template-parts/about/stats.php",
   "Years claim made consistent across the site (F1).",
   fact="F1")
 
-e("A04", "template-parts/about/stats.php",
-  "'label' => 'certified: Make · n8n · Zoho · Monday' ),",
-  "'label' => 'Make · n8n · Zoho · Monday' ),",
-  "Default drops 'certified' from this label. If F5 is YES for all four platforms, skip this edit.",
-  fact="F5")
 
 e("A05", "template-parts/about/stats.php",
   "array( 'fig' => '1', 'unit' => 'public app', 'label' => 'Make.com app published (Aurora Solar)' ),",
@@ -125,10 +120,9 @@ e("A06", "template-parts/about/founder.php",
 e("A07", "template-parts/about/founder.php",
   "He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, certified\n"
   + T*6 + "across all four, with a public app on the Make marketplace.",
-  "He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, has published two extensions\n"
-  + T*6 + "on the Zoho Marketplace and an app on Make.",
-  "Default drops 'certified across all four'. If F5 is YES for all four, keep the word 'certified' by writing: '...Monday.com</strong>, is certified on all four, and has published two extensions'.",
-  fact="F5")
+  "He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, is certified\n"
+  + T*6 + "on all four, and has published two extensions on the Zoho Marketplace and an app on Make.",
+  "Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification kept (confirmed by Anirban, 6 Oct 2026).")
 
 e("A08", "template-parts/about/founder.php",
   "its place: GPT-4o pipelines, Whisper transcription, Postgres-and-Slack coaching bots.",
@@ -143,11 +137,6 @@ e("A09", "template-parts/about/founder.php",
   "Same as A08.",
   fact="F10")
 
-e("A10", "template-parts/about/founder.php",
-  "array( 'icon' => 'badge-check', 'text' => 'Certified: Make · n8n · Zoho · Monday' ),",
-  "array( 'icon' => 'badge-check', 'text' => 'Builds on Make · n8n · Zoho · Monday' ),",
-  "Default removes the certification claim. If F5 is YES for all four platforms, skip this edit.",
-  fact="F5")
 
 e("A11", "template-parts/about/values.php",
   "'body' => 'We sell time back and fewer errors, not seats, not buzzwords. If a workflow doesn’t remove real work, it doesn’t ship.' ),",
@@ -156,15 +145,8 @@ e("A11", "template-parts/about/values.php",
 
 e("A12", "template-parts/about/certs.php",
   "<p class=\"lead\">Certified across all four platforms we build on, with a public app on the Make marketplace to prove it.</p>",
-  "<p class=\"lead\">Two extensions on the Zoho Marketplace and an app on Make. You can install them and judge the work yourself.</p>",
-  "Default swaps the certification claim for proof a reader can check. If F5 is YES for all four, use: 'Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.'",
-  fact="F5")
-
-e("A13", "template-parts/about/certs.php",
-  "$clients = array( 'Blink Energy Services · TX', 'Chaoshi Limited', 'Recurring EU clients' );",
-  "$clients = array( 'Chaoshi Limited', 'Produits du Cap', 'Dr. Miami' );",
-  "Default removes Blink Energy (that deal was lost in July 2026) and names two clients who already appear in testimonials on this site. If F6 = YES, keep Blink Energy.",
-  fact="F6")
+  "<p class=\"lead\">Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.</p>",
+  "Adds the Zoho Marketplace proof. Certification kept (confirmed by Anirban).")
 
 e("A14", "template-parts/about/certs.php",
   "<span class=\"kicker\">Trusted by teams worldwide</span>",
@@ -186,14 +168,10 @@ for _id, _f in (("P01", "template-parts/platforms/monday-why.php"),
                  ("P02", "template-parts/platforms/n8n-control.php"),
                  ("P03", "template-parts/platforms/zoho-why.php")):
     e(_id, _f,
-      "array( 'n' => '250+', 'l' => 'Workflows shipped' ),\n"
-      + T + "array( 'n' => '120+', 'l' => 'Satisfied clients' ),\n"
-      + T + "array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),",
-      "array( 'n' => '2020', 'l' => 'Building client automations since' ),\n"
-      + T + "array( 'n' => '2', 'l' => 'Apps on the Zoho Marketplace' ),\n"
-      + T + "array( 'n' => '4', 'l' => 'Platforms we build on' ),",
-      "Default replaces unsourced counts with checkable facts. If F3 = YES (Anirban can back 250+ and 120+), keep those two and change only '9 yrs' to '2020' / 'Building client automations since'.",
-      fact="F3")
+      "array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),",
+      "array( 'n' => '2020', 'l' => 'Building client automations since' ),",
+      "Years made consistent with the rest of the site. The 250+ workflows and 120+ clients cards stay (confirmed by Anirban).",
+      fact="F1")
 
 # ---------------------------------------------------------------- MAKE
 e("M01", "template-parts/platforms/make-services.php",
@@ -267,7 +245,7 @@ e("MO03", "page-monday-com-workflow-automation.php",
 e("Z01", "template-parts/platforms/zoho-hero.php",
   "<span class=\"accent\"><?php esc_html_e( 'certified partners', 'amatec' ); ?></span>",
   "<span class=\"accent\"><?php esc_html_e( 'certified partners', 'amatec' ); ?></span>",
-  "Keep only if F5 Zoho = YES. If NO, change 'certified partners' to 'Zoho app developers' (we have two Marketplace apps).",
+  "Zoho partner status confirmed by Anirban. Leave as is.",
   fact="F5")
 
 e("Z02", "template-parts/platforms/zoho-why.php",
@@ -513,11 +491,6 @@ e("B06", "template-parts/blog/consultation.php",
   "Removes an em dash.")
 
 # ---------------------------------------------------------------- NAV
-e("NAV01", "functions.php",
-  T*2 + "array( 'label' => 'Case Studies', 'href' => '#case-studies' ),\n",
-  "",
-  "The Case Studies menu item points to #case-studies, which does not exist on any page. Default removes it. If F12 gives a real URL, set 'href' to that URL instead of deleting the line.",
-  fact="F12")
 
 # ---------------------------------------------------------------- SCHEMA + llms.txt hooks
 e("S01", "template-parts/landing/faq.php",
