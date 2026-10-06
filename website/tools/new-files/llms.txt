@@ -1,0 +1,51 @@
+# Amatec
+
+> Amatec is a workflow automation agency based in Vadodara, India. Since 2020 it has built and maintained automated workflows on Make.com, n8n, Zoho and monday.com for small and mid-sized businesses, mostly in the US and Europe. It also adds AI steps to workflows, builds MCP servers that connect ChatGPT and Claude to Zoho data, and publishes extensions on the Zoho Marketplace.
+
+- Founder: Anirban Sinha
+- Email: hello@amatec.in
+- Phone: +91 72659 69478
+- Address: Kplex, Alkapuri, Vadodara, Gujarat 390007, India
+- Free 30-minute automation audit: https://cal.com/amatec/meeting
+
+## Services
+
+- [Workflow automation](https://amatec.in/workflow-automation/): Self-running workflows that move data between your CRM, inbox, finance tools and spreadsheets.
+- [AI-powered task automation](https://amatec.in/ai-powered-task-automation/): AI steps for email sorting, invoice extraction and lead scoring, plus MCP servers for Zoho data.
+- [CRM automation](https://amatec.in/crm-automation/): Lead capture, routing, follow-ups and pipeline reporting, with a focus on Zoho CRM.
+
+## Platforms
+
+- [Make.com automation](https://amatec.in/make-com-automation/): Scenario design, fixes, error handling and Zapier migrations.
+- [n8n workflow automation](https://amatec.in/n8n-workflow-automation/): Self-hosted or cloud n8n, APIs, databases and AI agents.
+- [monday.com workflow automation](https://amatec.in/monday-com-workflow-automation/): Board design, automation recipes and integrations.
+- [Zoho workflow automation](https://amatec.in/zoho-workflow-automation/): Deluge scripts, Zoho Flow and custom extensions across CRM, Books, Inventory and Creator.
+
+## Products
+
+- [T-Chat for Zoho CRM](https://amatec.in/t-chat-zoho-extension/): Twilio SMS and MMS inside Zoho CRM records. Listed on the Zoho Marketplace as Twilio Chat for Zoho CRM.
+- [Stock Procurement for Zoho Inventory](https://amatec.in/stock-procurement-for-zoho-inventory/): Turns a production target into a raw-material purchase list for composite items.
+
+## Solutions by function
+
+- [Lead and sales automation](https://amatec.in/lead-sales-automation/)
+- [Marketing automation](https://amatec.in/marketing-automation/)
+- [Finance and accounting automation](https://amatec.in/finance-accounting-automation/)
+- [HR and operations automation](https://amatec.in/hr-operations-automation/)
+- [Customer support automation](https://amatec.in/customer-support-automation/)
+
+## Industries
+
+- [IT companies](https://amatec.in/it-company/)
+- [Ecommerce](https://amatec.in/ecommerce/)
+- [Startups](https://amatec.in/startups/)
+- [Healthcare practices](https://amatec.in/healthcare/)
+- [Real estate](https://amatec.in/real-estate/)
+- [Small business](https://amatec.in/small-business/)
+- [Enterprise](https://amatec.in/enterprise/)
+
+## Company
+
+- [About Amatec](https://amatec.in/about/)
+- [Contact](https://amatec.in/contact/)
+- [Blog](https://amatec.in/blog/)

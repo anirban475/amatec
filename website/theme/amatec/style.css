@@ -1,0 +1,18 @@
+/*
+Theme Name: AMATEC
+Theme URI: https://amatec.in
+Author: AMATEC
+Author URI: https://amatec.in
+Description: AMATEC — Business Process Automation. A standalone marketing theme built from the AMATEC Design System: WebGL hero, frosted mega-menu, interactive 4-step workflow stepper, Cal.com booking, and a founder-led About page. Brand: deep blue (#034B87) + accent orange (#F4921E), Sora + IBM Plex type.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: amatec
+Tags: business, marketing, automation, one-column, custom-logo, custom-menu, featured-images, full-width-template
+*/
+
+/* The real stylesheet lives in assets/css/amatec.css (enqueued in functions.php).
+   This file only carries the theme header WordPress requires. */
