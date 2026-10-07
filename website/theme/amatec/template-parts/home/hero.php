@@ -25,8 +25,8 @@ $last = count( $nodes ) - 1;
 			</div>
 			<h1 class="h1">Stop doing what <span class="accent">software</span> should do for you.</h1>
 			<p class="lead hero-lead">
-				We connect your tools into workflows that run themselves, so your team stops copy-pasting
-				between systems and starts shipping real work.
+				Amatec builds automated workflows on Make.com, n8n, Zoho and monday.com. Your CRM, inbox,
+				invoices and spreadsheets start passing data to each other, and nobody copies it by hand again.
 			</p>
 			<div class="hero-actions">
 				<a class="btn btn-accent" href="#contact" data-scroll="#contact"><i data-lucide="zap"></i> Book a free workflow audit</a>
@@ -34,7 +34,7 @@ $last = count( $nodes ) - 1;
 			</div>
 			<div class="hero-assure">
 				<span><i data-lucide="check" style="color:var(--orange-400);width:16px;height:16px;"></i> No rip-and-replace</span>
-				<span><i data-lucide="check" style="color:var(--orange-400);width:16px;height:16px;"></i> Live in weeks, not months</span>
+				<span><i data-lucide="check" style="color:var(--orange-400);width:16px;height:16px;"></i> Fixed-scope quote before we build</span>
 			</div>
 		</div>
 

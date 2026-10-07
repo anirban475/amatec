@@ -30,7 +30,7 @@ $rows = array(
 		</h1>
 
 		<p class="lead reveal" style="margin-top:20px;color:var(--blue-100);max-width:720px;margin-left:auto;margin-right:auto;animation-delay:.1s;">
-			<?php esc_html_e( 'We automate the busywork inside your Work OS: recipes, integrations, and dashboards that keep teams aligned, cut manual data entry, and give managers a real-time view of every project.', 'amatec' ); ?>
+			<?php esc_html_e( 'We set up monday.com boards, automation recipes and integrations so status updates, handoffs and reports happen on their own. Managers see where every project stands without asking.', 'amatec' ); ?>
 		</p>
 
 		<div class="pf-cert-badge reveal" style="animation-delay:.12s;">

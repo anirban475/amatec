@@ -7,10 +7,10 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $stats = array(
-	array( 'fig' => '9', 'unit' => 'years',      'label' => 'doing nothing but automation' ),
-	array( 'fig' => '4', 'unit' => 'platforms',  'label' => 'certified: Make · n8n · Zoho · Monday' ),
+	array( 'fig' => '2020', 'unit' => 'since',   'label' => 'building client automations' ),
+	array( 'fig' => '4', 'unit' => 'platforms',  'label' => 'Make · n8n · Zoho · Monday, certified on three' ),
 	array( 'fig' => '3', 'unit' => 'continents', 'label' => 'live clients in the US, EU & Asia' ),
-	array( 'fig' => '1', 'unit' => 'public app', 'label' => 'Make.com app published (Aurora Solar)' ),
+	array( 'fig' => '3', 'unit' => 'published apps', 'label' => 'Two on the Zoho Marketplace, one on Make' ),
 );
 ?>
 <section class="about-stats">

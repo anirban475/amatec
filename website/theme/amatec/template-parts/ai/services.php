@@ -12,13 +12,13 @@ $caps = array(
 	array( 'icon' => 'gauge', 't' => 'Sentiment analysis', 'd' => 'Understand the tone behind messages and reviews to prioritize responses and spot risk early.' ),
 	array( 'icon' => 'receipt', 't' => 'Invoice & document processing', 'd' => 'Extract, validate, and file data from invoices and documents, with no manual data entry.' ),
 	array( 'icon' => 'trending-up', 't' => 'Predictive lead scoring', 'd' => 'Rank inbound leads by likelihood to convert so your team focuses on the highest-value prospects.' ),
-	array( 'icon' => 'users-round', 't' => 'Customer segmentation', 'd' => 'Group customers intelligently for sharper targeting, personalization, and engagement.' ),
+	array( 'icon' => 'plug-zap', 't' => 'MCP servers for your data', 'd' => 'Let ChatGPT or Claude answer questions from your Zoho Books, Inventory or CRM data through an MCP server we build, read-only by default.' ),
 );
 $platforms = array(
 	array( 'icon' => 'sparkles', 'name' => 'OpenAI' ),
-	array( 'icon' => 'cloud', 'name' => 'Google Cloud AI' ),
-	array( 'icon' => 'brain-circuit', 'name' => 'Azure Cognitive Services' ),
-	array( 'icon' => 'settings-2', 'name' => 'Custom-trained models' ),
+	array( 'icon' => 'audio-lines', 'name' => 'OpenAI Whisper' ),
+	array( 'icon' => 'brain-circuit', 'name' => 'Anthropic Claude' ),
+	array( 'icon' => 'workflow', 'name' => 'n8n AI agents' ),
 );
 ?>
 <section id="ai-services" class="section" style="background:var(--bg-subtle);">
@@ -26,7 +26,7 @@ $platforms = array(
 		<div class="sec-head center" style="max-width:720px;">
 			<div class="eyebrow"><?php esc_html_e( 'WHAT WE AUTOMATE', 'amatec' ); ?></div>
 			<h2 class="h2"><?php esc_html_e( 'Intelligent automation, end to end', 'amatec' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'We automate the repetitive, judgment-heavy tasks that slow teams down, using machine learning, NLP, and analytics tuned to your data.', 'amatec' ); ?></p>
+			<p class="lead"><?php esc_html_e( 'Reading, sorting and scoring used to need a person. A model can now do the first pass, and your team checks the cases that matter.', 'amatec' ); ?></p>
 		</div>
 
 		<div class="lp-benefit-grid">

@@ -10,7 +10,7 @@ $reasons = array(
 	array( 'icon' => 'badge-check', 't' => 'Advanced Certified expertise', 'd' => 'Our team has earned Make’s Advanced certification, so you get builders who know the platform to its edges.' ),
 	array( 'icon' => 'gauge', 't' => 'Built for reliability', 'd' => 'Error handling, retries, and monitoring come standard, not as an afterthought.' ),
 	array( 'icon' => 'file-text', 't' => 'Documented & yours', 'd' => 'Every scenario is clearly documented and handed over. No black boxes, no lock-in.' ),
-	array( 'icon' => 'globe', 't' => 'Trusted worldwide', 'd' => 'We build for teams across the US, EU, and Asia, in industries from eCommerce to healthcare.' ),
+	array( 'icon' => 'globe', 't' => 'Trusted worldwide', 'd' => 'Clients in the US, Europe and Asia, including a Miami medical practice and a food producer we have worked with since 2020.' ),
 );
 ?>
 <section id="make-why" class="section" style="background:var(--bg-page);">

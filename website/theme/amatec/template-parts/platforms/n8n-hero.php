@@ -29,7 +29,7 @@ $wires = array(
 	$curve( $nodes[2]['x'] + $s, $nodes[2]['y'] + 40, $nodes[4]['x'], $mid( $nodes[4] ) ),
 	$curve( $nodes[4]['x'] + $s, $mid( $nodes[4] ), $nodes[5]['x'], $mid( $nodes[5] ) ),
 );
-$badges = array( 'Self-hosted', 'Open-source', 'Secure by design' );
+$badges = array( 'Self-hosted', 'Fair-code', 'Your data stays on your servers' );
 ?>
 <section id="n8n-hero" class="lp-hero" style="text-align:center;">
 	<div class="dotgrid" aria-hidden="true"></div>
@@ -47,7 +47,7 @@ $badges = array( 'Self-hosted', 'Open-source', 'Secure by design' );
 		</h1>
 
 		<p class="lead reveal" style="margin-top:20px;color:var(--blue-100);max-width:720px;margin-left:auto;margin-right:auto;animation-delay:.1s;">
-			<?php esc_html_e( 'Enterprise-grade, open-source workflow automation for data-sensitive and IT-heavy teams. Orchestrate complex data flows across cloud and on-premise systems, with total control over where your data lives.', 'amatec' ); ?>
+			<?php esc_html_e( 'n8n is a fair-code automation platform you can run on your own server. We set it up, build the workflows and keep them running, so sensitive data never passes through a third-party automation service.', 'amatec' ); ?>
 		</p>
 
 		<div class="ai-badges reveal" style="justify-content:center;animation-delay:.12s;">

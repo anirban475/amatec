@@ -7,9 +7,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $steps = array(
-	array( 'n' => '01', 'icon' => 'search',    'title' => 'Map',    'heading' => 'We map the process you hate',  'body' => 'A short workflow audit. We trace every manual step, handoff and copy-paste across your current tools, and find where the hours leak.', 'meta' => 'Free workflow audit · ~45 min' ),
+	array( 'n' => '01', 'icon' => 'search',    'title' => 'Map',    'heading' => 'We map the process you hate',  'body' => 'A short workflow audit. We trace every manual step, handoff and copy-paste across your current tools, and find where the hours leak.', 'meta' => 'Free workflow audit · 30 min' ),
 	array( 'n' => '02', 'icon' => 'pen-tool',  'title' => 'Design', 'heading' => 'We design the automation',     'body' => 'You get a clear before/after map: which steps disappear, which systems connect, what the workflow looks like in n8n, Make, Monday or Zoho.', 'meta' => 'Automation blueprint + quote' ),
-	array( 'n' => '03', 'icon' => 'zap',       'title' => 'Build',  'heading' => 'We build and connect it',       'body' => 'We wire it up in your stack (triggers, routing, enrichment, error handling) and test it against real data before anything goes live.', 'meta' => 'Live in weeks, not months' ),
+	array( 'n' => '03', 'icon' => 'zap',       'title' => 'Build',  'heading' => 'We build and connect it',       'body' => 'We wire it up in your stack (triggers, routing, enrichment, error handling) and test it against real data before anything goes live.', 'meta' => 'Go-live date agreed in the quote' ),
 	array( 'n' => '04', 'icon' => 'life-buoy', 'title' => 'Run',    'heading' => 'We keep it running',            'body' => 'Monitoring, alerts and ongoing tuning. As your business changes, the workflow changes with it, with no silent breakages.', 'meta' => 'Managed support & SLAs' ),
 );
 ?>

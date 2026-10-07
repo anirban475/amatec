@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 // Work out the hero title/subtitle for the current context.
 $title = __( 'Automation insights &amp; guides', 'amatec' );
-$sub   = __( 'Practical playbooks on workflow automation — n8n, Make, Monday and Zoho — to help your team stop doing what software should do for them.', 'amatec' );
+$sub   = __( 'Practical guides to workflow automation on n8n, Make, Monday and Zoho, written by the people who build it.', 'amatec' );
 $badge = __( 'Blog', 'amatec' );
 
 if ( is_category() || is_tag() || is_tax() ) {
@@ -63,7 +63,7 @@ if ( is_category() || is_tag() || is_tax() ) {
 		<?php else : ?>
 			<div class="sec-head" style="text-align:center;margin:0 auto;">
 				<h2 class="h2"><?php esc_html_e( 'No posts yet', 'amatec' ); ?></h2>
-				<p class="lead"><?php esc_html_e( 'New automation guides are on the way — check back soon.', 'amatec' ); ?></p>
+				<p class="lead"><?php esc_html_e( 'New automation guides are on the way. Check back soon.', 'amatec' ); ?></p>
 			</div>
 		<?php endif; ?>
 	</div>

@@ -23,6 +23,7 @@ get_template_part( 'template-parts/platforms/steps', null, array(
 		array( 'n' => '03', 'icon' => 'rocket', 't' => __( 'Build, test & hand over', 'amatec' ), 'd' => __( 'We build it on Make, test against real edge cases, then hand it over with documentation and monitoring in place.', 'amatec' ) ),
 	),
 ) );
+get_template_part( 'template-parts/landing/faq', null, array( 'data' => array( 'faqs' => amatec_platform_faqs( 'make' ) ) ) );
 get_template_part( 'template-parts/landing/book', null, array( 'data' => array(
 	'cta' => array(
 		'eyebrow' => __( 'BOOK A CONSULTATION', 'amatec' ),

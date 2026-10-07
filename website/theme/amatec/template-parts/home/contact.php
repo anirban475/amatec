@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $points = array(
-	'45-minute call with an automation expert',
+	'30-minute call with the engineer who would build it',
 	'A before/after map of your process',
 	'A fixed-scope quote, or an honest "you don’t need us"',
 );

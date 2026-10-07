@@ -29,4 +29,21 @@ $data = $args['data'];
 			<?php endforeach; ?>
 		</div>
 	</div>
+	<?php
+	$amatec_faq_ld = array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => array_map(
+			function ( $f ) {
+				return array(
+					'@type'          => 'Question',
+					'name'           => $f['q'],
+					'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $f['a'] ),
+				);
+			},
+			$data['faqs']
+		),
+	);
+	?>
+	<script type="application/ld+json"><?php echo wp_json_encode( $amatec_faq_ld, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
 </section>

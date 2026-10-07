@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $reasons = array(
 	array( 'icon' => 'lock', 't' => 'Your data stays yours', 'd' => 'Self-hosted on your cloud or on-premise, with full control over where data is stored and how it’s processed.' ),
-	array( 'icon' => 'shield-check', 't' => 'Built for compliance', 'd' => 'A preferred fit for data-sensitive industries with strict security and governance requirements.' ),
-	array( 'icon' => 'scaling', 't' => 'Scales without lock-in', 'd' => 'Open-source and modular: extend with custom nodes and grow without per-task SaaS pricing.' ),
+	array( 'icon' => 'shield-check', 't' => 'Built for compliance', 'd' => 'When data must stay in your own cloud or office network, self-hosting is the simplest way to keep it there.' ),
+	array( 'icon' => 'scaling', 't' => 'Scales without lock-in', 'd' => 'Self-hosted n8n has no per-task pricing, and custom nodes let you extend it when the built-in ones run out.' ),
 	array( 'icon' => 'file-text', 't' => 'Documented & supported', 'd' => 'Workflow docs, backup configs, performance tuning, and team training for long-term sustainability.' ),
 );
 $stats = array(
 	array( 'n' => '250+', 'l' => 'Workflows shipped' ),
 	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+	array( 'n' => '2020', 'l' => 'Building client automations since' ),
 	array( 'n' => '3', 'l' => 'Continents served' ),
 );
 ?>

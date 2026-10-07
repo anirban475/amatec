@@ -15,12 +15,11 @@ $chips = array( 'EST. VADODARA · INDIA', 'CLIENTS IN US · EU · ASIA', 'Make �
 	<div class="wrap inner">
 		<div class="badge reveal"><span class="dot orange"></span> About AMATEC</div>
 		<h1 class="h1 reveal" style="animation-delay:.05s;">
-			Automation isn&rsquo;t a department here.<br>
-			It&rsquo;s the <span class="accent">whole company</span>.
+			Automation is the <span class="accent">only thing</span> we do.
 		</h1>
 		<p class="lead reveal" style="animation-delay:.1s;">
-			We&rsquo;re a Vadodara-based automation studio building no-code and low-code workflows for teams
-			around the world. One focus, four platforms, nine years of doing nothing but this.
+			We&rsquo;re an automation studio in Vadodara, India. Since 2020 we have built workflows on Make.com,
+			n8n, Zoho and monday.com for teams in the US, Europe and Asia.
 		</p>
 		<div class="actions reveal" style="animation-delay:.15s;">
 			<a class="btn btn-accent" href="#about-cta" data-scroll="#about-cta"><i data-lucide="zap"></i> Book a free audit</a>

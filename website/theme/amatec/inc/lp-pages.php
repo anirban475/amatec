@@ -14,9 +14,9 @@ function amatec_lp_pages() {
 		'workflow-automation' => array(
 			'eyebrow' => 'Workflow Automation',
 			'hero' => array(
-				'lead' => 'Unload your workload —',
-				'accent' => 'your operations',
-				'tail' => 'run themselves',
+				'lead' => 'Hand the busywork to',
+				'accent' => 'workflows',
+				'tail' => 'that run themselves',
 				'intro' => 'We design and build self-running workflows end-to-end on Make.com, Zapier, n8n, and Zoho, so your team stops copying data between tools and focuses on work that grows the business.',
 				'outcome' => 'Save time, cut errors, and scale without hiring.',
 				'card' => array(
@@ -87,7 +87,7 @@ function amatec_lp_pages() {
 			'automate' => array(
 				'eyebrow' => 'WHAT WE BUILD',
 				'title' => 'Workflows we automate',
-				'sub' => 'We are consulting-led, not just builders. We automate the highest-ROI processes first, on the right platform for your stack.',
+				'sub' => 'We start with the processes that pay back fastest, then build them on the platform that suits your stack.',
 				'items' => array(
 					'Repetitive data entry across apps',
 					'Lead capture, routing & follow-ups',
@@ -140,11 +140,11 @@ function amatec_lp_pages() {
 				),
 			),
 			'why' => array(
-				'title' => 'Automation partners, not just builders',
+				'title' => 'We stay after go-live',
 				'items' => array(
 					array(
 						'icon' => 'award',
-						't' => '5+ years in the field',
+						't' => 'Building automations since 2020',
 						'd' => 'Automating real businesses across industries and countries.',
 					),
 					array(
@@ -204,9 +204,9 @@ function amatec_lp_pages() {
 		'crm-automation' => array(
 			'eyebrow' => 'CRM Automation',
 			'hero' => array(
-				'lead' => 'A CRM that works for your team —',
-				'accent' => 'not one',
-				'tail' => 'your team has to feed',
+				'lead' => 'A CRM that',
+				'accent' => 'updates itself',
+				'tail' => 'so your reps can sell',
 				'intro' => 'We configure and automate your CRM, with deep Zoho CRM expertise, capturing leads, routing deals, and triggering follow-ups so no lead slips through the cracks and reps spend time selling.',
 				'outcome' => 'Never lose a lead. Forecast you can actually trust.',
 				'card' => array(
@@ -387,9 +387,9 @@ function amatec_lp_pages() {
 		'it-company' => array(
 			'eyebrow' => 'Industries · IT Companies',
 			'hero' => array(
-				'lead' => 'Scale delivery —',
-				'accent' => 'without scaling',
-				'tail' => 'admin',
+				'lead' => 'Grow client delivery',
+				'accent' => 'without growing',
+				'tail' => 'the admin',
 				'intro' => 'IT companies run on repeatable processes, like onboarding, ticketing, project tracking, and billing, that are perfect for automation. We connect your tools into self-running workflows so your technical team focuses on delivery.',
 				'outcome' => 'Smoother delivery, faster onboarding, operations that scale.',
 				'card' => array(
@@ -511,11 +511,11 @@ function amatec_lp_pages() {
 				),
 			),
 			'why' => array(
-				'title' => 'Technical fluency, not just no-code',
+				'title' => 'We write code when no-code runs out',
 				'items' => array(
 					array(
 						'icon' => 'award',
-						't' => '5+ years building',
+						't' => 'Building automations since 2020',
 						'd' => 'Automations and custom apps across industries.',
 					),
 					array(
@@ -546,11 +546,11 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Can you automate client onboarding for our services?',
-					'a' => 'Yes. we trigger account setup, document collection, and kickoff tasks automatically when a new client signs.',
+					'a' => 'Yes. We trigger account setup, document collection, and kickoff tasks automatically when a new client signs.',
 				),
 				array(
 					'q' => 'Is custom development available if no-code is not enough?',
-					'a' => 'Yes. we build custom integrations and applications when off-the-shelf automation falls short.',
+					'a' => 'Yes. We build custom integrations and applications when off-the-shelf automation falls short.',
 				),
 			),
 			'cta' => array(
@@ -566,9 +566,9 @@ function amatec_lp_pages() {
 		'ecommerce' => array(
 			'eyebrow' => 'Industries · eCommerce',
 			'hero' => array(
-				'lead' => 'Run operations —',
-				'accent' => 'at any',
-				'tail' => 'volume',
+				'lead' => 'Orders, stock and shipping',
+				'accent' => 'in sync',
+				'tail' => 'at any volume',
 				'intro' => 'Ecommerce lives or dies on operations: orders, inventory, fulfilment, and customer communication. We connect your store, inventory, and back-office tools so orders flow smoothly and stock never falls out of sync.',
 				'outcome' => 'Fewer errors, faster fulfilment, happier customers.',
 				'card' => array(
@@ -721,15 +721,15 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Can you keep inventory in sync across channels?',
-					'a' => 'Yes. we set up real-time inventory synchronization so stock stays accurate everywhere you sell.',
+					'a' => 'Yes. We set up real-time inventory synchronization so stock stays accurate everywhere you sell.',
 				),
 				array(
 					'q' => 'Do you work with Zoho Inventory?',
-					'a' => 'Yes. we have deep Zoho Inventory expertise and have built our own Stock Procurement app for it.',
+					'a' => 'Yes. We have deep Zoho Inventory expertise and have built our own Stock Procurement app for it.',
 				),
 				array(
 					'q' => 'Can you automate reordering and procurement?',
-					'a' => 'Yes. we trigger reorder and procurement workflows automatically based on stock levels.',
+					'a' => 'Yes. We trigger reorder and procurement workflows automatically based on stock levels.',
 				),
 			),
 			'cta' => array(
@@ -745,9 +745,9 @@ function amatec_lp_pages() {
 		'startups' => array(
 			'eyebrow' => 'Industries · Startups',
 			'hero' => array(
-				'lead' => 'Scale lean —',
-				'accent' => 'grow',
-				'tail' => 'fast',
+				'lead' => 'Do the work of a bigger team',
+				'accent' => 'without hiring',
+				'tail' => 'one',
 				'intro' => 'For startups, automation is how a small team does the work of a big one, without burning runway on headcount. We build lean, affordable workflows so founders and early teams focus on product, customers, and growth.',
 				'outcome' => 'More output per person. Faster experiments.',
 				'card' => array(
@@ -878,7 +878,7 @@ function amatec_lp_pages() {
 					),
 					array(
 						'icon' => 'award',
-						't' => '5+ years with small teams',
+						't' => 'Building automations since 2020',
 						'd' => 'Helping growing businesses scale lean.',
 					),
 					array(
@@ -900,7 +900,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Is automation affordable for an early-stage startup?',
-					'a' => 'Yes. we work in small, budget-aligned steps so you start with high-ROI quick wins and expand only as it pays off.',
+					'a' => 'Yes. We work in small, budget-aligned steps so you start with high-ROI quick wins and expand only as it pays off.',
 				),
 				array(
 					'q' => 'Which tools do you use for startups?',
@@ -924,9 +924,9 @@ function amatec_lp_pages() {
 		'healthcare' => array(
 			'eyebrow' => 'Industries · Healthcare',
 			'hero' => array(
-				'lead' => 'Spend more time —',
-				'accent' => 'on',
-				'tail' => 'patients',
+				'lead' => 'Less admin,',
+				'accent' => 'more time',
+				'tail' => 'with patients',
 				'intro' => 'Healthcare practices lose time to scheduling, intake, reminders, and back-office coordination. We build workflows that streamline practice operations so your team spends more time with patients and less on paperwork.',
 				'outcome' => 'Fewer no-shows, faster intake, smoother operations.',
 				'card' => array(
@@ -1094,7 +1094,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Is patient data handled carefully?',
-					'a' => 'Yes. we design workflows with care for data handling and integrate with the secure systems your practice already uses. We align the approach with your specific privacy requirements during the audit.',
+					'a' => 'Yes. We design workflows with care for data handling and integrate with the secure systems your practice already uses. We align the approach with your specific privacy requirements during the audit.',
 				),
 				array(
 					'q' => 'Can you reduce patient no-shows?',
@@ -1118,9 +1118,9 @@ function amatec_lp_pages() {
 		'real-estate' => array(
 			'eyebrow' => 'Industries · Real Estate',
 			'hero' => array(
-				'lead' => 'Be first —',
-				'accent' => 'to every',
-				'tail' => 'lead',
+				'lead' => 'Reply to every lead',
+				'accent' => 'within seconds',
+				'tail' => '',
 				'intro' => 'In real estate, the agent who responds first usually wins the deal. We build workflows that capture leads from every portal, follow up instantly, schedule viewings, and handle paperwork, so you never lose a buyer to a slow reply.',
 				'outcome' => 'Faster response, more viewings, less admin.',
 				'card' => array(
@@ -1273,11 +1273,11 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Can you connect property portals to my CRM?',
-					'a' => 'Yes. we capture leads from portals, websites, and ads and push them straight into your CRM with instant follow-up.',
+					'a' => 'Yes. We capture leads from portals, websites, and ads and push them straight into your CRM with instant follow-up.',
 				),
 				array(
 					'q' => 'Can automation schedule property viewings?',
-					'a' => 'Yes. we set up automated booking and reminder workflows so viewings get scheduled without back-and-forth.',
+					'a' => 'Yes. We set up automated booking and reminder workflows so viewings get scheduled without back-and-forth.',
 				),
 				array(
 					'q' => 'Which CRM do you use for real estate?',
@@ -1297,9 +1297,9 @@ function amatec_lp_pages() {
 		'small-business' => array(
 			'eyebrow' => 'Industries · Small Business',
 			'hero' => array(
-				'lead' => 'Get hours back —',
-				'accent' => 'every',
-				'tail' => 'week',
+				'lead' => 'Get',
+				'accent' => 'hours back',
+				'tail' => 'every week',
 				'intro' => 'For a small business, automation is like adding team members without the payroll. We build affordable, practical workflows that save you hours every week, delivered in small steps that fit your budget.',
 				'outcome' => 'Less admin, fewer errors, more time for customers.',
 				'card' => array(
@@ -1425,7 +1425,7 @@ function amatec_lp_pages() {
 				'items' => array(
 					array(
 						'icon' => 'award',
-						't' => '5+ years with small business',
+						't' => 'Building automations since 2020',
 						'd' => 'Budget-friendly automation that works.',
 					),
 					array(
@@ -1457,7 +1457,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Is it affordable?',
-					'a' => 'Yes. we work in small, budget-aligned steps so you start with high-ROI quick wins and scale only as it pays off.',
+					'a' => 'Yes. We work in small, budget-aligned steps so you start with high-ROI quick wins and scale only as it pays off.',
 				),
 				array(
 					'q' => 'Do I need technical skills?',
@@ -1481,9 +1481,9 @@ function amatec_lp_pages() {
 		'enterprise' => array(
 			'eyebrow' => 'Industries · Enterprise',
 			'hero' => array(
-				'lead' => 'Connect your systems —',
-				'accent' => 'scale your',
-				'tail' => 'processes',
+				'lead' => 'Make your CRM, ERP and finance systems',
+				'accent' => 'work as one',
+				'tail' => '',
 				'intro' => 'Enterprises run on complex, interconnected systems, and the biggest gains come from automating the workflows that span them. We integrate your tools, automate cross-department processes, and apply custom RPA to legacy systems.',
 				'outcome' => 'Fewer handoffs, connected systems, processes that scale.',
 				'card' => array(
@@ -1605,7 +1605,7 @@ function amatec_lp_pages() {
 				),
 			),
 			'why' => array(
-				'title' => 'Integration expertise, not just no-code',
+				'title' => 'Built for systems without clean APIs',
 				'items' => array(
 					array(
 						'icon' => 'code-2',
@@ -1640,7 +1640,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Do you offer self-hosted automation for data control?',
-					'a' => 'Yes. we use n8n self-hosted when control, security, or data governance is a priority.',
+					'a' => 'Yes. We use n8n self-hosted when control, security, or data governance is a priority.',
 				),
 				array(
 					'q' => 'How do you handle reliability and governance?',
@@ -1660,9 +1660,9 @@ function amatec_lp_pages() {
 		'lead-sales-automation' => array(
 			'eyebrow' => 'Solutions · Lead & Sales',
 			'hero' => array(
-				'lead' => 'Stop —',
-				'accent' => 'losing',
-				'tail' => 'leads',
+				'lead' => 'Answer every lead',
+				'accent' => 'while it is still warm',
+				'tail' => '',
 				'intro' => 'Lead and sales automation captures every lead, routes it to the right rep instantly, and triggers timely follow-ups, automatically. We build these revenue workflows across your CRM and marketing tools so no opportunity is missed.',
 				'outcome' => 'More leads converted, with less manual chasing.',
 				'card' => array(
@@ -1788,7 +1788,7 @@ function amatec_lp_pages() {
 				'items' => array(
 					array(
 						'icon' => 'award',
-						't' => '5+ years in sales ops',
+						't' => 'Building automations since 2020',
 						'd' => 'Automating real sales operations.',
 					),
 					array(
@@ -1819,7 +1819,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'How quickly can I respond to leads with automation?',
-					'a' => 'Instantly. automated routing and alerts can notify and assign the right rep the moment a lead arrives.',
+					'a' => 'Instantly. Automated routing and alerts can notify and assign the right rep the moment a lead arrives.',
 				),
 				array(
 					'q' => 'Does this replace my sales team?',
@@ -1840,9 +1840,9 @@ function amatec_lp_pages() {
 		'marketing-automation' => array(
 			'eyebrow' => 'Solutions · Marketing',
 			'hero' => array(
-				'lead' => 'Put your marketing —',
-				'accent' => 'on',
-				'tail' => 'autopilot',
+				'lead' => 'Campaigns and follow-ups that',
+				'accent' => 'send themselves',
+				'tail' => '',
 				'intro' => 'Marketing automation runs your campaigns, nurture sequences, and lead handoffs automatically, across email, social, ads, and your CRM. We build connected workflows so the right message reaches the right person at the right time.',
 				'outcome' => 'More engaged leads, consistent nurturing, a clean pipeline.',
 				'card' => array(
@@ -1999,11 +1999,11 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Can you connect marketing to my sales pipeline?',
-					'a' => 'Yes. we build closed-loop workflows so marketing leads flow cleanly into sales and you can track campaigns through to closed deals.',
+					'a' => 'Yes. We build closed-loop workflows so marketing leads flow cleanly into sales and you can track campaigns through to closed deals.',
 				),
 				array(
 					'q' => 'Do I need a big team to run marketing automation?',
-					'a' => 'No. that is the point. Automation lets a small team run consistent, multi-channel marketing without manual sending.',
+					'a' => 'No. That is the point. Automation lets a small team run consistent, multi-channel marketing without manual sending.',
 				),
 			),
 			'cta' => array(
@@ -2020,8 +2020,8 @@ function amatec_lp_pages() {
 		'finance-accounting-automation' => array(
 			'eyebrow' => 'Solutions · Finance & Accounting',
 			'hero' => array(
-				'lead' => 'Close your books —',
-				'accent' => 'faster',
+				'lead' => 'Invoices, payments and reconciliation',
+				'accent' => 'without re-keying',
 				'tail' => '',
 				'intro' => 'Finance and accounting automation removes manual bookkeeping work: generating invoices, recording payments, reconciling transactions, and building reports automatically. We connect your accounting platform, with deep Zoho Books expertise, to the rest of your business.',
 				'outcome' => 'Faster closes, fewer errors, real-time visibility.',
@@ -2179,7 +2179,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Is automated bookkeeping accurate and safe?',
-					'a' => 'Yes. we build validation, matching rules, and audit trails into every workflow so your records stay reliable.',
+					'a' => 'Yes. We build validation, matching rules, and audit trails into every workflow so your records stay reliable.',
 				),
 				array(
 					'q' => 'Can you automate bank reconciliation?',
@@ -2200,9 +2200,9 @@ function amatec_lp_pages() {
 		'hr-operations-automation' => array(
 			'eyebrow' => 'Solutions · HR & Operations',
 			'hero' => array(
-				'lead' => 'Run operations —',
-				'accent' => 'on',
-				'tail' => 'autopilot',
+				'lead' => 'Onboarding, approvals and paperwork',
+				'accent' => 'on autopilot',
+				'tail' => '',
 				'intro' => 'HR and operations automation handles the repetitive back-office work, like onboarding, approvals, document flows, and daily task coordination, automatically. We connect your HR, project, and operations tools so processes run consistently.',
 				'outcome' => 'Smoother ops, faster onboarding, nothing falling through.',
 				'card' => array(
@@ -2348,11 +2348,6 @@ function amatec_lp_pages() {
 					),
 				),
 			),
-			'quote' => array(
-				'text' => 'AMATEC automated our entire onboarding flow, saving hours and boosting accuracy across departments.',
-				'name' => 'Operations lead',
-				'role' => 'Multi-department onboarding rollout',
-			),
 			'faqs' => array(
 				array(
 					'q' => 'What is HR and operations automation?',
@@ -2360,7 +2355,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Can you automate employee onboarding?',
-					'a' => 'Yes. we trigger account setup, document collection, task assignment, and notifications automatically the moment a new hire is added.',
+					'a' => 'Yes. We trigger account setup, document collection, task assignment, and notifications automatically the moment a new hire is added.',
 				),
 				array(
 					'q' => 'Which tools do you use for operations automation?',
@@ -2385,9 +2380,9 @@ function amatec_lp_pages() {
 		'customer-support-automation' => array(
 			'eyebrow' => 'Solutions · Customer Support',
 			'hero' => array(
-				'lead' => 'Resolve faster —',
-				'accent' => 'scale',
-				'tail' => 'smarter',
+				'lead' => 'Route every ticket',
+				'accent' => 'to the right person',
+				'tail' => 'the moment it arrives',
 				'intro' => 'Customer support automation routes tickets, triggers responses, and escalates issues automatically, so customers get faster answers and your team handles more with less effort. We connect your helpdesk, email, chat, and CRM into one workflow.',
 				'outcome' => 'Faster resolution, happier customers, no extra headcount.',
 				'card' => array(
@@ -2518,8 +2513,8 @@ function amatec_lp_pages() {
 					),
 					array(
 						'icon' => 'heart-handshake',
-						't' => 'Protects the experience',
-						'd' => 'Designed to enhance, not replace.',
+						't' => 'Humans keep the hard cases',
+						'd' => 'Automation takes the routine tickets so agents handle the ones that need judgment.',
 					),
 					array(
 						'icon' => 'git-merge',
@@ -2540,7 +2535,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Will automation make support feel robotic?',
-					'a' => 'No. done well, it speeds up routine handling and frees agents for the human conversations that matter. We design workflows to enhance, not replace, the experience.',
+					'a' => 'No. Done well, it speeds up routine handling and frees agents for the human conversations that matter. Agents still handle anything that needs judgment.',
 				),
 				array(
 					'q' => 'Which helpdesk tools do you support?',

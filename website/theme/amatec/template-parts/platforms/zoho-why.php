@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 $reasons = array(
 	array( 'icon' => 'badge-check', 't' => 'Zoho Certified & Partner', 'd' => 'A certified Zoho partner, so you get builders accredited by Zoho, not generalists guessing at Deluge.' ),
 	array( 'icon' => 'terminal', 't' => 'Real Deluge engineering', 'd' => 'Custom scripts and functions tailored to your operations, not just point-and-click recipes.' ),
-	array( 'icon' => 'shield-check', 't' => 'Secure, reliable, ROI-first', 'd' => 'Every workflow is documented, tested, and optimized to cut cost and improve efficiency.' ),
+	array( 'icon' => 'shield-check', 't' => 'Tested on real records', 'd' => 'Every workflow is documented and tested on real records before it touches live data.' ),
 	array( 'icon' => 'blocks', 't' => 'Connected beyond Zoho', 'd' => 'WhatsApp, QuickBooks, Stripe, Twilio and more wired in via Zoho Flow or custom APIs.' ),
 );
 $stats = array(
 	array( 'n' => '250+', 'l' => 'Workflows shipped' ),
 	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+	array( 'n' => '2020', 'l' => 'Building client automations since' ),
 	array( 'n' => '3', 'l' => 'Continents served' ),
 );
 ?>

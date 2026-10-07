@@ -12,7 +12,7 @@ $features = array(
 	array( 'icon' => 'clipboard-list', 't' => 'Custom procurement form', 'd' => 'A purpose-built form inside Zoho Inventory: pick items, set targets, and generate a plan in a few clicks.' ),
 	array( 'icon' => 'file-down', 't' => 'Real-time downloadable report', 'd' => 'Export a clean, shareable procurement report the moment your plan is ready. No copy-paste required.' ),
 	array( 'icon' => 'shield-check', 't' => 'Built-in data validation', 'd' => 'Catches missing quantities and broken mappings before they turn into purchasing mistakes.' ),
-	array( 'icon' => 'plug', 't' => 'Seamless Zoho integration', 'd' => 'Lives natively inside Zoho Inventory using your existing items and bills of materials. Nothing to migrate.' ),
+	array( 'icon' => 'plug', 't' => 'Runs inside Zoho Inventory', 'd' => 'Uses the items and bills of materials you already have. Nothing to migrate.' ),
 );
 ?>
 <section id="sp-features" class="section" style="background:var(--bg-subtle);">

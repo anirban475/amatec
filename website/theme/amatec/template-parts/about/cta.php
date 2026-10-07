@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $points = array(
-	'45-minute call with the builder, not a sales rep',
+	'30-minute call with the person who will build it',
 	'A before/after map of your process',
 	'A fixed-scope quote, or an honest "you don’t need us"',
 );
@@ -21,7 +21,7 @@ $points = array(
 				<div class="eyebrow">LET&rsquo;S TALK</div>
 				<h2 class="h2">Tell us the process that drains your week.</h2>
 				<p class="lead">
-					Forty-five minutes with the person who&rsquo;ll actually build it. We&rsquo;ll map the busywork and show
+					Thirty minutes with the person who&rsquo;ll actually build it. We&rsquo;ll map the busywork and show
 					you exactly what&rsquo;s worth automating. No commitment, no jargon.
 				</p>
 				<ul class="contact-list">

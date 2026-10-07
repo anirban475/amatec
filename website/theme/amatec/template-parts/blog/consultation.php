@@ -23,7 +23,7 @@ $points = array(
 			<div>
 				<div class="eyebrow on-dark"><?php esc_html_e( 'Free consultation', 'amatec' ); ?></div>
 				<h2 class="h2"><?php esc_html_e( 'Book a meeting or fill the form', 'amatec' ); ?></h2>
-				<p class="lead"><?php esc_html_e( 'Tell us where the manual work piles up. We’ll map your process and show you what’s worth automating — no obligation.', 'amatec' ); ?></p>
+				<p class="lead"><?php esc_html_e( 'Tell us where the manual work piles up. We’ll map your process and show you what’s worth automating. No obligation.', 'amatec' ); ?></p>
 				<ul>
 					<?php foreach ( $points as $p ) : ?>
 						<li><span class="ic"><i data-lucide="check"></i></span><?php echo esc_html( $p ); ?></li>

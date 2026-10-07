@@ -19,9 +19,9 @@ $assures     = array(
 	<div class="glow-l" aria-hidden="true"></div>
 	<div class="wrap section inner" style="text-align:center;">
 		<div class="eyebrow on-dark"><?php esc_html_e( 'READY TO STREAMLINE CRM MESSAGING?', 'amatec' ); ?></div>
-		<h2 class="h2" style="margin-top:14px;color:#fff;max-width:760px;margin-left:auto;margin-right:auto;"><?php esc_html_e( 'Install Twilio Chat Messenger today', 'amatec' ); ?></h2>
+		<h2 class="h2" style="margin-top:14px;color:#fff;max-width:760px;margin-left:auto;margin-right:auto;"><?php esc_html_e( 'Install T-Chat for Zoho CRM', 'amatec' ); ?></h2>
 		<p class="lead" style="margin-top:18px;color:var(--blue-100);max-width:600px;margin-left:auto;margin-right:auto;">
-			<?php esc_html_e( 'Boost productivity and customer satisfaction with direct messaging inside Zoho CRM. Get started in minutes: no coding, no clutter, just clear communication.', 'amatec' ); ?>
+			<?php esc_html_e( 'Text your leads from inside Zoho CRM using your own Twilio number. Setup takes a few minutes and needs no code.', 'amatec' ); ?>
 		</p>
 
 		<div style="display:flex;gap:14px;margin-top:32px;justify-content:center;flex-wrap:wrap;">

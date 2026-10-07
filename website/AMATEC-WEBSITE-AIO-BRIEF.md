@@ -2,6 +2,8 @@
 
 Brief for a Claude Code session. Prepared 6 Oct 2026. Every find string below was tested against the theme snapshot in this repo and matched exactly once.
 
+> **Status 7 Oct 2026: applied and live (theme 1.8.0).** See `DEPLOY-2026-10-07.md`. `theme/amatec/` now holds the deployed theme; the untouched baseline this brief was tested against is commit `6bdef6d`.
+
 ## 1. What you are doing
 
 You are rewriting the visible copy of the Amatec WordPress theme so it reads like a person wrote it and so AI answer engines (ChatGPT, Perplexity, Claude, Gemini, Google AI Overviews) can lift clear, accurate statements about Amatec. You are also adding FAQ sections with FAQPage schema, Organization schema, and an `/llms.txt` file.

@@ -11,6 +11,7 @@ get_header();
 get_template_part( 'template-parts/platforms/zoho-hero' );
 get_template_part( 'template-parts/platforms/zoho-services' );
 get_template_part( 'template-parts/platforms/zoho-why' );
+get_template_part( 'template-parts/landing/faq', null, array( 'data' => array( 'faqs' => amatec_platform_faqs( 'zoho' ) ) ) );
 get_template_part( 'template-parts/landing/book', null, array( 'data' => array(
 	'cta' => array(
 		'eyebrow' => __( 'LET’S OPTIMIZE YOUR PROCESSES', 'amatec' ),

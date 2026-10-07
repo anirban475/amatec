@@ -26,7 +26,7 @@ $thread = array(
 				<div class="eyebrow"><?php esc_html_e( 'CENTRALIZE CUSTOMER CONVERSATIONS', 'amatec' ); ?></div>
 				<h2 class="h2" style="margin-top:14px;"><?php esc_html_e( 'Real-time Twilio messaging inside Zoho CRM', 'amatec' ); ?></h2>
 				<p class="lead" style="margin-top:18px;">
-					<?php esc_html_e( 'T-Chat brings a WhatsApp-style chat interface and direct Twilio integration into Zoho CRM. Send, receive, and track SMS/MMS without leaving the platform. Sales and support teams communicate faster and smarter.', 'amatec' ); ?>
+					<?php esc_html_e( 'T-Chat adds a chat window and a direct Twilio connection to Zoho CRM. Your team sends, receives and tracks SMS and MMS without leaving the record they are working on. On the Zoho Marketplace it is listed as Twilio Chat for Zoho CRM.', 'amatec' ); ?>
 				</p>
 				<ul class="prod-benefits">
 					<?php foreach ( $benefits as $b ) : ?>

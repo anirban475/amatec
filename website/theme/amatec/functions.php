@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.7.0' );
+define( 'AMATEC_VERSION', '1.8.0' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -15,6 +15,7 @@ define( 'AMATEC_VERSION', '1.7.0' );
  * ------------------------------------------------------------------ */
 require_once get_theme_file_path( 'inc/lp-pages.php' );
 require_once get_theme_file_path( 'inc/legal-pages.php' );
+require_once get_theme_file_path( 'inc/aio.php' );
 
 /**
  * Bespoke designed pages (each has its own page-{slug}.php template).

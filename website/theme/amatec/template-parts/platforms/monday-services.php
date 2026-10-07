@@ -20,7 +20,7 @@ $services = array(
 		<div class="sec-head center" style="max-width:720px;">
 			<div class="eyebrow"><?php esc_html_e( 'WHAT WE AUTOMATE', 'amatec' ); ?></div>
 			<h2 class="h2"><?php esc_html_e( 'Your Work OS, working for you', 'amatec' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'We turn monday.com boards into intelligent workflow engines, eliminating redundant tasks, improving visibility, and keeping every team aligned.', 'amatec' ); ?></p>
+			<p class="lead"><?php esc_html_e( 'Boards that update themselves and stay in sync with the tools your team already uses.', 'amatec' ); ?></p>
 		</div>
 
 		<div class="lp-benefit-grid">

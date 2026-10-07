@@ -15,7 +15,7 @@ $reasons = array(
 $stats = array(
 	array( 'n' => '250+', 'l' => 'Workflows shipped' ),
 	array( 'n' => '120+', 'l' => 'Satisfied clients' ),
-	array( 'n' => '9 yrs', 'l' => 'Doing only automation' ),
+	array( 'n' => '2020', 'l' => 'Building client automations since' ),
 	array( 'n' => '3', 'l' => 'Continents served' ),
 );
 ?>

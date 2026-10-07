@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $values = array(
-	array( 'icon' => 'target',                  'title' => 'Outcomes, not hours',      'body' => 'We sell time back and fewer errors, not seats, not buzzwords. If a workflow doesn’t remove real work, it doesn’t ship.' ),
+	array( 'icon' => 'target',                  'title' => 'Outcomes, not hours',      'body' => 'We judge a project by the hours it gives back and the errors it removes. If a workflow doesn’t remove real work, it doesn’t ship.' ),
 	array( 'icon' => 'layers',                  'title' => 'Build on your stack',      'body' => 'No rip-and-replace. We automate the tools you already pay for and connect them so they finally talk to each other.' ),
 	array( 'icon' => 'git-commit-horizontal',   'title' => 'Small steps, real budgets','body' => 'We ship in increments that fit what you can spend: one annoying handoff at a time, not a six-month rebuild.' ),
 	array( 'icon' => 'shield-check',            'title' => 'We stay on the hook',      'body' => 'Monitoring, alerts, and tuning come with it. As your business changes, the workflow changes with it without silent breakages.' ),

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $features = array(
 	array( 'icon' => 'plug-zap', 't' => 'Twilio account integration', 'd' => 'Securely connect your Twilio account to Zoho CRM with simple credentials. No complex setup needed.' ),
-	array( 'icon' => 'message-circle', 't' => 'WhatsApp-style chat UI', 'd' => 'A familiar, intuitive chat experience that makes every customer conversation feel effortless.' ),
+	array( 'icon' => 'message-circle', 't' => 'Familiar chat window', 'd' => 'Messages appear as a chat thread on the record, so nobody needs training to use it.' ),
 	array( 'icon' => 'messages-square', 't' => 'Real-time two-way messaging', 'd' => 'Send and receive SMS/MMS instantly: no switching tabs, no jumping between platforms.' ),
 	array( 'icon' => 'history', 't' => 'Integrated chat history', 'd' => 'See the full message history right inside each contact or lead record, with context for every interaction.' ),
 	array( 'icon' => 'bell-ring', 't' => 'Incoming message alerts', 'd' => 'Instant notifications for new messages inside Zoho CRM, so you never miss a customer update.' ),

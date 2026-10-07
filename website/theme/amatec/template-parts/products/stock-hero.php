@@ -29,7 +29,7 @@ $marketplace = 'https://marketplace.zoho.in/app/inventory/stock-procurement-for-
 
 		<div class="reveal" style="display:flex;gap:14px;margin-top:32px;justify-content:center;flex-wrap:wrap;animation-delay:.15s;">
 			<a href="<?php echo esc_url( $marketplace ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-accent"><i data-lucide="external-link"></i> <?php esc_html_e( 'Go to Extension', 'amatec' ); ?></a>
-			<a href="#sp-demo" class="btn btn-outline-light"><i data-lucide="play"></i> <?php esc_html_e( 'Watch the demo', 'amatec' ); ?></a>
+			<a href="#sp-features" class="btn btn-outline-light"><i data-lucide="arrow-down"></i> <?php esc_html_e( 'See what it does', 'amatec' ); ?></a>
 		</div>
 
 		<div id="sp-demo" class="reveal" style="margin-top:56px;max-width:920px;margin-left:auto;margin-right:auto;animation-delay:.2s;">
@@ -43,7 +43,7 @@ $marketplace = 'https://marketplace.zoho.in/app/inventory/stock-procurement-for-
 				<div class="media dark">
 					<div class="ph">
 						<span class="play"><i data-lucide="play"></i></span>
-						<span class="cap"><?php esc_html_e( 'product demo · drop AMATEC.mp4 here', 'amatec' ); ?></span>
+						<span class="cap"><?php esc_html_e( 'Demo video coming soon', 'amatec' ); ?></span>
 					</div>
 				</div>
 			</div>

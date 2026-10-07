@@ -19,12 +19,12 @@ $clients = array( 'Blink Energy Services · TX', 'Chaoshi Limited', 'Recurring E
 		<div class="sec-head center">
 			<div class="eyebrow">CERTIFIED &amp; PROVEN</div>
 			<h2 class="h2">We only recommend tools we&rsquo;ve mastered</h2>
-			<p class="lead">Certified across all four platforms we build on, with a public app on the Make marketplace to prove it.</p>
+			<p class="lead">Certified on Make, Zoho and monday.com, with two Zoho Marketplace extensions and a Make app you can install today.</p>
 		</div>
 		<div class="certs-grid">
 			<?php foreach ( $platforms as $p ) : ?>
 				<div class="cert">
-					<div class="badge-row"><span><i data-lucide="badge-check"></i>Certified</span></div>
+					<div class="badge-row"><span><i data-lucide="badge-check"></i><?php echo 'n8n' === $p['name'] ? esc_html__( 'Production builds', 'amatec' ) : esc_html__( 'Certified', 'amatec' ); ?></span></div>
 					<div class="nm" style="color:<?php echo esc_attr( $p['color'] ); ?>;">
 						<?php echo esc_html( $p['name'] ); ?><?php if ( $p['tld'] ) : ?><span class="tld"><?php echo esc_html( $p['tld'] ); ?></span><?php endif; ?>
 					</div>
@@ -33,7 +33,7 @@ $clients = array( 'Blink Energy Services · TX', 'Chaoshi Limited', 'Recurring E
 			<?php endforeach; ?>
 		</div>
 		<div class="certs-proof">
-			<span class="kicker">Trusted by teams worldwide</span>
+			<span class="kicker">Some of the teams we work with</span>
 			<div class="clients">
 				<?php foreach ( $clients as $c ) : ?>
 					<span><i data-lucide="building-2"></i><?php echo esc_html( $c ); ?></span>

@@ -51,6 +51,10 @@ while ( have_posts() ) :
 
 				<div class="post-meta reveal" style="animation-delay:.16s;">
 					<span class="post-date"><i data-lucide="calendar"></i> <?php echo esc_html( get_the_date() ); ?></span>
+					<?php if ( get_the_modified_date( 'Y-m-d' ) !== get_the_date( 'Y-m-d' ) ) : ?>
+					<span class="post-date"><i data-lucide="refresh-cw"></i> <?php echo esc_html( sprintf( __( 'Updated %s', 'amatec' ), get_the_modified_date() ) ); ?></span>
+					<?php endif; ?>
+					<span class="post-date"><i data-lucide="user-round"></i> <?php echo esc_html( get_the_author() ); ?></span>
 					<div class="post-share">
 						<span class="lbl"><?php esc_html_e( 'Share', 'amatec' ); ?></span>
 						<?php amatec_share_links(); ?>
@@ -79,7 +83,7 @@ while ( have_posts() ) :
 							<div class="inner">
 								<div class="eyebrow on-dark"><?php esc_html_e( 'Ready to automate', 'amatec' ); ?></div>
 								<h3><?php esc_html_e( 'Book your free workflow audit', 'amatec' ); ?></h3>
-								<p><?php esc_html_e( 'Pick a time that works for you and talk to an automation expert — or fill the form below and we’ll call you back.', 'amatec' ); ?></p>
+								<p><?php esc_html_e( 'Pick a time to talk to an automation engineer, or fill in the form below and we’ll call you back.', 'amatec' ); ?></p>
 								<div class="cal-wrap">
 									<div id="cal-single" class="cal-inline" data-cal-inline data-cal-ns="meeting" data-cal-link="amatec/meeting" data-cal-theme="dark"></div>
 								</div>
@@ -129,7 +133,7 @@ while ( have_posts() ) :
 
 						<div class="aside-quote">
 							<i data-lucide="quote"></i>
-							<p><?php esc_html_e( '“Don’t work harder — automate smarter. Innovation begins where repetition ends.”', 'amatec' ); ?></p>
+							<p><?php esc_html_e( 'If someone on your team does the same task every day, a workflow can probably do it for them.', 'amatec' ); ?></p>
 						</div>
 					</aside>
 

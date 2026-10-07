@@ -12,6 +12,7 @@ get_template_part( 'template-parts/platforms/monday-hero' );
 get_template_part( 'template-parts/platforms/monday-services' );
 get_template_part( 'template-parts/platforms/monday-why' );
 get_template_part( 'template-parts/platforms/monday-testimonial' );
+get_template_part( 'template-parts/landing/faq', null, array( 'data' => array( 'faqs' => amatec_platform_faqs( 'monday' ) ) ) );
 get_template_part( 'template-parts/landing/book', null, array( 'data' => array(
 	'cta' => array(
 		'eyebrow' => __( 'LET’S OPTIMIZE YOUR PROCESSES', 'amatec' ),

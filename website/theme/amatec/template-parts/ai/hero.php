@@ -6,7 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-$badges = array( 'Machine learning', 'Natural language', 'Data analytics' );
+$badges = array( 'OpenAI GPT', 'Whisper speech-to-text', 'MCP servers' );
 $tasks  = array(
 	array( 'icon' => 'mail', 'label' => 'Support email', 'sub' => 'Billing · high priority', 'tag' => 'Classified', 'c' => 'var(--blue-600)' ),
 	array( 'icon' => 'receipt', 'label' => 'Vendor invoice', 'sub' => '12 fields · 99.4%', 'tag' => 'Extracted', 'c' => '#0F9D58' ),
@@ -32,7 +32,7 @@ $tasks  = array(
 				</h1>
 
 				<p class="lead lp-hero-lead reveal" style="animation-delay:.1s;">
-					<?php esc_html_e( 'We blend machine learning, natural language processing, and data analytics into automation that goes far beyond simple scripting, so your B2B team boosts productivity, cuts manual effort, and decides with intelligence.', 'amatec' ); ?>
+					<?php esc_html_e( 'We add AI steps to the workflows you already run. A model reads the email, pulls the fields off the invoice or scores the lead, and the workflow carries on without a person in the middle. You can see every decision it made.', 'amatec' ); ?>
 				</p>
 
 				<div class="ai-badges reveal" style="animation-delay:.12s;">

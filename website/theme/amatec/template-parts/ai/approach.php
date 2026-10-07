@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $steps = array(
 	array( 'n' => '01', 'icon' => 'search', 't' => 'Identify high-impact areas', 'd' => 'We collaborate with you to find the tasks where AI delivers the most leverage, fast.' ),
-	array( 'n' => '02', 'icon' => 'pencil-ruler', 't' => 'Design & deploy', 'd' => 'We design and ship solutions tailored to your needs, from off-the-shelf models to custom-trained ones.' ),
-	array( 'n' => '03', 'icon' => 'plug', 't' => 'Integrate with your stack', 'd' => 'CRM, ERP, support, or comms tools: our AI fits in seamlessly, no rip-and-replace.' ),
+	array( 'n' => '02', 'icon' => 'pencil-ruler', 't' => 'Design & deploy', 'd' => 'We pick the model and build the workflow around it, starting with the cheapest model that does the job well.' ),
+	array( 'n' => '03', 'icon' => 'plug', 't' => 'Integrate with your stack', 'd' => 'It plugs into your CRM, helpdesk or inbox through the tools you already use.' ),
 );
 $pillars = array(
-	array( 'icon' => 'shield-check', 't' => 'Responsible AI', 'd' => 'We practice responsible AI development by using clear governance frameworks for transparency, data protection, and compliance. Every solution is rigorously tested, monitored, and fine-tuned for accuracy.' ),
+	array( 'icon' => 'shield-check', 't' => 'Responsible AI', 'd' => 'Every AI step logs what it read and what it decided. We test it on your real data before go-live and keep a person in the loop wherever a wrong answer would cost money.' ),
 	array( 'icon' => 'graduation-cap', 't' => 'Team enablement', 'd' => 'Training modules help your staff work confidently alongside AI systems, so adoption sticks and your team stays in control.' ),
 );
 ?>
@@ -21,7 +21,7 @@ $pillars = array(
 		<div class="sec-head center" style="max-width:640px;">
 			<div class="eyebrow"><?php esc_html_e( 'HOW WE WORK', 'amatec' ); ?></div>
 			<h2 class="h2"><?php esc_html_e( 'From idea to intelligent automation', 'amatec' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'We integrate smoothly with your existing tech stack, and deploy responsibly.', 'amatec' ); ?></p>
+			<p class="lead"><?php esc_html_e( 'Three steps, and a person stays in control at each one.', 'amatec' ); ?></p>
 		</div>
 
 		<div class="ai-step-grid">
