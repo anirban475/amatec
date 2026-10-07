@@ -189,3 +189,7 @@ function am_cs_route( $slug ) {
 	}
 	return null;
 }
+
+function get_query_var( $var, $default = '' ) {
+	return 'paged' === $var && isset( $GLOBALS['am_ctx']['paged'] ) ? $GLOBALS['am_ctx']['paged'] : $default;
+}

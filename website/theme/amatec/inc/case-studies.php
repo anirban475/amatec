@@ -285,3 +285,56 @@ function amatec_cs_llms_lines() {
 	}
 	return $out;
 }
+
+/* ------------------------------------------------------------------
+ * SEO titles and descriptions for the case study lists. Yoast's
+ * defaults ("Case Studies Archive", "Zoho Archives") say nothing to a
+ * searcher or an AI engine, so the lists get specific ones here.
+ * Single case studies keep their own Yoast title and description.
+ * ------------------------------------------------------------------ */
+
+/**
+ * Title and description for the current case study list, or null elsewhere.
+ *
+ * @return array|null array( 'title' => , 'desc' => )
+ */
+function amatec_cs_list_seo() {
+	if ( is_post_type_archive( AMATEC_CS_TYPE ) ) {
+		$title = __( 'Workflow Automation Case Studies and Results', 'amatec' );
+		$desc  = __( 'Real automation projects Amatec built on Make.com, n8n, Zoho and monday.com. Each one shows the client’s problem, what we built and the result.', 'amatec' );
+	} elseif ( is_tax( 'cs_platform' ) ) {
+		$term = get_queried_object();
+		/* translators: %s: platform name. */
+		$title = sprintf( __( '%s Automation Case Studies', 'amatec' ), $term->name );
+		/* translators: %s: platform name. */
+		$desc = sprintf( __( 'Automation projects Amatec built on %s for real clients: the problem, what we built and the result, with the numbers from each project.', 'amatec' ), $term->name );
+	} elseif ( is_tax( 'cs_industry' ) ) {
+		$term = get_queried_object();
+		/* translators: %s: industry name. */
+		$title = sprintf( __( '%s Automation Case Studies', 'amatec' ), $term->name );
+		/* translators: %s: industry name, lower case. */
+		$desc = sprintf( __( 'Workflow automation projects Amatec built for clients in %s on Make.com, n8n, Zoho and monday.com: the problem, the build and the result.', 'amatec' ), strtolower( $term->name ) );
+	} else {
+		return null;
+	}
+	$paged = (int) get_query_var( 'paged' );
+	if ( $paged > 1 ) {
+		/* translators: %d: page number. */
+		$title .= sprintf( __( ', Page %d', 'amatec' ), $paged );
+	}
+	return array( 'title' => $title . ' | Amatec', 'desc' => $desc );
+}
+
+function amatec_cs_seo_title( $title ) {
+	$seo = amatec_cs_list_seo();
+	return $seo ? $seo['title'] : $title;
+}
+add_filter( 'wpseo_title', 'amatec_cs_seo_title' );
+add_filter( 'wpseo_opengraph_title', 'amatec_cs_seo_title' );
+
+function amatec_cs_seo_desc( $desc ) {
+	$seo = amatec_cs_list_seo();
+	return $seo ? $seo['desc'] : $desc;
+}
+add_filter( 'wpseo_metadesc', 'amatec_cs_seo_desc' );
+add_filter( 'wpseo_opengraph_desc', 'amatec_cs_seo_desc' );
