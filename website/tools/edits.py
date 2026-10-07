@@ -121,8 +121,8 @@ e("A07", "template-parts/about/founder.php",
   "He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, certified\n"
   + T*6 + "across all four, with a public app on the Make marketplace.",
   "He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, is certified\n"
-  + T*6 + "on all four, and has published two extensions on the Zoho Marketplace and an app on Make.",
-  "Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification kept (confirmed by Anirban, 6 Oct 2026).")
+  + T*6 + "on Make, Zoho and monday.com, and has published two extensions on the Zoho Marketplace and an app on Make.",
+  "Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification limited to Make, Zoho and monday.com. n8n is not certified (confirmed by Anirban).")
 
 e("A08", "template-parts/about/founder.php",
   "its place: GPT-4o pipelines, Whisper transcription, Postgres-and-Slack coaching bots.",
@@ -145,8 +145,8 @@ e("A11", "template-parts/about/values.php",
 
 e("A12", "template-parts/about/certs.php",
   "<p class=\"lead\">Certified across all four platforms we build on, with a public app on the Make marketplace to prove it.</p>",
-  "<p class=\"lead\">Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.</p>",
-  "Adds the Zoho Marketplace proof. Certification kept (confirmed by Anirban).")
+  "<p class=\"lead\">Certified on Make, Zoho and monday.com, with two Zoho Marketplace extensions and a Make app you can install today.</p>",
+  "Adds the Zoho Marketplace proof. n8n dropped from the certification claim (not certified).")
 
 e("A14", "template-parts/about/certs.php",
   "<span class=\"kicker\">Trusted by teams worldwide</span>",
@@ -162,6 +162,21 @@ e("A16", "template-parts/about/cta.php",
   "Forty-five minutes with the person who&rsquo;ll actually build it.",
   "Thirty minutes with the person who&rsquo;ll actually build it.",
   "Call length fix (F2).")
+
+e("A17", "template-parts/about/stats.php",
+  "'label' => 'certified: Make · n8n · Zoho · Monday' ),",
+  "'label' => 'Make · n8n · Zoho · Monday, certified on three' ),",
+  "n8n is not certified. The label no longer implies all four are.", fact="F5")
+
+e("A18", "template-parts/about/founder.php",
+  "array( 'icon' => 'badge-check', 'text' => 'Certified: Make · n8n · Zoho · Monday' ),",
+  "array( 'icon' => 'badge-check', 'text' => 'Certified: Make · Zoho · Monday' ),",
+  "n8n is not certified.", fact="F5")
+
+e("A19", "template-parts/about/certs.php",
+  "<div class=\"badge-row\"><span><i data-lucide=\"badge-check\"></i>Certified</span></div>",
+  "<div class=\"badge-row\"><span><i data-lucide=\"badge-check\"></i><?php echo 'n8n' === $p['name'] ? esc_html__( 'Production builds', 'amatec' ) : esc_html__( 'Certified', 'amatec' ); ?></span></div>",
+  "The platform grid printed a 'Certified' badge on every card, n8n included. n8n now shows 'Production builds'.", fact="F5")
 
 # ---------------------------------------------------------------- PLATFORM STATS (three files, same block)
 for _id, _f in (("P01", "template-parts/platforms/monday-why.php"),

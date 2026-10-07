@@ -15,7 +15,7 @@ You are rewriting the visible copy of the Amatec WordPress theme so it reads lik
 | Apply script | `website/tools/apply_edits.py` |
 | Tests | `website/tools/test_render.php`, `website/tools/dump_lp.php` |
 | Live site | https://amatec.in (WordPress, Yoast SEO, LiteSpeed) |
-| Size of change | 102 edits in 41 theme files, 3 new files, 11 Yoast title and description updates |
+| Size of change | 105 edits in 41 theme files, 3 new files, 11 Yoast title and description updates |
 
 ### Rules you must not break
 
@@ -36,7 +36,7 @@ Anirban answered these on 6 Oct 2026 and the edit list already reflects them. Ap
 | F2 | Free call length (site said 45 and 30 minutes) | 30 minutes, matching the Cal.com event amatec/meeting. |
 | F3 | '250+ workflows shipped' and '120+ satisfied clients' | True. Keep both. Only the '9 yrs' card changes to 2020. |
 | F4 | Homepage '40+ hrs saved per workflow' and '2 wks typical' | No data behind them. Replace with checkable facts (H06 to H08). |
-| F5 | Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four' | All real. Keep every certification claim. |
+| F5 | Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four' | Make, Zoho and monday.com certifications are real. n8n is NOT certified: never say Amatec is certified on n8n or on all four platforms. |
 | F6 | Blink Energy Services listed as a client | Keep it. |
 | F7 | Make.com public app (Aurora Solar) | Real. Copy says 'an app on Make'. |
 | F8 | Anonymous 'Operations lead' quote on /hr-operations-automation/ | Delete it (L24). |
@@ -392,7 +392,7 @@ if software can do the work, a human shouldn't. He has built client workflows si
 						conviction still decides which jobs we take.
 ```
 
-**A07**. Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification kept (confirmed by Anirban, 6 Oct 2026).
+**A07**. Adds the two Zoho Marketplace extensions, which the About page never mentioned. Certification limited to Make, Zoho and monday.com. n8n is not certified (confirmed by Anirban).
 
 Find:
 
@@ -405,7 +405,7 @@ Replace with:
 
 ```
 He builds in <strong>Make.com, n8n, Zoho and Monday.com</strong>, is certified
-						on all four, and has published two extensions on the Zoho Marketplace and an app on Make.
+						on Make, Zoho and monday.com, and has published two extensions on the Zoho Marketplace and an app on Make.
 ```
 
 **A08** [F10]. Adds the MCP work, which is current and specific, and is what people now ask AI assistants about.
@@ -455,7 +455,7 @@ Replace with:
 
 ### `template-parts/about/certs.php`
 
-**A12**. Adds the Zoho Marketplace proof. Certification kept (confirmed by Anirban).
+**A12**. Adds the Zoho Marketplace proof. n8n dropped from the certification claim (not certified).
 
 Find:
 
@@ -466,7 +466,7 @@ Find:
 Replace with:
 
 ```
-<p class="lead">Certified on all four platforms we build on, with two Zoho Marketplace extensions and a Make app you can install today.</p>
+<p class="lead">Certified on Make, Zoho and monday.com, with two Zoho Marketplace extensions and a Make app you can install today.</p>
 ```
 
 **A14**. Plainer and matches the shorter list.
@@ -511,6 +511,54 @@ Replace with:
 
 ```
 Thirty minutes with the person who&rsquo;ll actually build it.
+```
+
+### `template-parts/about/stats.php`
+
+**A17** [F5]. n8n is not certified. The label no longer implies all four are.
+
+Find:
+
+```
+'label' => 'certified: Make · n8n · Zoho · Monday' ),
+```
+
+Replace with:
+
+```
+'label' => 'Make · n8n · Zoho · Monday, certified on three' ),
+```
+
+### `template-parts/about/founder.php`
+
+**A18** [F5]. n8n is not certified.
+
+Find:
+
+```
+array( 'icon' => 'badge-check', 'text' => 'Certified: Make · n8n · Zoho · Monday' ),
+```
+
+Replace with:
+
+```
+array( 'icon' => 'badge-check', 'text' => 'Certified: Make · Zoho · Monday' ),
+```
+
+### `template-parts/about/certs.php`
+
+**A19** [F5]. The platform grid printed a 'Certified' badge on every card, n8n included. n8n now shows 'Production builds'.
+
+Find:
+
+```
+<div class="badge-row"><span><i data-lucide="badge-check"></i>Certified</span></div>
+```
+
+Replace with:
+
+```
+<div class="badge-row"><span><i data-lucide="badge-check"></i><?php echo 'n8n' === $p['name'] ? esc_html__( 'Production builds', 'amatec' ) : esc_html__( 'Certified', 'amatec' ); ?></span></div>
 ```
 
 ### `template-parts/platforms/monday-why.php`

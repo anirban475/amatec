@@ -39,7 +39,7 @@ FACTS = [
     ("F2", "Free call length (site said 45 and 30 minutes)", "30 minutes, matching the Cal.com event amatec/meeting."),
     ("F3", "'250+ workflows shipped' and '120+ satisfied clients'", "True. Keep both. Only the '9 yrs' card changes to 2020."),
     ("F4", "Homepage '40+ hrs saved per workflow' and '2 wks typical'", "No data behind them. Replace with checkable facts (H06 to H08)."),
-    ("F5", "Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four'", "All real. Keep every certification claim."),
+    ("F5", "Certifications: Make Advanced, Zoho Certified Partner, monday Work Management Core, and 'certified on all four'", "Make, Zoho and monday.com certifications are real. n8n is NOT certified: never say Amatec is certified on n8n or on all four platforms."),
     ("F6", "Blink Energy Services listed as a client", "Keep it."),
     ("F7", "Make.com public app (Aurora Solar)", "Real. Copy says 'an app on Make'."),
     ("F8", "Anonymous 'Operations lead' quote on /hr-operations-automation/", "Delete it (L24)."),
