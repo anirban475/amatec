@@ -1,0 +1,50 @@
+{
+  "slug": "chaoshi-supply-chain-tracking-zoho-creator",
+  "title": "Chaoshi Limited tracks 271 containers in a Zoho Creator supply chain app",
+  "excerpt": "Amatec built Chaoshi Limited, a Hong Kong consumer electronics and commodity distributor, a Supply Chain Tracker in Zoho Creator that syncs quotes and invoices from Zoho Books with Deluge and groups them into containers. It now tracks 271 containers, 688 quotes and 1,279 invoices, and emails a delay alert at 07:00 AM every day.",
+  "client_name": "Chaoshi Limited",
+  "client_desc": "Hong Kong consumer electronics and commodity distributor",
+  "country": "Hong Kong",
+  "year": "2026",
+  "headline_result": "271 containers tracked",
+  "results": [
+    "271 containers tracked in one Shipments view",
+    "688 quote records, with stalled orders flagged automatically",
+    "1,279 invoice records linked to their quote and container",
+    "Daily delay alert emailed at 07:00 AM Hong Kong time (GMT+8)",
+    "Every view kept to 8 essential columns to avoid manual data entry"
+  ],
+  "tools": [
+    "Zoho Books",
+    "Zoho Creator",
+    "Deluge"
+  ],
+  "platforms": [
+    "zoho"
+  ],
+  "industry": "Logistics and distribution",
+  "seo_title": "Zoho Creator shipment tracker for Chaoshi | Amatec",
+  "seo_description": "How Amatec built Chaoshi Limited a Zoho Creator tracker that syncs Zoho Books quotes and invoices into 271 containers and emails a daily 7 AM delay alert.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Chaoshi Limited, a Hong Kong consumer electronics and commodity distributor, needed one view of every quote, invoice and container that leaves its Zoho Books account. The company ships containerised goods to Reunion, Mayotte, Mauritius, Madagascar, Europe and the Middle East, and every commercial record starts in Zoho Books.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Zoho Books holds quotes and invoices well. It does not show which container an invoice is travelling on, which quotes were never billed, or which shipments should have landed by now. Getting those answers meant manual tracking.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The link between paperwork and freight was the hard part. Multiple quotes and invoices are grouped under one sea or air container, so tying a commercial document to a physical shipment had to be done by hand. Resale added a second wrinkle. When an intermediate company buys the goods, the customer field names the reseller, while the true destination sits in the Ship To address.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The brief was to remove that manual tracking overhead and give the team automated visibility across four things:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Quotes (estimates), the records that show buyer intent and value</li><!-- /wp:list-item --><!-- wp:list-item --><li>Commercial invoices, which carry the airway bill or bill of lading</li><!-- /wp:list-item --><!-- wp:list-item --><li>Consolidated containers, grouping many quotes and invoices under one shipment</li><!-- /wp:list-item --><!-- wp:list-item --><li>Daily email alerts whenever a container's ETA is delayed or overdue</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a Supply Chain Tracker in Zoho Creator that pulls quotes and invoices from Zoho Books with Deluge and groups them into containers. Three views sit on top of the data. Each one is limited to 8 essential columns, a rule set so the tracker never asks anyone for manual data entry.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The Shipments view has one row per container, keyed on the airway bill for air freight or the bill of lading for sea freight. It shows the mode, the route from departure port to arrival port, ETD, ETA, and the quotes and invoices inside the container. Mode is detected automatically from the port and the AWB format. Status is colour coded: ON TRACK in green, ETA MOVED in orange, DELAYED in red and ARRIVED in grey.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The Quotes view treats the quote as the anchor record, because quantities change on the quote first. Each row shows the customer, the Ship To destination, total value in USD, quote date, linked invoice, linked shipment and status. An exception filter flags any quote with no linked invoice or no linked shipment. That single rule catches two different problems: quotes nobody has billed, and quotes that were invoiced but still have no AWB or ETA.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The Invoices view tracks billing and dispatch. It links each invoice to its quote and its container, sums the physical units invoiced, and shows the live Zoho Books status: Closed, Open, Overdue or Draft.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Two scheduled Deluge automations keep the app current:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Live Zoho Books sync, daily at 08:00 AM or on demand. It reads the custom fields Chaoshi already fills in Books for airway bill, bill of lading, container, ETD, ETA, place of departure and place of arrival, and pulls the estimate link from each invoice record.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Delay alert, daily at 07:00 AM Hong Kong time (GMT+8). It checks every shipment that has not arrived. If the ETA is earlier than today, it sets the status to DELAYED and emails the team an HTML table of overdue days and container routes.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Records are cross-linked in both directions. One container links to many quotes and many invoices, and each quote links to one invoice, so the team can start from whichever document they have in hand.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Chaoshi Limited now tracks 271 containers, 688 quotes and 1,279 invoices in one Zoho Creator app, synced daily from Zoho Books. Phase 1 is complete and running in production.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>271 containers tracked in the Shipments view</li><!-- /wp:list-item --><!-- wp:list-item --><li>688 quote records, with stalled orders flagged by the exception filter</li><!-- /wp:list-item --><!-- wp:list-item --><li>1,279 invoice records linked to their quote and their container</li><!-- /wp:list-item --><!-- wp:list-item --><li>A delay alert at 07:00 AM Hong Kong time every day</li><!-- /wp:list-item --><!-- wp:list-item --><li>8 essential columns per view, so the tracker adds no data entry</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Late shipments now announce themselves. The team does not have to work out which container is overdue, because the 07:00 AM email lists it with the overdue days already counted. Stalled orders sit in the exception filter where someone can act on them.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The Ship To rule earns its place. Destinations come from the Ship To address, so the tracker shows where the goods are actually going even when a reseller placed the order.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Phase 2 is planned. ShipsGo has been confirmed over ShipRocket for live carrier tracking. A webhook will update ETAs and container milestones from ocean carriers such as MSC, Maersk and CMA CGM, and from air cargo forwarders, straight into Zoho Books and Zoho Creator. In Phase 1 the ETA comes from Books. In Phase 2 it will come from the carriers.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you track shipments from Zoho Books in Zoho Creator?",
+      "a": "A scheduled Deluge script reads estimates and invoices from Zoho Books, including the custom fields for airway bill, bill of lading, container, ETD, ETA and ports. It writes them into Zoho Creator and groups invoices that share an airway bill or bill of lading into one shipment record. For Chaoshi Limited the sync runs daily at 08:00 AM and can also be run by hand."
+    },
+    {
+      "q": "Can Zoho Creator send an automatic alert when a shipment is late?",
+      "a": "Yes. For Chaoshi Limited a scheduled Deluge function runs at 07:00 AM Hong Kong time and checks every shipment not marked ARRIVED. If the ETA is earlier than today, it sets the status to DELAYED and emails the team an HTML table of overdue days and container routes."
+    },
+    {
+      "q": "How do you find quotes that were never invoiced or shipped?",
+      "a": "Use an exception filter on the quotes. In this build a quote is flagged as a stalled order when it has no linked invoice or no linked shipment. That catches unbilled quotes and also quotes that were invoiced but still have no AWB or ETA."
+    },
+    {
+      "q": "Can Zoho Creator show live carrier tracking for containers?",
+      "a": "That is Phase 2 for Chaoshi Limited. ShipsGo was confirmed over ShipRocket, and a webhook will update ETAs and container milestones from ocean carriers such as MSC, Maersk and CMA CGM, and from air cargo forwarders, into Zoho Books and Zoho Creator. Phase 1 takes ETAs from Zoho Books."
+    }
+  ],
+  "sources": [
+    "daeb0f6a-4cc5-4356-ae57-9153b4191d10"
+  ]
+}

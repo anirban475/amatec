@@ -267,6 +267,10 @@ function amatec_llms_txt( $wp ) {
 	header( 'Content-Type: text/plain; charset=utf-8' );
 	header( 'X-Robots-Tag: noindex' );
 	readfile( $file );
+	$cases = function_exists( 'amatec_cs_llms_lines' ) ? amatec_cs_llms_lines() : array();
+	if ( $cases ) {
+		echo "\n## Case studies\n\n" . implode( "\n", $cases ) . "\n";
+	}
 	exit;
 }
 add_action( 'parse_request', 'amatec_llms_txt' );

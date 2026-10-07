@@ -1,0 +1,55 @@
+{
+  "slug": "jobdrive-lead-to-outreach-pipeline-n8n",
+  "title": "How Jobdrive turns job board listings into cold email leads with n8n",
+  "excerpt": "Amatec built an n8n lead pipeline for Jobdrive, Amatec's own AI resume screening product. It finds companies hiring on job boards, checks their real headcount against public EPFO data, scores and saves qualified leads in Postgres, and loads them into a Mystrika cold email campaign every morning. Headcount lookups that took minutes by hand now resolve in seconds.",
+  "client_name": "Jobdrive",
+  "client_desc": "Amatec's own AI resume screening product",
+  "country": "India",
+  "year": "",
+  "headline_result": "Headcount lookups now take seconds",
+  "results": [
+    "Headcount lookups that took minutes by hand now resolve in seconds, and most repeat lookups are instant",
+    "Confirmed headcounts are cached for 90 days and misses for 14, so each company is looked up once",
+    "Qualified leads reach an active email campaign automatically overnight, with no manual export or import",
+    "Oversized companies never make it into the leads database",
+    "Every run leaves a yield trail showing which searches produced hot leads"
+  ],
+  "tools": [
+    "n8n",
+    "n8n MCP Server Trigger",
+    "Webhook",
+    "PostgreSQL",
+    "EPFO headcount data",
+    "Mystrika"
+  ],
+  "platforms": [
+    "n8n",
+    "ai"
+  ],
+  "industry": "SaaS",
+  "seo_title": "Job Listings to Cold Email Lead Pipeline on n8n | Amatec",
+  "seo_description": "How Amatec built an n8n pipeline for Jobdrive that finds hiring companies, checks EPFO headcount in seconds and loads qualified leads into cold email daily.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Jobdrive sells AI resume screening to companies that are hiring, so its best leads are companies with live job postings that are the right size. Jobdrive is Amatec's own product, which made this a build for our own sales team.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Getting from a job posting to a qualified contact in an outreach campaign used to be three separate manual chores. Someone had to trawl job boards for companies hiring in the right roles. Then they had to find out how big each company was, because size is the single biggest qualifier for this product and a job posting never shows it. Then someone had to move the good leads into the email tool.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>A manual headcount check took several minutes of searching per company, per person doing it.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Company names are messy. \"XYZ Pvt Ltd\", \"XYZ Private Limited\" and \"XYZ\" can be the same company, and matching them to the right registered entity by hand is error-prone.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The same company got checked again and again for different leads, wasting time and running into rate limits.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Good leads sat in a spreadsheet and went stale before anyone loaded them into an outreach tool.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Every lead got the same message, though a pharma QA team and a warehouse team care about completely different things.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built three connected n8n pieces for Jobdrive: a lead server an AI agent can call, a headcount lookup service that acts as the size gate, and a daily sync into the cold email tool.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The lead server is an n8n MCP Server Trigger that exposes a set of tools to an AI agent. The agent can search job board listings for a role and location, check a company's headcount, save leads, read leads back, log a run and review past runs. So the person running outreach can ask for a search in plain language and the agent does the work.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>For each hiring company, the agent calls the headcount service before anything is saved. The size gate uses real payroll data from public EPFO records, so it does not depend on a guess from the job post. Companies above the size threshold are dropped. A headcount is only trusted when the match is confirmed and not flagged as low confidence. Otherwise the size is treated as unknown.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The headcount service is a separate 13 node n8n workflow behind a webhook, built to answer in seconds:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>It accepts a company name, CIN or optional state and strips legal suffixes like Pvt, Ltd and LLP so different spellings match.</li><!-- /wp:list-item --><!-- wp:list-item --><li>It checks a Postgres cache by CIN or normalised name first. A fresh match returns instantly with no outside lookup.</li><!-- /wp:list-item --><!-- wp:list-item --><li>On a cache miss it searches public company registry data and scores every candidate by name overlap and state match, flagging weak matches as low confidence.</li><!-- /wp:list-item --><!-- wp:list-item --><li>It pulls the EPFO employee headcount, the as of date and the active establishment count, and responds straight away.</li><!-- /wp:list-item --><!-- wp:list-item --><li>It caches the answer for 90 days when a headcount is confirmed and 14 days for a miss or low-confidence result.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Companies that pass are scored from 0 to 100, tiered hot or warm, and saved to the Postgres leads table. Each lead is tagged with a role group (quality, production, lab, microbiology or warehouse), an industry label and the applicant count where the listing shows one. When a company turns up again, the record is merged so the score and posting data stay fresh and an already known contact is kept. Every run also logs items pulled, hot, warm and dropped counts and credit cost, and a yield report shows which searches produce hot leads.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The daily sync runs at 07:00 IST. It selects every scored lead with a real email address that has not been sent to the email tool, highest score first. A code node picks the sales angle from the role group: a pharma and QA angle for quality and production roles, a plant and lab angle for lab, microbiology and warehouse roles, and a general angle for the rest. The whole batch goes into the Mystrika campaign in one call, anyone already in the campaign is skipped, and each lead is marked as synced so it is never pushed twice.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Jobdrive's outbound now runs from job listing to cold email campaign without anyone copying rows between tools.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Headcount lookups that took minutes by hand now resolve in seconds, and most repeat lookups are instant thanks to the cache.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Size checks are built into qualification, so oversized companies never make it into the database.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Confidence scoring flags weak company matches instead of trusting them silently.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The 90-day cache means the outside source is hit once per confirmed company, which protects against rate limits and repeat cost.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Qualified leads move into an active email campaign automatically overnight, with no manual export and import step.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Messaging matches the role group without any manual segmentation work.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Job board trawling is now a repeatable tool an AI agent runs on request. Because every run leaves a yield trail, each new search can be aimed at the queries that already produced hot leads. The headcount service also stands on its own. Any lead pipeline can call it with a single webhook request, with no manual research step before a lead is scored.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How can I check an Indian company's employee headcount automatically?",
+      "a": "Amatec built an n8n webhook service that takes a company name or CIN, matches it to the registered company and returns the EPFO employee headcount with its as of date. Results are cached in Postgres for 90 days, so repeat lookups are instant."
+    },
+    {
+      "q": "How do you push qualified leads from Postgres into a cold email campaign automatically?",
+      "a": "A scheduled n8n workflow runs every morning, selects scored leads with a real email that have not been synced, and adds them to the Mystrika campaign in one call while skipping duplicates. Each lead is then marked as synced so it is never sent twice."
+    },
+    {
+      "q": "Can an AI agent run lead generation through n8n?",
+      "a": "Yes. Using an n8n MCP Server Trigger, Amatec exposed tools for searching job listings, checking headcount, saving leads and reviewing run history. An AI agent calls these tools on request, so a lead search can be started in plain language."
+    },
+    {
+      "q": "How do you personalise cold emails by the role a company is hiring for?",
+      "a": "Each lead is tagged with a role group when it is saved. At sync time a code node maps quality and production roles to a pharma and QA angle, lab, microbiology and warehouse roles to a plant and lab angle, and everything else to a general angle."
+    }
+  ],
+  "sources": [
+    "759f2431-11da-4921-a149-61b67dc3f06d",
+    "4410d01a-648a-4b2c-852d-7a3180a943a6"
+  ]
+}

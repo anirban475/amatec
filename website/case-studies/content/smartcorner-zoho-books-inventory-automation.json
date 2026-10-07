@@ -1,0 +1,59 @@
+{
+  "slug": "smartcorner-zoho-books-inventory-automation",
+  "title": "SMARTCORNER automates exchange rates and reorder alerts in Zoho",
+  "excerpt": "SMARTCORNER, an AED-based business on Zoho, had staff updating exchange rates and checking stock by hand. Amatec built Deluge automations that load USD and EUR rates from the Central Bank of UAE into Zoho Books at 7:30 AM daily and send fortnightly Zoho Inventory reorder reports with sales, ordered and in-transit stock, without duplicate alerts.",
+  "client_name": "SMARTCORNER",
+  "client_desc": "AED-based business on Zoho Books and Zoho Inventory",
+  "country": "",
+  "year": "2026",
+  "headline_result": "Rates updated daily at 7:30 AM",
+  "results": [
+    "USD and EUR exchange rates updated in Zoho Books every day at 7:30 AM",
+    "Elimination of manual exchange rate updates",
+    "Reorder alerts every alternate Monday at 7:00 AM, with duplicate procurement emails prevented",
+    "Visibility into ordered and in-transit inventory in one fortnightly report",
+    "Restocked items re-armed for future alerts every night at 2 AM"
+  ],
+  "tools": [
+    "Zoho Books",
+    "Zoho Inventory",
+    "Zoho Inventory Reports",
+    "Deluge",
+    "Zoho Books API",
+    "Zoho Inventory API"
+  ],
+  "platforms": [
+    "zoho"
+  ],
+  "industry": "Retail and trading",
+  "seo_title": "SMARTCORNER Zoho Books and Inventory Automation | Amatec",
+  "seo_description": "How Amatec automated daily USD and EUR exchange rates in Zoho Books and fortnightly reorder reports in Zoho Inventory for SMARTCORNER, with no duplicate alerts.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>SMARTCORNER keeps its books in Zoho Books with AED as the base currency, and it regularly deals in US dollars and euros. Zoho Books stores exchange rates in its Currencies settings, where someone types each rate in by hand with an effective date. Done every day, that is slow and easy to get wrong, and a missed day means transactions convert at an outdated rate.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Stock had the same problem. The procurement team checked by hand which items had fallen to their reorder level, then looked up sales, open purchase orders and stock already in transit before deciding what to buy. The project docs list the risks plainly: missed reorder points, duplicate reorder emails and operational delays.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>One more constraint shaped the work. SMARTCORNER's Zoho Books organisation does not support custom functions or scheduled workflows, so the usual way of running a daily job inside Books was off the table.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built three scheduled Deluge automations across Zoho Books and Zoho Inventory, and none of them needs anyone to press a button.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>Daily exchange rates.</strong> Every morning at 7:30 AM in the client's time zone, a scheduled function reads the USD and EUR rates published by the Central Bank of UAE and writes them into Zoho Books. Because the client's plan has no schedules, the function runs from a second Zoho organisation that does, and updates SMARTCORNER's books through the Zoho Books API. A few details made it work:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>The bank's page is partly in Arabic, so the script finds the US dollar and euro rows by their Arabic names.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The bank quotes 1 USD = 3.6725 AED, while Zoho Books wants the rate the other way round. The script inverts each rate and rounds it to two decimal places.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The \"last updated\" date uses Arabic month names. A small lookup turns each month into a number and builds a YYYY-MM-DD date, which becomes the effective date in Zoho Books.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Zoho Books only updates a rate record that already exists, so we created the USD and EUR records once, kept their IDs, and the script now updates them every day.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p><strong>Reorder alerts that do not repeat.</strong> In Zoho Inventory, a second automation runs every alternate Monday at 7:00 AM. It checks every active item, page by page at 200 items a page, and lists those where available stock is at or below the reorder level. For each one the email shows yearly sales, stock left, the reorder level and the quantity to order, worked out as reorder level minus available stock and never below zero.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Duplicates were the tricky part. Once an item is emailed, a checkbox field on the item is ticked, so it does not show up again two weeks later. A separate job runs daily at 2 AM and clears the tick once stock climbs back above the reorder level, which re-arms the alert for the next drop. Item updates are spaced 15 seconds apart to stay inside Zoho's API rate limits, and empty or text values in stock fields are treated as zero instead of breaking the run.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>A reorder report with the full buying picture.</strong> The third automation, also every two weeks on a Monday, adds what a buyer needs before placing an order. It joins three sources: sales by item from 1 January to the run date, quantities already ordered from suppliers, and quantities in transit. Zoho Inventory's summary API could not return the yearly data, so we built a custom report in Zoho Inventory Reports and read it through its API inside the schedule. Each row of the email table carries:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Item name, plus the English name field the client added</li><!-- /wp:list-item --><!-- wp:list-item --><li>SKU / EAN</li><!-- /wp:list-item --><!-- wp:list-item --><li>Total sales this year, stock left and reorder level</li><!-- /wp:list-item --><!-- wp:list-item --><li>Quantity to order, quantity ordered and quantity in transit</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>If nothing qualifies, no email goes out.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>SMARTCORNER's exchange rates in Zoho Books now update themselves every morning, using the Central Bank of UAE's own date as the effective date. The project documentation records \"automatic daily exchange rate updates\", \"elimination of manual updates\" and \"improved financial accuracy\".</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>On the stock side, the docs record \"Eliminated manual checks\" and \"Prevented duplicate procurement emails\". The fortnightly report gives the procurement team \"visibility into ordered and in-transit inventory\" and \"faster and more informed purchasing decisions\", because the question of whether an item is already on order is answered in the same row as the reorder quantity. Take the doc's own example. A reorder level of 50 with 30 in stock gives a quantity to order of 20, and the buyer sees right beside it how much is already ordered or in transit.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Every test case across the three builds passed, from the Arabic date parsing to pagination over several inventory pages. The workaround is the part worth copying. A Zoho plan without schedules does not have to mean manual work, because the job can run from another organisation and reach in through the API.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you update exchange rates in Zoho Books automatically every day?",
+      "a": "A scheduled Deluge function reads the published rates, converts them into the format Zoho Books expects and updates each currency's exchange rate record through the Zoho Books API. For SMARTCORNER it runs at 7:30 AM and updates USD and EUR against AED, using the source's last updated date as the effective date."
+    },
+    {
+      "q": "What if my Zoho Books plan does not support scheduled functions?",
+      "a": "Run the schedule from another Zoho organisation that does support schedules, and update your books through API calls. That is how SMARTCORNER's daily rate update works, since its own Zoho Books organisation has no custom functions or scheduled workflows."
+    },
+    {
+      "q": "Can Zoho Inventory email a reorder list when stock falls below the reorder level?",
+      "a": "Yes. A scheduled function can check every active item, list those at or below their reorder level and email a table with the quantity to order. SMARTCORNER's runs every alternate Monday at 7:00 AM and only sends when at least one item qualifies."
+    },
+    {
+      "q": "How do you stop Zoho Inventory sending the same reorder alert twice?",
+      "a": "Tick a custom checkbox on the item once it has been emailed, and skip ticked items on the next run. A daily job at 2 AM clears the tick when stock rises above the reorder level again, so the alert fires on the next drop."
+    },
+    {
+      "q": "Can a Zoho Inventory reorder report show stock already ordered or in transit?",
+      "a": "Yes. SMARTCORNER's fortnightly report reads quantity ordered and quantity in transit from a custom Zoho Inventory report through its API, next to sales since 1 January. The custom report was needed because the standard inventory summary API could not supply the yearly data."
+    }
+  ],
+  "sources": [
+    "df09b017-b44c-44f9-a612-9ba9defab06b",
+    "0a42c399-aa03-4fb9-b539-ce48e7af7c20",
+    "f584b997-8eb7-4954-a592-d526149fe089"
+  ]
+}

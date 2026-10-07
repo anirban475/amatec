@@ -1,0 +1,50 @@
+{
+  "slug": "hosting-sales-support-chatbot-zoho-salesiq",
+  "title": "A Zoho SalesIQ chatbot that sells hosting plans and opens WHMCS tickets",
+  "excerpt": "Amatec built a Zoho SalesIQ chatbot for a web hosting company that collects visitor details, recommends a hosting plan or opens a support ticket, and syncs the result to WHMCS. It replaced manual lead and ticket entry, cut response times from hours to instant, and saved staff 10+ hours weekly on repetitive data entry.",
+  "client_name": "",
+  "client_desc": "Web hosting company",
+  "country": "",
+  "year": "2025",
+  "headline_result": "10+ hours saved every week",
+  "results": [
+    "Staff saved 10+ hours weekly on repetitive data entry",
+    "Response time went from delayed, often hours, to instant guided replies",
+    "Support tickets created instantly in WHMCS with full details, with no missed or delayed complaints",
+    "Immediate plan recommendations reduced drop-offs and faster lead qualification improved conversions",
+    "The bot handles unlimited simultaneous visitors"
+  ],
+  "tools": [
+    "Zoho SalesIQ",
+    "WHMCS"
+  ],
+  "platforms": [
+    "zoho"
+  ],
+  "industry": "Web hosting",
+  "seo_title": "Zoho SalesIQ chatbot for a web hosting company | Amatec",
+  "seo_description": "Amatec built a Zoho SalesIQ chatbot for a hosting company that recommends plans, opens WHMCS tickets and saved staff 10+ hours a week of manual data entry.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A web hosting company was recording every sales lead and support query by hand, and its staff were losing hours each week to it. Each conversation meant collecting the same details: name, email, hosting needs, traffic volume and technology requirements. Staff asked the same questions again and again, and when they were busy, details got missed.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Every enquiry arrived through the same channel. A prospect asking about a dedicated server and a customer reporting a problem landed in one stream, which created confusion between sales and support. Sales opportunities were delayed, and support tickets sometimes went missing.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The back office was manual too. Customer data and tickets were synced into WHMCS by hand, which caused delays and errors.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Recommending the right plan was harder than it sounds. Requirements like storage above 50GB, traffic above 100K, or .NET versus Linux each change the answer, and staff found it difficult to match those combinations to the right product. The advice a visitor got depended on who replied.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Response time was the symptom customers saw. Replies were delayed, often by hours. The client wanted immediate support with no wait time.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a chatbot in Zoho SalesIQ that greets every website visitor, collects structured details, recommends a hosting plan or opens a support ticket, and syncs the result to WHMCS. It was designed in Flowbuilder, the visual flow tool inside SalesIQ, as a chain of conversational cards.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The conversation runs in four stages:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Greeting. Opening cards introduce the bot and ask what the visitor needs.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Data capture. Buttons and predefined options collect name, email, hosting needs, tech stack and expected traffic as structured fields, so nobody retypes them later.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Routing. A decision tree splits the conversation. Sales questions go to plan recommendations. Complaints go to ticket creation.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Action. Each branch ends in an answer or an API call. Custom scripts call WHMCS to create a support ticket with the full details and notify the right department.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The recommendation logic took the most care. Staff had struggled to match storage, traffic and technology to a product, so we wrote conditional logic that weighs all three together and suggests the best plan on the spot, for example a dedicated server or VPS hosting. The suggestion is logged in the CRM along with the lead.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>A few more pieces complete the build:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Leads are captured automatically and synced to WHMCS through its API, so there is no manual lead entry.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Natural language processing lets the bot interpret what visitors type as well as the buttons they click.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Additional cards add security measures and access control to the flow.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The bot went live as a fully working feature on the client's website, ready for immediate use.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The chatbot saved the hosting company's staff 10+ hours weekly on repetitive data entry and replaced replies that often took hours with instant ones.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Staff saved 10+ hours weekly on repetitive data entry</li><!-- /wp:list-item --><!-- wp:list-item --><li>Response time went from delayed, often hours, to instant replies with guided flows</li><!-- /wp:list-item --><!-- wp:list-item --><li>Support tickets are created instantly in WHMCS with full details, so complaints are no longer missed or delayed</li><!-- /wp:list-item --><!-- wp:list-item --><li>Immediate plan recommendations reduced drop-offs, and faster lead qualification improved conversions</li><!-- /wp:list-item --><!-- wp:list-item --><li>The bot handles unlimited simultaneous visitors</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Sales and support now have separate lanes. A prospect gets a plan suggestion while they are still on the page. A customer with a problem gets a ticket with every detail already filled in, and the right team hears about it straight away.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Plan advice is consistent. The same storage, traffic and technology inputs produce the same recommendation every time, whoever would have answered the chat.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The hours saved went to better use. The team moved its focus from admin to growth work, and the flow framework can be extended to new workflows as the client needs them.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "Can a Zoho SalesIQ chatbot create support tickets in WHMCS?",
+      "a": "Yes. In this build the support branches of the SalesIQ flow end in an API call, written as a custom script, that creates a ticket in WHMCS with the details the visitor gave and notifies the right department. New leads are captured and synced to WHMCS the same way, so nothing is typed in twice."
+    },
+    {
+      "q": "How can a chatbot recommend the right hosting plan?",
+      "a": "Give it the inputs a salesperson would ask for and a rule set to weigh them. This bot collects storage needs, expected traffic and technology stack, then uses conditional logic to suggest a plan, for example a dedicated server or VPS hosting. The recommendation is logged in the CRM with the lead."
+    },
+    {
+      "q": "How do you separate sales and support enquiries in one chat widget?",
+      "a": "Use a decision tree near the start of the conversation. In Zoho SalesIQ's Flowbuilder, buttons let the visitor say what they need, and each answer opens its own branch of cards. Sales questions go to plan recommendations and complaints go to ticket creation."
+    },
+    {
+      "q": "How much time can a SalesIQ chatbot save a hosting company?",
+      "a": "For this client, staff saved 10+ hours weekly on repetitive data entry. The bot took over collecting names, emails, hosting needs and traffic figures, and creating tickets and leads in WHMCS."
+    }
+  ],
+  "sources": [
+    "b3877dd7-7b28-4859-a4be-eb958f571180",
+    "0b90ee86-a403-4848-853f-7ea57abf64ef"
+  ]
+}

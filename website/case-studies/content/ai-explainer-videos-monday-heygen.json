@@ -1,0 +1,57 @@
+{
+  "slug": "ai-explainer-videos-monday-heygen",
+  "title": "Personalised AI explainer videos from monday.com with HeyGen and Make.com",
+  "excerpt": "Amatec built a Make.com automation for a digital marketing company that turns a monday.com status change into a personalised HeyGen avatar video. OpenAI translates French to English, ChatGPT writes the script, ScreenshotOne captures the client's site, and Creatomate makes a GIF preview, so explainer videos reach clients without manual intervention.",
+  "client_name": "",
+  "client_desc": "Digital marketing company",
+  "country": "",
+  "year": "",
+  "headline_result": "Fully automated explainer videos",
+  "results": [
+    "Personalised explainer videos created and delivered without manual intervention",
+    "Instant French to English translation for clear, personalised client communication",
+    "Instant GIF previews, also attached in the monday.com workspace for quick review",
+    "Reduced the need for human labour in editing, screenshotting and translating",
+    "Tailored content for each client at scale"
+  ],
+  "tools": [
+    "monday.com",
+    "Make.com",
+    "HeyGen",
+    "OpenAI",
+    "ChatGPT",
+    "ScreenshotOne",
+    "Creatomate",
+    "Gmail"
+  ],
+  "platforms": [
+    "make",
+    "monday",
+    "ai"
+  ],
+  "industry": "Marketing agencies",
+  "seo_title": "AI explainer videos from monday.com and HeyGen | Amatec",
+  "seo_description": "How Amatec automated personalised HeyGen avatar videos from a monday.com status change, with OpenAI translation, ScreenshotOne and Creatomate GIF previews.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A digital marketing company wanted every client to receive a personalised explainer video when their project moved forward, without anyone editing, screenshotting or translating by hand.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Its projects ran on monday.com, and much of the source text was in French. One video meant translating that text, writing a script, capturing the client's website, recording an avatar video, making a version that was easy to share, and sending it. The company also wanted to deliver SEO reports in a clear video format, which clients find easier to follow than a document.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The project notes list four problems to solve:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Not enough language support for clear client communication.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Complicated asset preparation for dynamic video content.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Different platforms handle webhooks inconsistently.</li><!-- /wp:list-item --><!-- wp:list-item --><li>HeyGen's restrictions on GIF conversion, which matters for quick sharing.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The brief set four goals. Remove the laborious manual stages from producing customer explainer films. Turn SEO insights into a clear, engaging video. Adapt every video to the client's language and brand automatically. Keep delivery consistent by running the whole thing end to end, with no hand-offs where accuracy or speed could slip.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a two-phase Make.com automation that starts with a monday.com status change and ends with a personalised HeyGen avatar video and a GIF preview in the client's inbox and on the monday.com item.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Phase one handles production. It is triggered by a status change on monday.com.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>OpenAI converts the French text to English.</li><!-- /wp:list-item --><!-- wp:list-item --><li>ChatGPT writes a customised video script from that material.</li><!-- /wp:list-item --><!-- wp:list-item --><li>ScreenshotOne captures a live, full-page screenshot of the client's website.</li><!-- /wp:list-item --><!-- wp:list-item --><li>All assets go to HeyGen, which renders a custom video with a unique avatar using HeyGen Avatar V2.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Phase two handles post-processing and delivery. It is triggered by HeyGen's webhook when the video is ready.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>The finished video is sent back to monday.com.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Creatomate converts the video into a lightweight GIF, which gets around HeyGen's GIF limits.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The client receives an email through Gmail with the video and the GIF.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A GIF preview is attached on monday.com as well, so the team sees what the client saw.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Splitting the flow at HeyGen's webhook is deliberate. Rendering a video takes time, and one long scenario would sit waiting for it. With two scenarios, phase one ends as soon as the job is submitted and phase two starts the moment HeyGen reports the video exists. Custom webhooks and fallback routing in Make.com absorb the differences in how each platform sends its webhooks, so data keeps flowing between all the tools.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Asset preparation was the second problem on the list, and AI handles it. ChatGPT structures the project material into a script that fits the context of each client, and the ScreenshotOne API records full-page website graphics, so HeyGen receives a complete, ready set of assets every time.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The website screenshot is what makes each video feel made for one client. The avatar talks through their project while their own site is on screen, and the script was written from their own material.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The digital marketing company now creates and delivers personalised explainer videos without manual intervention, triggered by a status change its team already makes in monday.com.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>A fully automated workflow from status change to delivered video.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Real-time multilingual support, with instant translation for clear, personalised communication.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Instant GIF previews that clients receive by email and that sit in the project workspace for quick review.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Scalable personalisation: tailored content for each client, at scale.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The company also recorded an improved experience for clients during onboarding, less human labour in editing, screenshotting and translating, delivery without lag, and the ability to handle high client volumes.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The project notes give no video counts, so we will not invent one. What changed is the work per video. It used to be a small production job. Now it is a status change.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you create HeyGen videos automatically from monday.com?",
+      "a": "Amatec used Make.com to watch for a status change on a monday.com item. The scenario translates the text with OpenAI, has ChatGPT write a script, takes a website screenshot with ScreenshotOne, and sends everything to HeyGen, which renders a personalised avatar video."
+    },
+    {
+      "q": "How do you know when a HeyGen video is ready?",
+      "a": "HeyGen sends a webhook when the video is prepared. A second Make.com scenario listens for it, returns the video to monday.com, makes a GIF with Creatomate and emails both to the client, so nothing waits while the video renders."
+    },
+    {
+      "q": "Can HeyGen videos be turned into GIFs automatically?",
+      "a": "HeyGen has restrictions on GIF conversion, so this build sends each finished video to Creatomate, which converts it into a lightweight GIF. The GIF goes to the client by Gmail and is attached as a preview on the monday.com item."
+    },
+    {
+      "q": "Can AI explainer videos be produced in a different language from the source text?",
+      "a": "Yes. In this project the source text was in French, and OpenAI converted it to English before ChatGPT wrote the video script. Translation runs inside the same automation, so no one translates by hand."
+    }
+  ],
+  "sources": [
+    "b5643233-081e-4282-bc67-b813449e5741"
+  ]
+}

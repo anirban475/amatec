@@ -1,0 +1,54 @@
+{
+  "slug": "monday-to-snelstart-invoice-automation",
+  "title": "Draft SnelStart invoices created from a monday.com status change",
+  "excerpt": "Amatec built a Make.com scenario for a business using SnelStart accounting that creates a draft invoice in SnelStart whenever a monday.com item moves to \"Factuur maken\". Error handlers create missing customers and products, then resume the run, giving near 100% process continuity and invoice creation without manual input.",
+  "client_name": "",
+  "client_desc": "Business using SnelStart accounting",
+  "country": "",
+  "year": "2025",
+  "headline_result": "Invoices drafted from a status change",
+  "results": [
+    "Near 100% process continuity, even when a customer or product is new to SnelStart",
+    "Invoice creation without manual input",
+    "Missing customer records created automatically and the invoice retried",
+    "Data accuracy ensured by filtering incomplete articles",
+    "Reduced turnaround time for the billing process"
+  ],
+  "tools": [
+    "monday.com",
+    "SnelStart",
+    "SnelStart API",
+    "Make.com"
+  ],
+  "platforms": [
+    "make",
+    "monday"
+  ],
+  "industry": "Accounting and finance",
+  "seo_title": "monday.com to SnelStart invoice automation | Amatec",
+  "seo_description": "How Amatec used Make.com to turn a monday.com status change into a SnelStart draft invoice, with error handlers that create missing customers and resume.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A business using SnelStart accounting was preparing invoices by hand from its monday.com board, and every invoice depended on customer and product records that had to exist in SnelStart first.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The jobs, customers and billable items already lived on a Dutch-language monday.com board called \"Factuur\". Each item had its customer in a \"Klant\" column and the products or services as subitems. To bill one job, someone had to read the board, check the customer existed in SnelStart, check every article existed, and then type the invoice. A first-time customer meant creating the relation before anything else. A new service meant creating the article first.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>SnelStart adds its own rules. Its API is in Dutch. Every call needs an access token, requested with a client key, and that token expires in one hour, 3599 seconds. The goal in the project brief was plain: automate invoice creation from the monday.com item and subitem data, push it to SnelStart through the API, and cut manual effort and errors.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a Make.com scenario that turns one status change on monday.com into a draft invoice in SnelStart, and repairs missing customers and products along the way instead of failing.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Trigger: the Status column changes to \"Factuur maken\" (Create Invoice). A filter makes sure no other status starts a run.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Data: the scenario pulls the item, its subitems and the linked customer, including the customer's email from the \"Klant\" column.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Login: it requests a fresh SnelStart access token with the client key on every run, so an expired token never blocks an invoice.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Customer lookup: it searches SnelStart relations by email and picks up the internal customer ID.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Line items are handled one at a time. The scenario loops through each subitem, skips any with a blank name or description, and searches SnelStart's article list (Artikels) by description. If the article is missing, it creates it, using the code stored on the monday.com item and choosing the revenue group (omzetgroep) from a column on the board.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>If the article already exists, the create step throws an error because the code is taken. A Resume error handler catches it and the run carries on. Known products pass straight through, new ones get created, and nobody has to tell the scenario which is which.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The processed lines are then grouped back into one array, formatted as the JSON SnelStart expects and posted as a sales order (verkooporder). The process status is hardcoded to \"Bevestiging\" so the invoice lands as a draft, and VAT is entered as exclusive.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The error handlers are the clever part. They fix the cause of the error and resume the run.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Missing customer: the invoice payload only fills the customer ID when SnelStart says the relation type is \"Klant\". Otherwise the field is left blank on purpose, which forces a \"Bad Request\". The handler catches it, creates the customer in SnelStart from the monday.com data, and resumes from the Create Invoice step with the new customer ID.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Internal Server Error: this usually means the mandatory send_email field is missing or set to False. The handler sets it to True and resumes.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>So a new customer or a new service never stops billing. The scenario does the set-up a person would have done, then finishes the invoice.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The project documents near 100% process continuity: draft invoices keep flowing into SnelStart even when the customer or product is new.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Invoice creation without manual input, started by one status change.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Missing customer records handled automatically, with the invoice step retried using the new customer ID.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Data accuracy ensured by filtering out incomplete articles before they reach the invoice.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Reduced turnaround time for the billing process.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A working integration with SnelStart's Dutch-language API.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>For the team, billing is now a status change on a board they already use. The draft appears in SnelStart with one line per valid subitem, ready to check. Nobody re-types customer details or product codes, and half-filled subitems stay off the invoice.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The same pattern suits any accounting tool with an API and strict master data. Look the record up. Create it if it is missing. Let an error handler resume the run rather than end it.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you create SnelStart invoices automatically from monday.com?",
+      "a": "Amatec used a Make.com scenario that watches a monday.com status column. When an item moves to \"Factuur maken\", it fetches the item, subitems and customer, requests a SnelStart access token, and posts a sales order to the SnelStart API with the process status \"Bevestiging\", so it arrives as a draft invoice."
+    },
+    {
+      "q": "What happens if the customer does not exist in SnelStart yet?",
+      "a": "The invoice call fails with a Bad Request, and a Make.com error handler catches it. The handler creates the customer in SnelStart from the monday.com data, then resumes from the Create Invoice step with the new customer ID. No one has to restart the run."
+    },
+    {
+      "q": "How are new products or services handled on a SnelStart invoice?",
+      "a": "Each subitem is checked against SnelStart's article list by description. If it is missing, the scenario creates the article using the code from monday.com. If it already exists, the create step errors and a Resume handler lets the run continue."
+    },
+    {
+      "q": "Does the SnelStart API need a new access token for each run?",
+      "a": "The SnelStart access token expires in one hour, 3599 seconds, and is requested with a client key. The scenario requests a fresh token on every run, so an expired token never stops an invoice."
+    }
+  ],
+  "sources": [
+    "5250a53a-d504-4001-b9d8-00e268c0ff2f",
+    "3f4ca6fd-360b-4010-aeb0-19f438f255a4",
+    "1e65f767-b5f2-43b5-9781-af208c835deb"
+  ]
+}

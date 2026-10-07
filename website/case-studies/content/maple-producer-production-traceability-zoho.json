@@ -1,0 +1,65 @@
+{
+  "slug": "maple-producer-production-traceability-zoho",
+  "title": "Maple producer links Zoho production records to stock and lot numbers",
+  "excerpt": "A French-speaking maple products producer needed production in Zoho Creator to reach Zoho Inventory with full lot traceability. Amatec built Deluge workflows that post each batch as a stock adjustment with its syrup, sugar and butter input lots and explode bills of materials into Zoho Sheet, plus a bilingual order form that reduced manual input time by 80%.",
+  "client_name": "",
+  "client_desc": "French-speaking maple products producer",
+  "country": "",
+  "year": "2025",
+  "headline_result": "Manual input time reduced by 80%",
+  "results": [
+    "Reduced manual input time by 80% on the bilingual order form",
+    "Every production batch posted to Zoho Inventory with its production and input lot numbers",
+    "Bills of materials exploded into Zoho Sheet with lead times and preferred suppliers",
+    "Manual work has been completely removed for new items in Square",
+    "Ecwid products created or updated automatically with the correct data and images"
+  ],
+  "tools": [
+    "Zoho Creator",
+    "Zoho Inventory",
+    "Zoho Sheet",
+    "Deluge",
+    "Make.com",
+    "Square",
+    "Ecwid"
+  ],
+  "platforms": [
+    "zoho",
+    "make"
+  ],
+  "industry": "Food production",
+  "seo_title": "Maple Producer Production Traceability in Zoho | Amatec",
+  "seo_description": "How Amatec linked Zoho Creator production records to Zoho Inventory with input lot numbers, BOMs in Zoho Sheet and Square and Ecwid syncs for a maple producer.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A French-speaking maple products producer runs its operation on Zoho. It makes maple syrup, maple butter and maple sugar, plans production in Zoho Creator and keeps stock in Zoho Inventory. Between those two apps, a lot of work happened by hand.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Each finished batch had to become a stock adjustment in Zoho Inventory, and for traceability that adjustment needed to say what went in: how many litres of organic maple syrup, how many kilograms of maple sugar and maple butter, and the lot number of each. Planning a run meant breaking every composite product into its components and adding up the quantities. Orders came from English and French-speaking clients, so product details had to be right in both languages.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Then there were the sales channels. Each new product had to be created again by hand in Square, the point of sale, and in Ecwid, the online store. The project docs name the cost: wasted time, incorrect product entries and inconsistent data between systems.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec connected Zoho Creator, Zoho Inventory and Zoho Sheet with Deluge scripts, then used Make.com to push products out to Square and Ecwid. The work ran in stages between 2024 and 2026.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>Production records with automatic lot numbers.</strong> In Zoho Creator, when a planned run is set to \"Produit\", a script creates a draft record in the Production form with the date, the quantity produced, the items and the production lot number. Lot numbers generate themselves. The script finds the highest existing number and adds one, starting at 10000.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>Stock adjustments that carry input lots.</strong> When a production record is saved as \"Complété\", Creator posts it to a Zoho Inventory incoming webhook. A Deluge function in Zoho Inventory looks for an existing adjustment whose reference is that production lot number. If it finds one, it updates it. If not, it creates a new adjustment with the reason \"Production\" and the quantity made. Custom fields on the adjustment record the inputs:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Litres of organic maple syrup, with its input lot number and notes</li><!-- /wp:list-item --><!-- wp:list-item --><li>Kilograms of maple sugar, with its input lot number and notes</li><!-- /wp:list-item --><!-- wp:list-item --><li>Kilograms of maple butter, with its input lot number and notes</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Zoho's API documentation gave no format for writing custom fields on a stock adjustment. So we pulled an existing adjustment through the API, read how its custom fields came back, and built the request in the same shape. It worked.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>Bill of materials straight into Zoho Sheet.</strong> Submitting a production order in Creator explodes each composite product in Zoho Inventory into its components, multiplies by the quantity ordered and merges repeats across products into one total. The result lands in a new Zoho Sheet workbook. Its \"BOM\" tab shows each component's quantity, stock category, lead time in days, standard order quantity and preferred supplier. A second tab, \"Liste prod\", is the production log. Each line gets a number from a running counter, with columns for the packing date, pH, time at 90°C, bag temperatures, bagging start time and freezer timings. The first version in 2024 produced only the component list, and the 2025 version added the production log.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>A bilingual order form.</strong> The Creator order form filters the product dropdown by the selected language. Picking a product fills in its name, description and price, so French-speaking clients see French product information automatically.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p><strong>Square and Ecwid kept in step through Make.com.</strong> One Make.com scenario creates every new Zoho Inventory item in Square in real time. A second sends items to Ecwid whenever they are created or updated. It structures the data for the Ecwid API, updates the product if it already exists so the store never gets duplicates, then downloads the product image from Zoho Inventory and uploads it to the listing.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The clearest number is on the order form. The project doc records \"Reduced manual input time by 80%\", with \"Accurate product details every time\" and clients reporting \"a smoother, quicker ordering process\". The form is also \"ready for adding more languages in future\".</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>On the production side, every finished batch now reaches Zoho Inventory as a stock adjustment tagged with its production lot number and the lot numbers of the syrup, sugar and butter that went into it. Saving the same record again updates that adjustment instead of adding a second one. Planning a run now starts from numbers that are already totalled. The component list, supplier and lead time come out of Zoho Sheet next to a numbered production log.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>For the sales channels, the Square doc reports that \"Manual work has been completely removed\" and \"The risk of human error is reduced\". The Ecwid doc confirms that whenever an item is created or updated in Zoho Inventory, it is \"automatically synchronized in ECWID with the correct data and images\". One product record in Zoho Inventory now feeds the till, the web store and production planning.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you create Zoho Inventory stock adjustments from Zoho Creator?",
+      "a": "When a Creator record reaches a set status, a workflow posts it to a Zoho Inventory incoming webhook, and a Deluge function creates or updates the adjustment. For this producer the production lot number is the reference, so saving a record again updates the existing adjustment instead of duplicating it."
+    },
+    {
+      "q": "Can Zoho Inventory track input lot numbers for a production batch?",
+      "a": "Yes, through custom fields on the stock adjustment. This producer records litres of organic maple syrup and kilograms of maple sugar and maple butter, each with its own input lot number and notes. The API docs did not show the custom field format, so we copied it from an existing adjustment."
+    },
+    {
+      "q": "How do you explode a bill of materials from Zoho Inventory into a spreadsheet?",
+      "a": "Read each composite item's mapped components, multiply by the quantity to produce and merge repeated components into one total. Here a Deluge script writes the result to a new Zoho Sheet workbook with stock category, lead time, standard order quantity and preferred supplier for each component."
+    },
+    {
+      "q": "How do you sync Zoho Inventory products to Square and Ecwid?",
+      "a": "Make.com scenarios pick up item events in Zoho Inventory. New items are created in Square in real time, and Ecwid products are created or updated with their images, with a check that prevents duplicate products."
+    },
+    {
+      "q": "Can a Zoho Creator order form show products in French and English?",
+      "a": "Yes. The product dropdown filters by the selected language, and choosing a product fills in its name, description and price. For this producer the doc records manual input time reduced by 80%."
+    }
+  ],
+  "sources": [
+    "a5350e63-9c6e-498e-bba8-9f49d36cfd7d",
+    "2610e334-73b0-4ccf-86f1-91fd2122066b",
+    "c3c5afe9-62f4-4a03-b066-cbb34e0b5ebc",
+    "acb2e434-f511-45f2-b7a1-1a800f1c0ec7",
+    "0d864e5d-d95b-412b-aff5-f9ef6f07a7b5",
+    "fc03d112-5f5b-4db7-870e-fe93c3b23956",
+    "9087b836-b733-45bc-8bf4-bab08c2d2a48"
+  ]
+}

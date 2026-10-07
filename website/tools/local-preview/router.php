@@ -173,7 +173,7 @@ function am_is( $t ) { return $GLOBALS['am_ctx']['type'] === $t; }
 function is_front_page() { return am_is( 'front' ); }
 function is_home() { return am_is( 'blog' ); }
 function is_category() { return am_is( 'category' ); }
-function is_archive() { return am_is( 'category' ); }
+function is_archive() { return am_is( 'category' ) || am_is( 'cs_archive' ) || am_is( 'cs_tax' ); }
 function is_single() { return am_is( 'single' ); }
 function is_page( $slugs = null ) {
 	if ( ! am_is( 'page' ) ) { return false; }
@@ -181,7 +181,9 @@ function is_page( $slugs = null ) {
 }
 function is_search() { return false; }
 function is_tag() { return false; }
-function is_tax() { return false; }
+function is_tax( $tax = null ) {
+	return am_is( 'cs_tax' ) && ( null === $tax || in_array( $GLOBALS['am_ctx']['taxonomy'], (array) $tax, true ) );
+}
 function is_author() { return false; }
 function is_date() { return false; }
 function get_search_query() { return ''; }
@@ -201,6 +203,9 @@ function the_title() { echo get_the_title(); }
 function get_permalink( $p = null ) {
 	if ( 'blog' === $p ) { return '/blog/'; }
 	$p = am_post( $p );
+	if ( $p && isset( $p->post_type ) && 'amatec_case_study' === $p->post_type ) {
+		return '/case-studies/' . $p->post_name . '/';
+	}
 	return $p ? '/' . $p->post_name . '/' : '/';
 }
 function the_permalink() { echo esc_url( get_permalink() ); }
@@ -212,7 +217,7 @@ function get_the_post_thumbnail_url( $id = null, $size = '' ) { $p = am_post(); 
 function get_the_post_thumbnail_caption() { return ''; }
 function get_the_date( $f = 'F j, Y' ) { $p = am_post(); return $p && $p->post_date ? date( $f ? $f : 'F j, Y', strtotime( $p->post_date ) ) : ''; }
 function get_the_modified_date( $f = 'F j, Y' ) { return get_the_date( $f ); } // posts.json has no modified date
-function get_the_excerpt() { $p = am_post(); return $p ? ( $p->excerpt ? $p->excerpt : wp_trim_words( $p->post_content, 40 ) ) : ''; }
+function get_the_excerpt( $p = null ) { $p = am_post( $p ); return $p ? ( $p->excerpt ? $p->excerpt : wp_trim_words( $p->post_content, 40 ) ) : ''; }
 function the_excerpt() { echo '<p>' . esc_html( get_the_excerpt() ) . '</p>'; }
 function the_content() { $p = am_post(); echo $p ? $p->post_content : ''; }
 function wp_link_pages() {}
@@ -282,6 +287,7 @@ function am_all_posts() {
 /* ------------------------------------------------------------------
  * Routing
  * ------------------------------------------------------------------ */
+require __DIR__ . '/cs-stubs.php';
 require AM_THEME_DIR . '/functions.php';
 do_action( 'after_setup_theme' );
 do_action( 'init' );
@@ -321,6 +327,8 @@ if ( '' === $am_slug ) {
 		am_list( $found, '/category/' . $m[1] . '/', isset( $m[2] ) ? max( 1, (int) $m[2] ) : 1, 'category', $name );
 		$am_template = 'archive.php';
 	}
+} elseif ( null !== ( $am_cs_tpl = am_cs_route( $am_slug ) ) ) {
+	$am_template = $am_cs_tpl;
 } elseif ( 'about' === $am_slug ) {
 	am_page( 'about', 'About' );
 	$am_template = 'page-about.php';

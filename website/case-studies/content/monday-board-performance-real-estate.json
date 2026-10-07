@@ -1,0 +1,48 @@
+{
+  "slug": "monday-board-performance-real-estate",
+  "title": "Fixing a slow monday.com board for a Texas property company",
+  "excerpt": "Amatec restructured the monday.com workspace of a Texas property company whose single, very large board took several minutes to open one item. We split the records into separate Austin and San Antonio boards, moved data from linked boards into subitems and migrated every record with no data lost. Users can now open items instantly.",
+  "client_name": "",
+  "client_desc": "Texas property company",
+  "country": "Texas, United States",
+  "year": "",
+  "headline_result": "Items now open instantly",
+  "results": [
+    "Items that took several minutes to open now open instantly",
+    "One oversized board split into two location boards, Austin and San Antonio",
+    "No existing data lost, with the entire dataset migrated to the new boards",
+    "Items no longer wait on data from an external linked board",
+    "Significantly faster board performance and reduced loading time for records"
+  ],
+  "tools": [
+    "monday.com"
+  ],
+  "platforms": [
+    "monday"
+  ],
+  "industry": "Real estate",
+  "seo_title": "Speeding Up a Slow monday.com Board | Amatec",
+  "seo_description": "A Texas property company's monday.com board took minutes to open an item. Amatec split it into Austin and San Antonio boards and used subitems to fix it.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A monday.com board that holds too many records and pulls data from other boards can take minutes to open a single item, and that is where this Texas property company found itself.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The company used monday.com to run sales processes, leads, deadlines and projects, and to keep a large database of property records. Each item held a property name, city, state, county, coordinates and a map location. Every record lived on one board.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>As the database grew, the board slowed to the point where daily work suffered:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Extremely slow loading times.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Delays every time someone opened an item.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Difficulty managing and tracking records.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Poor system performance across the workspace.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>In some cases, opening a single item took several minutes. That wait significantly affected the company's workflow, because the team works out of these records every day to manage leads and tasks.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>There was a second cause hiding behind the first. Some fields on each item were linked to another board. Every time an item opened, monday.com had to fetch that data from the external board before it could display anything, which stacked more delay on top of an already slow load.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec redesigned the monday.com database so that each board holds fewer records and every item carries its own data, with nothing fetched from another board at open time.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>We started with the root cause. Three things were slowing the board down:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>A very large database stored within a single board.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A high number of items being processed at the same time.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Data being fetched live from another linked board.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The first fix was to split the board by location. The company operates in two regions, so the single board became two: an Austin Database Board and a San Antonio Database Board. Each new board carries only the records for its region, which cut the number of items monday.com has to process on each one. Records for one region no longer slow down work in the other.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The second fix removed the dependency on the external board. The information that used to arrive through linked fields was added directly inside each item as subitems. Every main item now has subitems holding the associated data it used to borrow from elsewhere. When someone opens an item, everything they need is already on the same board, so there is nothing to wait for.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The third piece was the migration, and it had to be clean. During the restructure we made sure that:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>No existing data was lost.</li><!-- /wp:list-item --><!-- wp:list-item --><li>All records were preserved correctly.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The entire dataset was accurately migrated to the new board structure.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Every item and its associated information was recreated in the right board. The team kept full access to their records throughout.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The approach transfers to most slow monday.com workspaces. Check how many items sit on one board, check whether items depend on data pulled from other boards, and look for a natural line, such as location, along which the board can be split.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>After the restructure, users can open items instantly and see their data without waiting for anything to load from an external board.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Items that took several minutes to open now open instantly.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Significantly faster board performance.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Reduced loading time for records.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Improved database consistency.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Easier data tracking and management, organised by location.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Better system stability, with less load on each board.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The team also gained better lead and task management, because records are faster to reach and grouped by the region they belong to. All of this came with complete data integrity. Nothing was lost in the move, and the company can now track and manage its property data without the delays that used to slow every task.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "Why is my monday.com board so slow to open items?",
+      "a": "In this project three things caused it: a very large number of records on one board, many items being processed at once, and fields linked to another board that monday.com had to fetch every time an item opened. Splitting the board and removing the linked-board dependency fixed it."
+    },
+    {
+      "q": "Should I use linked boards or subitems in monday.com for speed?",
+      "a": "When linked data was slowing item loads, Amatec moved that information into subitems under each main item. The data then lives on the same board, so monday.com does not need to fetch anything from an external board when the item opens."
+    },
+    {
+      "q": "How do you split a large monday.com board without losing data?",
+      "a": "Amatec divided the board along a natural line, here location, into an Austin board and a San Antonio board, then recreated every item and its associated information in the right board. The team checked that all records were preserved and no existing data was lost."
+    },
+    {
+      "q": "How much faster can a restructured monday.com board be?",
+      "a": "For this Texas property company, opening a single item had taken several minutes in some cases. After the split into two location boards and the move to subitems, users can open items instantly."
+    }
+  ],
+  "sources": [
+    "e7764641-3c1f-4a95-a852-09eb66a63e76"
+  ]
+}
