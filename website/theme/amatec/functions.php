@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.8.0' );
+define( 'AMATEC_VERSION', '1.9.0' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -16,6 +16,7 @@ define( 'AMATEC_VERSION', '1.8.0' );
 require_once get_theme_file_path( 'inc/lp-pages.php' );
 require_once get_theme_file_path( 'inc/legal-pages.php' );
 require_once get_theme_file_path( 'inc/aio.php' );
+require_once get_theme_file_path( 'inc/case-studies.php' );
 
 /**
  * Bespoke designed pages (each has its own page-{slug}.php template).
@@ -452,7 +453,7 @@ function amatec_site_menu() {
 				array( 'label' => 'Customer Support Automation', 'icon' => 'headset', 'href' => home_url( '/customer-support-automation/' ) ),
 			),
 		),
-		array( 'label' => 'Case Studies', 'href' => '#case-studies' ),
+		array( 'label' => 'Case Studies', 'href' => home_url( '/case-studies/' ) ),
 		array( 'label' => 'Blog', 'href' => home_url( '/blog/' ) ),
 		array( 'label' => 'Contact Us', 'href' => home_url( '/contact/' ) ),
 	);

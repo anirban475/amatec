@@ -48,4 +48,5 @@
 
 - [About Amatec](https://amatec.in/about/)
 - [Contact](https://amatec.in/contact/)
+- [Case studies](https://amatec.in/case-studies/): Client projects on Make.com, n8n, Zoho and monday.com, each with the problem, what was built and the result.
 - [Blog](https://amatec.in/blog/)

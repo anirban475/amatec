@@ -1,0 +1,55 @@
+{
+  "slug": "ai-call-quality-coaching-bot-n8n",
+  "title": "AI call scoring and a Slack coaching bot for a telecalling team on n8n",
+  "excerpt": "Amatec built two n8n workflows for a telecalling sales team. Every hour, call recordings are transcribed with OpenAI Whisper, scored by GPT-4o-mini against a fixed rubric and saved to Postgres. Agents then message a Slack bot that coaches them from their last 10 scored calls. 100% of calls are now reviewed, with scores inside the hour.",
+  "client_name": "",
+  "client_desc": "Telecalling sales team",
+  "country": "",
+  "year": "",
+  "headline_result": "100% of calls reviewed",
+  "results": [
+    "100% of calls reviewed, where a supervisor once sampled a few",
+    "Agents get an objective score within the hour instead of waiting days for a supervisor",
+    "Coaching on demand: any agent can ask \"how am I doing\" and get a real answer instantly",
+    "Each coaching reply draws on the agent's last 10 scored calls",
+    "Corrupted headers, short or silent recordings and duplicate files are handled without breaking"
+  ],
+  "tools": [
+    "n8n",
+    "OpenAI Whisper",
+    "OpenAI GPT-4o-mini",
+    "LangChain AI Agent",
+    "PostgreSQL",
+    "Slack",
+    "FTP"
+  ],
+  "platforms": [
+    "n8n",
+    "ai"
+  ],
+  "industry": "Sales teams",
+  "seo_title": "AI Call Scoring and Slack Coaching Bot on n8n | Amatec",
+  "seo_description": "Amatec built an n8n system that transcribes every sales call with Whisper, scores it with GPT-4o-mini within the hour and coaches agents through Slack.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A telecalling team that records hundreds of calls a day can only review a tiny fraction of them by hand. This sales team had exactly that problem. Supervisors did not have time to listen to every call, so quality checks ran on a small random sample, and almost every recording went unheard.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The feedback that did arrive came days or weeks after the call. By then it was too late to change behaviour on the next call. Two reviewers could also score the same call differently, so agents had no stable picture of how they were doing. Most of what they heard was correction after something went wrong, with very little said about what they did well.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Manual review did not scale past a handful of calls a week per agent.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Feedback came too late to change behaviour on the next call.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Scoring was subjective and varied between reviewers.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Agents got almost no positive reinforcement.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The raw material was messy as well. Recordings landed on an FTP server from the team's call recorder, in more than one filename format, and many came from phones that save M4A audio with a mislabeled header.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built two connected n8n workflows: one scores every call recording within the hour, and the other turns those scores into personal coaching that agents can ask for in Slack. Both workflows are also published as MCP-callable, so an AI assistant can trigger them.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The first workflow runs every 60 minutes and works through each new recording in order:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Lists new files on the FTP server and keeps audio only, WAV or M4A.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Reads the call time and call details from the filename with a code node.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Checks Postgres and skips any file already processed, so no call is scored twice.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Matches the recording to the right agent by the folder it was saved in.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Repairs the audio header where needed, then transcribes the call with OpenAI Whisper.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Drops transcripts too short to be a real conversation.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Scores the call with GPT-4o-mini and saves the transcript and score to Postgres.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Deletes the recording from the FTP server to keep storage clean.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The header repair is the detail that made the system work on real phones. Many handsets save M4A recordings with a 3GP header that OpenAI rejects. A small code node reads the start of each file, rewrites the 3GP label to a standard MP4 one and passes the patched audio on to Whisper. That one fix lets the workflow handle real phone recordings without breaking.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Scoring uses a fixed rubric returned as strict structured JSON, so every call produces the same fields: a call score out of 10, talk ratio, tone (positive, neutral or aggressive), an objection handling score out of 10, key issues, suggestions and a short summary. The model runs at a low temperature of 0.2 and must return every field, every time.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The second workflow is the coaching bot. An agent sends it a Slack DM, for example \"how am I doing\" or a question about a specific call. The bot confirms the agent is registered, then pulls their last 10 scored calls, their total call count and their recent chat history from Postgres. Anyone not registered gets a polite reply asking them to have their admin add their Slack ID.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>That data goes to an AI Agent running GPT-4o-mini, with a live Postgres tool for looking up older calls. Because the agent's real scores are already in context, the bot never asks them to describe a call. It is instructed to be warm and specific, to celebrate strengths and to frame weaknesses as things to work on. A new agent with no scored calls yet gets encouragement and three practical telecalling tips. Every exchange is logged, so the next conversation picks up where the last one ended.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Every call the team records is now transcribed, scored and stored within the hour it was made, which means 100% of calls are reviewed.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>100% of calls reviewed, where a supervisor once sampled a few.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Agents get an objective score within the hour instead of waiting days for a supervisor.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Coaching is available on demand. Any agent can ask \"how am I doing\" and get a real answer instantly.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Coaching replies reference real scores and real moments from the agent's own calls.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Corrupted headers, short or silent recordings and duplicate files are handled without breaking the run.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The bigger shift is in who starts the feedback loop. Agents no longer wait for a review to come to them. They ask the bot when they want to know, and the answer comes from the same scored data a supervisor would see in Postgres.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>This setup suits any team running telecalling, sales or support calls that wants consistent quality scoring and same day coaching without hiring a QA team to listen to every call.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you automatically score sales calls with AI?",
+      "a": "Amatec's n8n workflow picks up new call recordings every hour, transcribes them with OpenAI Whisper and sends each transcript to GPT-4o-mini with a fixed rubric. The model returns strict JSON with a call score, talk ratio, tone, objection handling score, key issues and suggestions, which is saved to Postgres."
+    },
+    {
+      "q": "Why does OpenAI Whisper reject some M4A call recordings?",
+      "a": "Many phones save M4A recordings with a mislabeled 3GP header, and OpenAI rejects those files. Amatec added a code node that rewrites the header to a standard MP4 label before transcription, so those calls go through like any other."
+    },
+    {
+      "q": "How does an AI coaching bot in Slack know about an agent's calls?",
+      "a": "When an agent sends a Slack DM, the n8n workflow looks up their last 10 scored calls and recent chat history in Postgres and gives that data to an AI Agent as context. The agent also has a Postgres tool for older calls, so it never needs the rep to describe a call."
+    },
+    {
+      "q": "Can AI review every sales call instead of a sample?",
+      "a": "Yes. In this build every recording on the FTP server is processed by an hourly n8n job, so 100% of calls are reviewed. A Postgres check stops any file being scored twice, and very short recordings are skipped."
+    }
+  ],
+  "sources": [
+    "0bbf2043-a2fe-4ef7-a8e0-e74377963994"
+  ]
+}

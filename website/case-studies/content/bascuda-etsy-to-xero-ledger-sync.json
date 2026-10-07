@@ -1,0 +1,50 @@
+{
+  "slug": "bascuda-etsy-to-xero-ledger-sync",
+  "title": "Bascuda syncs its Etsy ledger into Xero every day with Make.com",
+  "excerpt": "Amatec built a daily Make.com scenario for Bascuda, a UK Etsy seller, that pulls every Etsy ledger entry and posts it into Xero by type: sales, fees, ads, refunds, adjustments and payouts. Each entry gets the right account and VAT treatment, giving a 100% reduction in manual entry and smoother bank reconciliations.",
+  "client_name": "Bascuda",
+  "client_desc": "UK ecommerce seller on Etsy",
+  "country": "United Kingdom",
+  "year": "",
+  "headline_result": "100% reduction in manual entry",
+  "results": [
+    "100% reduction in manual entry",
+    "Daily financial accuracy",
+    "Smoother bank reconciliations",
+    "Time saved for the client to focus on growing their business"
+  ],
+  "tools": [
+    "Etsy",
+    "Xero",
+    "Make.com",
+    "Email"
+  ],
+  "platforms": [
+    "make"
+  ],
+  "industry": "Ecommerce",
+  "seo_title": "Etsy to Xero ledger sync for Bascuda | Amatec",
+  "seo_description": "How Amatec built Bascuda a daily Make.com sync that posts every Etsy ledger entry into Xero with the right account and VAT, for a 100% cut in manual entry.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Bascuda, a UK seller on Etsy, keeps its books in Xero and needed every Etsy ledger entry to reach Xero without anyone copying it across.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Managing ecommerce finances is hard when the platforms do not talk to each other. Etsy does not offer trigger-based automation for ledger updates, so real-time syncing with Xero was impossible. That meant delayed entries, manual work and inconsistent financial tracking.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>An Etsy ledger is also busy. One account holds sale receipts, transaction and processing fees, listing fees, shipping labels, Etsy Ads, refunds, adjustments and payouts to the bank. Each one belongs somewhere different in Xero, with its own account and VAT treatment. A payout is money moving between two bank accounts, so it cannot be booked as an expense. Etsy also reports amounts in pence, with a minus sign on every debit.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a Make.com scenario that runs once a day, reads the last day of Etsy ledger entries, and posts each entry into Xero according to its type.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The scenario uses Etsy's List Account Ledger Entries module with a window from one day ago to now, so each run picks up only the new entries and nothing is posted twice. A router then sends every entry down the path that matches its reference type.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Receipts, transactions, processing fees and listing fees: the scenario fetches the Etsy receipt and creates a Spend Money transaction in Xero, referenced with \"Etsy\" and the receipt number. When an entry has no receipt to fetch, an error handler creates the same transaction without the reference and resumes the run.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Payouts (disbursements): a Xero bank transfer from the Etsy account to the business bank account, which is what lets payouts match on reconciliation.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Shipping labels: posted as platform and marketplace fees with no VAT.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Etsy Ads: posted to advertising and marketing.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Offsite ads fees, shipping refunds and auto-renew refunds: a switch on the entry description picks the account and VAT code for each one.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Payment adjustments and recoupments: posted against UK sales at 20% VAT on income.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Any positive amount: recorded as Receive Money.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Every amount is divided by 100 and stripped of its minus sign before it reaches Xero. Every line is tagged with Xero's Sales Channel tracking category set to Etsy, so Etsy results can be read on their own in Xero reports.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Entries the router does not recognise are kept, never dropped. A text aggregator gathers them into a \"Ledger Details\" summary with the description, type, amount and date of each, and the scenario emails it to Bascuda at the end of the run. Whatever the rules could not classify lands with a person who can.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>In the project notes the solution has five parts: automated retrieval once a day, smart filtering by entry type, delta detection so only new entries go through, a tailored integration that matches the client's accounting setup, and the end-of-run report.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The documented result is a 100% reduction in manual entry: Etsy bookkeeping for Bascuda now happens without anyone typing it into Xero.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>100% reduction in manual entry.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Daily financial accuracy, with Xero never more than a day behind Etsy.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Smoother bank reconciliations, because payouts arrive as transfers and fees arrive already coded.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Time saved for the client to focus on growing their business.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The account and VAT choices are written once, as rules, so the same fee is always coded the same way. Nobody has to remember which Etsy fee carries reverse charge VAT, or where a shipping refund goes.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Etsy's missing trigger was the real constraint here. A scheduled daily pull with careful routing does the job a webhook would have done, and the emailed summary covers the edge cases a rule cannot.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you sync Etsy sales into Xero automatically?",
+      "a": "Amatec built a Make.com scenario that runs once a day and uses Etsy's List Account Ledger Entries module to read the last day of entries. A router posts each entry into Xero by type, as Spend Money, Receive Money or a bank transfer, with the matching account and VAT code."
+    },
+    {
+      "q": "Does Etsy have a trigger for new ledger entries?",
+      "a": "No. Etsy does not offer trigger-based automation for ledger updates, so real-time syncing with Xero is not possible. The workaround is a scheduled daily run that pulls entries from the last day, which keeps Xero at most a day behind."
+    },
+    {
+      "q": "How are Etsy payouts recorded in Xero?",
+      "a": "Each disbursement becomes a Xero bank transfer from the Etsy account to the business bank account. That mirrors how the money actually moves, which makes bank reconciliation smoother."
+    },
+    {
+      "q": "What happens to Etsy ledger entries the automation does not recognise?",
+      "a": "They are collected into a \"Ledger Details\" summary with description, type, amount and date, and emailed to the client at the end of the run. Nothing is silently dropped, and a person decides how to post the unusual entries."
+    }
+  ],
+  "sources": [
+    "b6d81807-1152-4ac6-9779-17de5ec9b897"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "levelup-living-calls-alerts-to-clickup",
+  "title": "LevelUp Living turns Dialpad calls and Innago alerts into ClickUp tasks",
+  "excerpt": "Amatec built two Make.com scenarios for LevelUp Living that turn Dialpad calls and Innago alert emails into ClickUp tasks. New callers become leads without duplicates, and 12 differently formatted Innago alert types are parsed, matched to the right lead or member, and linked back, so every customer call is now automatically tracked as a task.",
+  "client_name": "LevelUp Living",
+  "client_desc": "Member-based rental housing provider",
+  "country": "",
+  "year": "",
+  "headline_result": "12 Innago alert types become tasks",
+  "results": [
+    "Every customer call is now automatically tracked as a task",
+    "Tasks are created instantly, with no delays",
+    "12 types of Innago alert emails turned into ClickUp tasks linked to the right lead or member",
+    "Each call task carries full call context for follow-ups",
+    "No manual effort required to log calls"
+  ],
+  "tools": [
+    "Dialpad",
+    "ClickUp",
+    "Innago",
+    "Slack",
+    "Make.com"
+  ],
+  "platforms": [
+    "make"
+  ],
+  "industry": "Property management",
+  "seo_title": "Dialpad and Innago to ClickUp for LevelUp Living | Amatec",
+  "seo_description": "How Amatec used Make.com to turn LevelUp Living's Dialpad calls and 12 types of Innago alert emails into linked ClickUp tasks, with no duplicate leads created.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>LevelUp Living runs its leads and members in ClickUp, but the events that need action arrived somewhere else: phone calls in Dialpad, and rent and account alerts as emails from Innago.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Every inbound call had to be turned into a lead by hand. That was slow, and slow follow-up is how a lead goes cold. The ClickUp Member Leads list already held 454 tasks, so anyone logging a call also had to check the caller was not there already.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Innago was harder. There are 12 types of Innago alert emails, and they are all formatted differently. Some put the person's name in the subject and some do not, though every one has it in the body. Each alert had to be matched to the right person in one of two ClickUp lists, Member Leads or Current Members, before anyone could act on it.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built two Make.com scenarios that turn Dialpad calls and Innago alert emails into ClickUp tasks, each one linked to the right lead or member.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Dialpad to ClickUp:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>A Dialpad call event webhook starts the scenario the moment a call's state changes.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The scenario lists every task in the Member Leads list and aggregates all their phone numbers into one string.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A filter only continues if the caller's number is not already in ClickUp, so a returning caller never becomes a duplicate lead.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A new caller becomes a task named with their number, with fields preset: Lead Type INBOUND, Referral Source \"Call - Inbound\", Preferred Language English, Property to be decided, and the Dialpad contact ID.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The new ClickUp task URL is written back onto the Dialpad contact, so the next agent who takes that call can open the lead in one click.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>Innago to ClickUp:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Innago alert emails arrive at a Make.com mail hook.</li><!-- /wp:list-item --><!-- wp:list-item --><li>A router splits off \"Overdue Invoices\" emails, which contain more than one name.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The scenario reads the name from the email body, the one place every format puts it, and captures email, phone number or alert type where the alert includes them.</li><!-- /wp:list-item --><!-- wp:list-item --><li>It lists both ClickUp lists and filters for the task whose name appears in the email.</li><!-- /wp:list-item --><!-- wp:list-item --><li>It creates a task in an \"Innago\" list with the fields filled dynamically, then posts a link to it as a comment on the matching lead or member task.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>One workaround is worth explaining. Listing tasks in Make.com returns many bundles, and every module after it runs once per bundle, which would create a pile of duplicate tasks. Error handlers only fire when something fails, so the scenario uses a \"Make an API call\" module to throw an error on purpose after the first match, and the handler stops the run cleanly. Overdue Invoices emails need more than one match, so each list runs on its own route and the scenario does not stop after the first name.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The result is one ClickUp workspace where the call, the alert and the person's record all point at each other.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Every customer call at LevelUp Living is now automatically tracked as a task, and all 12 Innago alert types land in ClickUp attached to the right lead or member.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Every customer call is now automatically tracked as a task.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Tasks are created instantly, with no delays.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Each call task carries full call context for follow-ups.</li><!-- /wp:list-item --><!-- wp:list-item --><li>No manual effort is needed to log a call or an Innago alert.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Returning callers are recognised by phone number, so the lead list stays free of duplicates.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The project notes record the impact in plain terms: tasks created instantly, fewer errors because nothing is typed by hand, better follow-ups because the full context sits on the task, and agents who spend their time solving issues instead of doing admin.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Messy inbound email is often the hardest source to automate. Here the trick was to find the one thing every format shares, the name in the body, and build the matching around it.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you create ClickUp tasks from Dialpad calls automatically?",
+      "a": "Amatec used a Dialpad call event webhook in Make.com. When a call comes in, the scenario checks the caller's phone number against every task in the ClickUp leads list and creates a new lead task only if the number is not already there. The ClickUp task link is then saved on the Dialpad contact."
+    },
+    {
+      "q": "How do you stop duplicate leads when syncing calls to ClickUp?",
+      "a": "The scenario aggregates the phone numbers of all existing tasks in the leads list into one string and filters on it. A call only creates a task when the caller's number is missing from that string, so repeat callers never produce a second lead."
+    },
+    {
+      "q": "Can Innago notification emails create tasks in ClickUp?",
+      "a": "Yes. For LevelUp Living, Innago emails go to a Make.com mail hook. The scenario reads the name from the email body, finds the matching task in the Member Leads or Current Members list, creates a task in an Innago list and comments a link on the original record. It handles 12 differently formatted alert types."
+    },
+    {
+      "q": "How do you stop a Make.com scenario after the first match?",
+      "a": "Make.com error handlers only run when an error occurs, so this build uses a \"Make an API call\" module to throw an error on purpose after the first match. The error handler then stops the scenario, which prevents duplicate tasks when a list module returns many bundles."
+    }
+  ],
+  "sources": [
+    "6b25ab55-3b1c-4be3-a54d-e53ba30a191b",
+    "bcedc86b-e354-4cbb-845e-8453c1d124f3",
+    "6ac75bf3-643b-4a09-8b8b-5a733559d5fa"
+  ]
+}

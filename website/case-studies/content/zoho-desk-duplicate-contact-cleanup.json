@@ -1,0 +1,55 @@
+{
+  "slug": "zoho-desk-duplicate-contact-cleanup",
+  "title": "Cleaning 14,306 Zoho Desk contacts and catching new duplicates daily",
+  "excerpt": "Amatec cleaned a Zoho Desk database of approximately 14,306 contact records and built a daily Deluge automation that finds duplicates by name and by phone, merges true matches through the Zoho Desk API, and logs every merge or skip to Zoho Sheet. ChatGPT helped process approximately 60% of the duplicate data in the one-off cleanup.",
+  "client_name": "",
+  "client_desc": "Business running customer support on Zoho Desk",
+  "country": "",
+  "year": "",
+  "headline_result": "14,306 contact records cleaned",
+  "results": [
+    "Approximately 14,306 Zoho Desk contact records cleaned",
+    "ChatGPT processed approximately 60% of the duplicate data; the remaining 40% was processed manually",
+    "Duplicate detection by name and by phone now runs daily",
+    "Incorrect merges prevented by field-by-field checks before every merge",
+    "Every merge and skip logged with a reason in Zoho Sheet"
+  ],
+  "tools": [
+    "Zoho Desk",
+    "Zoho Desk API",
+    "Deluge",
+    "Zoho Sheet",
+    "Zoho Analytics",
+    "ChatGPT",
+    "Excel"
+  ],
+  "platforms": [
+    "zoho",
+    "ai"
+  ],
+  "industry": "Customer support",
+  "seo_title": "Zoho Desk duplicate contact cleanup | Amatec",
+  "seo_description": "How Amatec cleaned approximately 14,306 Zoho Desk contacts and built a daily Deluge automation that merges duplicates by name and phone and logs every action.",
+  "body_html": "<!-- wp:heading --><h2 class=\"wp-block-heading\">The challenge</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>A company running its customer contacts in Zoho Desk had a database of approximately 14,306 contact records that was full of duplicate and incorrect entries, along with fake or incomplete ones. The duplicates had built up over time from three sources.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Different customers sharing the same phone number</li><!-- /wp:list-item --><!-- wp:list-item --><li>Different customers with the same name</li><!-- /wp:list-item --><!-- wp:list-item --><li>Contacts created automatically by the client's Zoho Voice integration, which places calls and gathers information</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The Zoho Voice records caused a specific mess. During that automation the phone number was sometimes saved in the Last Name field instead of the phone field. Desk ended up with contacts whose surname was a phone number, sitting next to the real contact for the same person.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Any fix had to be careful. Two different customers can share a name or a phone number, so matching on one field and merging would create new errors. The automation needed to merge true duplicates and leave everyone else alone.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The size of the backlog was a separate problem. The Zoho Desk API could not retrieve and process the full database directly. Search filters were limited, response sizes were restricted, and output was capped at around 50,000 characters.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">What we built</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>Amatec built a daily deduplication automation for Zoho Desk using Deluge scripts and the Zoho Desk API, with every merge and skip logged to Zoho Sheet and analysed in Zoho Analytics. Before it could run, we cleared the existing backlog in a one-off pass.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The daily run uses two separate scripts, each working on contacts created the previous day:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Name check. For each new contact, the script finds existing contacts with the same name and compares email, phone, mobile, first name and last name. If every relevant field matches, the records merge. If any key field differs, for example same name but different email, the pair is skipped.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Phone check. The script finds contacts with the same phone number and compares full name, email and mobile. Matching records merge. Conflicts, such as same phone but different mobile, are skipped.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The Zoho Voice problem got its own rule. When a phone number appears in the Last Name field, the script recognises it and merges that record into the real contact, logging the reason as phone number as a name.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Merges go through the Zoho Desk merge API. The script picks a master contact, merges the duplicate into it, and copies across anything the master is missing: email, mobile, phone, secondary email, work phone and address fields.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>Every action is written to Zoho Sheet with the date, first and last name, master contact ID, child contact ID, merged or skipped, and the reason. Each run removes repeated log lines and keeps a row counter in a second sheet, so new entries land below the previous day's. The log then feeds Zoho Analytics.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The one-off backlog clean worked around the API limits:</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>All contacts were exported from Zoho Desk to an Excel file.</li><!-- /wp:list-item --><!-- wp:list-item --><li>Zoho Sheet identified the duplicates, which were isolated across two sheets without deleting anything.</li><!-- /wp:list-item --><!-- wp:list-item --><li>ChatGPT generated an array of duplicate contact IDs and handled approximately 60% of the duplicate data.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The remaining 40% was processed manually, checking each potential duplicate in Zoho Desk by name, phone number and email.</li><!-- /wp:list-item --><!-- wp:list-item --><li>The verified array was handed to the merge script.</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The most stubborn bug was a small one. The Zoho Desk API returns many empty fields as null, but inside Deluge they arrive as an empty string. Logic that checked for null made the merge fail, and tracking that down took significant debugging. The scripts now treat every missing field as an empty string.</p><!-- /wp:paragraph -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">The results</h2><!-- /wp:heading -->\n<!-- wp:paragraph --><p>The client's Zoho Desk contact database of approximately 14,306 records was cleaned, and a daily automation now detects and resolves new duplicate contacts.</p><!-- /wp:paragraph -->\n<!-- wp:list --><ul class=\"wp-block-list\"><!-- wp:list-item --><li>Approximately 14,306 contact records cleaned in the initial pass</li><!-- /wp:list-item --><!-- wp:list-item --><li>ChatGPT processed approximately 60% of the duplicate data, with the remaining 40% verified and processed manually</li><!-- /wp:list-item --><!-- wp:list-item --><li>Duplicate detection by name and by phone runs every day</li><!-- /wp:list-item --><!-- wp:list-item --><li>Every merge and skip logged in Zoho Sheet with its reason</li><!-- /wp:list-item --></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>The skip rules matter as much as the merges. Because a merge only happens when the key fields agree, the automation prevents incorrect merges, and two customers who happen to share a name or a number stay separate.</p><!-- /wp:paragraph -->\n<!-- wp:paragraph --><p>The log gives the client transparency. Anyone can open the sheet and see why a contact was merged or left alone, and the same data sits in Zoho Analytics for review. That record is what keeps the database clean over the long term, instead of a one-time tidy that drifts back.</p><!-- /wp:paragraph -->",
+  "faqs": [
+    {
+      "q": "How do you merge duplicate contacts in Zoho Desk automatically?",
+      "a": "Run a scheduled Deluge script that fetches new contacts, searches for existing ones with the same name or phone number, and compares the other fields before calling the Zoho Desk merge API. In this build the master contact also picks up any email, phone, mobile or address details it was missing from the duplicate."
+    },
+    {
+      "q": "How do you stop a deduplication script from merging two different people?",
+      "a": "Only merge when every key field agrees. Here the name check compares email, phone, mobile, first name and last name, and the phone check compares full name, email and mobile. If anything conflicts, such as the same phone but a different email, the pair is skipped and the reason is logged."
+    },
+    {
+      "q": "Why can't you clean thousands of Zoho Desk contacts through the API in one go?",
+      "a": "The Zoho Desk API has limited search filters, restricted response sizes and output limits of around 50,000 characters. For a backlog of approximately 14,306 records, Amatec exported the contacts to Excel, found duplicates in Zoho Sheet, verified them, and then fed the confirmed IDs to the merge script."
+    },
+    {
+      "q": "Can ChatGPT help deduplicate a CRM contact list?",
+      "a": "It can help, with limits. In this cleanup ChatGPT generated an array of duplicate contact IDs and processed approximately 60% of the duplicate data. The remaining 40% was checked by hand in Zoho Desk against name, phone number and email before anything was merged."
+    }
+  ],
+  "sources": [
+    "d82a0d5d-27fa-4fe3-a5bc-2cf48d1835ce"
+  ]
+}
