@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $steps = array(
-	array( 'n' => '01', 'icon' => 'search', 't' => 'Identify high-impact areas', 'd' => 'We collaborate with you to find the tasks where AI delivers the most leverage, fast.' ),
+	array( 'n' => '01', 'icon' => 'search', 't' => 'Identify high-impact areas', 'd' => 'We collaborate with you to find the tasks where AI saves the most time, fast.' ),
 	array( 'n' => '02', 'icon' => 'pencil-ruler', 't' => 'Design & deploy', 'd' => 'We pick the model and build the workflow around it, starting with the cheapest model that does the job well.' ),
 	array( 'n' => '03', 'icon' => 'plug', 't' => 'Integrate with your stack', 'd' => 'It plugs into your CRM, helpdesk or inbox through the tools you already use.' ),
 );

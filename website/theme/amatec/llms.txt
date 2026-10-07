@@ -46,7 +46,15 @@
 
 ## Company
 
+- [Home](https://amatec.in/): What Amatec does, the four platforms, how a project runs and answers to common questions.
 - [About Amatec](https://amatec.in/about/)
 - [Contact](https://amatec.in/contact/)
 - [Case studies](https://amatec.in/case-studies/): Client projects on Make.com, n8n, Zoho and monday.com, each with the problem, what was built and the result.
 - [Blog](https://amatec.in/blog/)
+
+## Policies
+
+- [Terms and conditions](https://amatec.in/termsandconditions/)
+- [Privacy policy](https://amatec.in/privacypolicy/)
+- [Refund policy](https://amatec.in/refundpolicy/)
+- [Cancellation policy](https://amatec.in/cancellationpolicy/)

@@ -18,7 +18,7 @@ get_template_part( 'template-parts/platforms/steps', null, array(
 	'sub'    => __( 'It starts with a conversation: no commitment, no jargon.', 'amatec' ),
 	'cta'    => __( 'Start with a free consultation', 'amatec' ),
 	'steps'  => array(
-		array( 'n' => '01', 'icon' => 'phone-call', 't' => __( 'Free consultation', 'amatec' ), 'd' => __( 'A 30-minute call where we map the process that drains your week and spot the highest-leverage automation.', 'amatec' ) ),
+		array( 'n' => '01', 'icon' => 'phone-call', 't' => __( 'Free consultation', 'amatec' ), 'd' => __( 'A 30-minute call where we map the process that drains your week and spot the automation that would save you the most time.', 'amatec' ) ),
 		array( 'n' => '02', 'icon' => 'pencil-ruler', 't' => __( 'Scope & blueprint', 'amatec' ), 'd' => __( 'You get a clear scenario blueprint, a fixed-scope quote, and an honest take on what is (and isn’t) worth automating.', 'amatec' ) ),
 		array( 'n' => '03', 'icon' => 'rocket', 't' => __( 'Build, test & hand over', 'amatec' ), 'd' => __( 'We build it on Make, test against real edge cases, then hand it over with documentation and monitoring in place.', 'amatec' ) ),
 	),

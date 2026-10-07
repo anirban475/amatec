@@ -50,6 +50,66 @@ function amatec_home_faqs() {
 }
 
 /**
+ * About page FAQ. Facts only from the About page itself.
+ *
+ * @return array
+ */
+function amatec_about_faqs() {
+	return array(
+		array(
+			'q' => __( 'Who founded Amatec?', 'amatec' ),
+			'a' => __( 'Amatec was founded by Anirban Sinha. He has built client automations since 2020 on Make.com, n8n, Zoho and monday.com, and started Amatec on one idea: if software can do the work, a person should not have to.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'Where is Amatec based, and where are its clients?', 'amatec' ),
+			'a' => __( 'Amatec is an automation studio in Vadodara, Gujarat, India. It works remotely with clients in the US, Europe and Asia.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'Which platforms is Amatec certified on?', 'amatec' ),
+			'a' => __( 'Amatec is certified on Make.com, Zoho and monday.com. It also builds production and self-hosted workflows on n8n.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'Has Amatec published its own apps?', 'amatec' ),
+			'a' => __( 'Yes. Amatec has published two extensions on the Zoho Marketplace, Stock Procurement for Zoho Inventory and T-Chat for Zoho CRM, and a public app on Make.com for Aurora Solar.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'How does Amatec run a project?', 'amatec' ),
+			'a' => __( 'It starts with a free 30-minute call and a fixed-scope quote. Amatec builds on the tools you already pay for, ships in small steps that fit your budget, and includes monitoring and alerts so a workflow does not break silently.', 'amatec' ),
+		),
+	);
+}
+
+/**
+ * Contact page FAQ. Facts only from the Contact page itself.
+ *
+ * @return array
+ */
+function amatec_contact_faqs() {
+	return array(
+		array(
+			'q' => __( 'How do I contact Amatec?', 'amatec' ),
+			'a' => __( 'Email hello@amatec.in, call +91 72659 69478, or use the form on this page. The studio is at Kplex, Alkapuri, Vadodara, Gujarat 390007, India.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'How quickly does Amatec reply?', 'amatec' ),
+			'a' => __( 'Most messages get a reply within one business day. An automation engineer reads every message, not a ticketing bot.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'Can I book a call instead of writing?', 'amatec' ),
+			'a' => __( 'Yes. Pick any open slot for a free 30-minute workflow audit with the engineer who would build it. You get an instant confirmation by email.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'What happens on the free audit call?', 'amatec' ),
+			'a' => __( 'We map the process that takes up your week, show you a before and after, and follow up with a fixed-scope quote, or tell you honestly if you do not need us.', 'amatec' ),
+		),
+		array(
+			'q' => __( 'What should I put in my message?', 'amatec' ),
+			'a' => __( 'Describe the process you want to automate and the tools it touches. No field is required to start, but the more detail you give, the more useful the first reply is.', 'amatec' ),
+		),
+	);
+}
+
+/**
  * FAQ sets for the platform, AI and product pages.
  *
  * @param string $key make|n8n|monday|zoho|ai|tchat|stock.
