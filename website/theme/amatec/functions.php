@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.9.1' );
+define( 'AMATEC_VERSION', '1.9.2' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).

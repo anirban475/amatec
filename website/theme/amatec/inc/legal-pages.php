@@ -139,7 +139,7 @@ function amatec_legal_pages() {
 					'id' => 'cookies',
 					'title' => 'Cookies',
 					'body' => array(
-						'We may use cookies to enhance user experience and analyze website performance.',
+						'We may use cookies to improve user experience and analyze website performance.',
 					),
 				),
 				array(

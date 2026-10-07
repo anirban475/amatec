@@ -13,6 +13,7 @@ get_header();
 get_template_part( 'template-parts/contact/hero' );
 get_template_part( 'template-parts/contact/form' );
 ?>
+<?php get_template_part( 'template-parts/landing/faq', null, array( 'data' => array( 'faqs' => amatec_contact_faqs() ) ) ); ?>
 <div id="book">
 	<div class="wrap" style="padding-top:8px;">
 		<div class="sec-head center" style="max-width:620px;margin:0 auto;">

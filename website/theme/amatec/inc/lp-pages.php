@@ -176,7 +176,7 @@ function amatec_lp_pages() {
 				),
 				array(
 					'q' => 'Which automation platform is best for my business?',
-					'a' => 'It depends on your tools, technical needs, and budget. Make.com and Zapier suit most no-code needs; n8n suits teams wanting control and self-hosting; Zoho fits businesses already inside that ecosystem. We help you decide during your free audit.',
+					'a' => 'It depends on your tools, technical needs, and budget. Make.com and Zapier suit most no-code needs; n8n suits teams wanting control and self-hosting; Zoho fits businesses that already run on Zoho apps. We help you decide during your free audit.',
 				),
 				array(
 					'q' => 'Do I need coding skills to use automation?',
@@ -277,7 +277,7 @@ function amatec_lp_pages() {
 			'automate' => array(
 				'eyebrow' => 'WHAT WE BUILD',
 				'title' => 'CRM workflows we automate',
-				'sub' => 'Sales-aware automation designed around how deals actually close. Built deep in the Zoho ecosystem, and connected to everything else.',
+				'sub' => 'Sales-aware automation designed around how deals actually close. Built on Zoho, and connected to everything else.',
 				'items' => array(
 					'Lead capture & enrichment',
 					'Lead scoring & instant assignment',
@@ -432,7 +432,7 @@ function amatec_lp_pages() {
 					),
 					array(
 						'icon' => 'ticket',
-						't' => 'Streamlined ticketing',
+						't' => 'Smarter ticketing',
 						'd' => 'Route, tag, and escalate support automatically.',
 					),
 					array(
@@ -627,7 +627,7 @@ function amatec_lp_pages() {
 					array(
 						'icon' => 'undo-2',
 						't' => 'Returns & support',
-						'd' => 'Streamlined RMA and support workflows.',
+						'd' => 'Returns (RMA) and support workflows that run on their own.',
 					),
 					array(
 						'icon' => 'bar-chart-3',
@@ -927,7 +927,7 @@ function amatec_lp_pages() {
 				'lead' => 'Less admin,',
 				'accent' => 'more time',
 				'tail' => 'with patients',
-				'intro' => 'Healthcare practices lose time to scheduling, intake, reminders, and back-office coordination. We build workflows that streamline practice operations so your team spends more time with patients and less on paperwork.',
+				'intro' => 'Healthcare practices lose time to scheduling, intake, reminders, and back-office coordination. We build workflows that take routine admin off your practice so your team spends more time with patients and less on paperwork.',
 				'outcome' => 'Fewer no-shows, faster intake, smoother operations.',
 				'card' => array(
 					'icon' => 'heart-pulse',
@@ -1090,7 +1090,7 @@ function amatec_lp_pages() {
 			'faqs' => array(
 				array(
 					'q' => 'How can automation help a healthcare practice?',
-					'a' => 'It streamlines non-clinical work, like scheduling, intake, reminders, and back-office coordination, reducing admin load, cutting no-shows, and improving the patient experience.',
+					'a' => 'It takes over non-clinical work, like scheduling, intake, reminders, and back-office coordination, reducing admin load, cutting no-shows, and improving the patient experience.',
 				),
 				array(
 					'q' => 'Is patient data handled carefully?',
@@ -1759,7 +1759,7 @@ function amatec_lp_pages() {
 					array(
 						'icon' => 'search',
 						't' => 'Audit',
-						'd' => 'Your lead-to-close journey and where it leaks.',
+						'd' => 'Your lead-to-close process and where it leaks.',
 					),
 					array(
 						'icon' => 'map',
@@ -1829,7 +1829,7 @@ function amatec_lp_pages() {
 			'cta' => array(
 				'eyebrow' => 'BOOK A MEETING',
 				'title' => 'Stop losing leads',
-				'sub' => 'Book a free 30-minute sales audit. We will map your lead-to-close journey, find where revenue leaks, and show you the automations to fix it. No obligation.',
+				'sub' => 'Book a free 30-minute sales audit. We will map your lead-to-close process, find where revenue leaks, and show you the automations to fix it. No obligation.',
 			),
 			'meta' => array(
 				'seo_title' => 'Lead & Sales Automation | AMATEC — Capture, Route & Close Faster',
@@ -2093,7 +2093,7 @@ function amatec_lp_pages() {
 			'automate' => array(
 				'eyebrow' => 'WHAT WE AUTOMATE',
 				'title' => 'Finance workflows we automate',
-				'sub' => 'We connect accounting to your CRM, sales, and operations tools, and we have built our own Zoho applications, so we know the ecosystem inside out.',
+				'sub' => 'We connect accounting to your CRM, sales, and operations tools, and we have built our own Zoho applications, so we know Zoho inside out.',
 				'items' => array(
 					'Quote-to-invoice & recurring billing',
 					'Customer & vendor payment recording',
@@ -2149,7 +2149,7 @@ function amatec_lp_pages() {
 					array(
 						'icon' => 'layers',
 						't' => 'Specialist Zoho Books',
-						'd' => 'Deep Zoho ecosystem expertise.',
+						'd' => 'Deep expertise across Zoho apps.',
 					),
 					array(
 						'icon' => 'shield-check',
@@ -2509,7 +2509,7 @@ function amatec_lp_pages() {
 					array(
 						'icon' => 'layers',
 						't' => 'Zoho Desk expertise',
-						'd' => 'Deep Zoho ecosystem knowledge.',
+						'd' => 'Deep knowledge of Zoho apps.',
 					),
 					array(
 						'icon' => 'heart-handshake',
