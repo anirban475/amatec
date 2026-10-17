@@ -1,0 +1,316 @@
+{
+ "id": "kLE2MrhdbVHVgwAu",
+ "name": "Google Analytics MCP Server",
+ "description": "Google Analytics MCP Server (GA4): MCP Server Trigger v2 exposing 7 GA4 Admin + Data API tools via HTTP Request Tools. Auth via Google Service Account (googleApi, analytics.readonly). property_id is per-call, so multiple properties work. Plus run_search_analytics (Search Console searchAnalytics.query, scope webmasters.readonly).",
+ "nodes": [
+  {
+   "id": "96750017-b23d-4ddd-8d6c-02809563d2e7",
+   "name": "Google Analytics MCP Server",
+   "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+   "typeVersion": 2,
+   "position": [
+    600,
+    300
+   ],
+   "parameters": {
+    "path": "google-analytics-mcp"
+   },
+   "webhookId": "240c0f9c-2355-4596-90a0-ce540e013936"
+  },
+  {
+   "id": "19c10a78-4f2f-42e4-bdba-339f3b633b79",
+   "name": "get_account_summaries",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    0,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Retrieves the user's Google Analytics account summaries: every GA4 account and the properties under it, with display names and numeric IDs. Call this first to discover the property_id that the other tools need. One account can contain several properties (assets) - each has its own property_id.",
+    "method": "GET",
+    "url": "https://analyticsadmin.googleapis.com/v1beta/accountSummaries?pageSize=200",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "e61dea2c-aef9-4b9f-bd38-f3b0a465eca9",
+   "name": "get_property_details",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    200,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Returns configuration details for one GA4 property: display name, time zone, currency code, industry category, service level and parent account. Requires the numeric property_id (from get_account_summaries).",
+    "method": "GET",
+    "url": "=https://analyticsadmin.googleapis.com/v1beta/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, without the properties/ prefix, e.g. 123456789\", \"string\") }}",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "037e1089-469d-4af5-8422-23a2a1517b90",
+   "name": "list_google_ads_links",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    400,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Returns the list of linked Google Ads accounts for a GA4 property. Requires the numeric property_id.",
+    "method": "GET",
+    "url": "=https://analyticsadmin.googleapis.com/v1beta/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, e.g. 123456789\", \"string\") }}/googleAdsLinks",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "f389596d-e8ae-421f-be0f-00e929cd8863",
+   "name": "get_custom_dimensions_and_metrics",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    600,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Returns the custom dimensions defined on a GA4 property (parameterName, apiName, scope). Use these apiNames when building run_report requests. Requires the numeric property_id. (Clone this node pointing at /customMetrics to also list custom metrics.)",
+    "method": "GET",
+    "url": "=https://analyticsadmin.googleapis.com/v1beta/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, e.g. 123456789\", \"string\") }}/customDimensions",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "694c86d8-443e-47ab-b975-932abcc47d67",
+   "name": "run_report",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    800,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Runs a GA4 Data API core report (runReport). Provide property_id and request, where request is the runReport request body serialized as a JSON string containing dateRanges, dimensions and metrics. Returns rows of dimension and metric values.",
+    "method": "POST",
+    "url": "=https://analyticsdata.googleapis.com/v1beta/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, e.g. 123456789\", \"string\") }}:runReport",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('request', 'The GA4 Data API runReport request body, serialized as a JSON string. Send a string, not an object, and do not wrap it in markdown code fences. Include dateRanges (array of objects with startDate and endDate), dimensions (array of objects with name) and metrics (array of objects with name). Optional: dimensionFilter, metricFilter, orderBys, limit. Do not include the property field. Example: {\"dateRanges\": [{\"startDate\": \"7daysAgo\", \"endDate\": \"today\"} ], \"dimensions\": [{\"name\": \"country\"} ], \"metrics\": [{\"name\": \"activeUsers\"} ], \"limit\": 10}') }}"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "be915d58-e2b5-43cf-ba8a-494b9d9696df",
+   "name": "run_realtime_report",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    1000,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Runs a GA4 Data API realtime report (runRealtimeReport) covering roughly the last 30 minutes. Provide property_id and request, where request is the runRealtimeReport request body serialized as a JSON string with dimensions and metrics (no dateRanges).",
+    "method": "POST",
+    "url": "=https://analyticsdata.googleapis.com/v1beta/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, e.g. 123456789\", \"string\") }}:runRealtimeReport",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('request', 'The GA4 Data API runRealtimeReport request body, serialized as a JSON string. Send a string, not an object, and do not wrap it in markdown code fences. Include dimensions (array of objects with name) and metrics (array of objects with name). Realtime reports do not take dateRanges. Do not include the property field. Example: {\"dimensions\": [{\"name\": \"deviceCategory\"} ], \"metrics\": [{\"name\": \"activeUsers\"} ]}') }}"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "bfa10a6d-16d9-4ddd-bcf8-83828d0bf511",
+   "name": "run_funnel_report",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    1200,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Runs a GA4 Data API funnel report (runFunnelReport, v1alpha). Provide property_id and request, where request is the runFunnelReport request body serialized as a JSON string with dateRanges and a funnel definition. Returns the funnel visualization/table.",
+    "method": "POST",
+    "url": "=https://analyticsdata.googleapis.com/v1alpha/properties/{{ $fromAI(\"property_id\", \"The GA4 property ID as a number, e.g. 123456789\", \"string\") }}:runFunnelReport",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('request', 'The GA4 Data API runFunnelReport request body, serialized as a JSON string. Send a string, not an object, and do not wrap it in markdown code fences. Include dateRanges and a funnel object whose steps array holds the funnel steps, each with a name and a filterExpression. Do not include the property field. Example: {\"dateRanges\": [{\"startDate\": \"28daysAgo\", \"endDate\": \"today\"} ], \"funnel\": {\"steps\": [{\"name\": \"Session start\", \"filterExpression\": {\"funnelEventFilter\": {\"eventName\": \"session_start\"} } } ] } }') }}"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  },
+  {
+   "id": "32b1bbf8-f621-4adf-b11b-c4d119396db9",
+   "name": "run_search_analytics",
+   "type": "n8n-nodes-base.httpRequestTool",
+   "typeVersion": 4.4,
+   "position": [
+    1400,
+    620
+   ],
+   "parameters": {
+    "toolDescription": "Queries Google Search Console search analytics (searchAnalytics.query) for queries, pages, clicks, and impressions. Search Console data lags about 2 days, and dates are YYYY-MM-DD. Provide site_url and request, where request is the searchAnalytics.query request body serialized as a JSON string. Example request: {\"startDate\": \"2026-10-10\", \"endDate\": \"2026-10-14\", \"dimensions\": [\"query\", \"page\"], \"rowLimit\": 25}.",
+    "method": "POST",
+    "url": "=https://www.googleapis.com/webmasters/v3/sites/{{ encodeURIComponent($fromAI(\"site_url\", \"The Search Console property exactly as registered, e.g. https://jobdrive.ai/ for a URL prefix property\", \"string\")) }}/searchAnalytics/query",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "googleApi",
+    "sendBody": true,
+    "contentType": "json",
+    "specifyBody": "json",
+    "jsonBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('request', 'The Search Console searchAnalytics.query request body, serialized as a JSON string. Send a string, not an object, and do not wrap it in markdown code fences. Search Console data lags about 2 days, and dates are YYYY-MM-DD. Contains startDate, endDate, dimensions (query, page, date, country, device), rowLimit, and optional dimensionFilterGroups. Example: {\"startDate\": \"2026-10-10\", \"endDate\": \"2026-10-14\", \"dimensions\": [\"query\", \"page\"], \"rowLimit\": 25}') }}"
+   },
+   "credentials": {
+    "googleApi": {
+     "id": "kR9QkPlKkDJ1H6NV",
+     "name": "Google Analytics Service Account"
+    }
+   }
+  }
+ ],
+ "connections": {
+  "get_account_summaries": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "get_property_details": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "list_google_ads_links": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "get_custom_dimensions_and_metrics": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "run_report": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "run_realtime_report": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "run_funnel_report": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  },
+  "run_search_analytics": {
+   "ai_tool": [
+    [
+     {
+      "node": "Google Analytics MCP Server",
+      "type": "ai_tool",
+      "index": 0
+     }
+    ]
+   ]
+  }
+ },
+ "settings": {
+  "executionOrder": "v1",
+  "availableInMCP": true,
+  "binaryMode": "separate"
+ }
+}
