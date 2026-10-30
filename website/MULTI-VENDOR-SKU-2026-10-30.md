@@ -48,3 +48,11 @@ Tools: `tools/local-preview/router.php` treats bespoke site pages as published s
 - `php tools/test_render.php theme/amatec` passes; `python3 tools/check_site.py` passes on the existing pages
 
 Still to run on the live draft: Yoast SEO and readability, Google Rich Results Test (both schemas), PageSpeed mobile 85+.
+
+## Live fixes, theme 1.10.2 (31 Oct 2026)
+
+- Until the Zoho Marketplace listing is approved, the hero and closing-band buttons read "Book a demo" and open https://cal.com/amatec/vendor-skus-setup in a new tab; the "Install from" row is plain text. `amatec_mvs()['marketplace']` is empty; setting it to the listing URL switches everything back (steps in `theme/amatec/readme.txt`).
+- Yoast title "Vendor SKUs on POs and Bills in Zoho Inventory | Amatec" and the shorter meta description. `amatec_mvs_update_seo()` writes them to the live page once, on the first wp-admin visit after upload, and only replaces the values the theme set at creation.
+- SoftwareApplication: `image` (share image) and `screenshot` (01-po-autofill, 06-bill-paste-match-card); `priceSpecification` removed (Google flagged its type); no rating or review.
+- Feature cards keep equal height from 641 px up; below that each card fits its text.
+- Rich Results Test (code input, absolute URLs as on amatec.in): Software Apps, 1 valid item, 1 non-critical issue (missing aggregateRating, optional).

@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.10.1' );
+define( 'AMATEC_VERSION', '1.10.3' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -18,6 +18,7 @@ require_once get_theme_file_path( 'inc/legal-pages.php' );
 require_once get_theme_file_path( 'inc/aio.php' );
 require_once get_theme_file_path( 'inc/case-studies.php' );
 require_once get_theme_file_path( 'inc/multi-vendor-sku.php' );
+require_once get_theme_file_path( 'inc/contact-alerts.php' );
 
 /**
  * Bespoke designed pages (each has its own page-{slug}.php template).
@@ -38,10 +39,10 @@ function amatec_site_pages() {
 		't-chat-zoho-extension'                => array( 'T-Chat for Zoho CRM', 'T-Chat for Zoho CRM — Amatec' ),
 		'multi-vendor-sku-for-zoho-inventory'  => array(
 			'Multi Vendor SKU for Zoho Inventory',
-			'Multi Vendor SKU: Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
+			'Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
 			array(
 				'status'  => 'draft',
-				'desc'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
+				'desc'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Inventory POs and bills and matches vendor bills to your items.',
 				'focuskw' => 'vendor SKU zoho inventory',
 				'ogimage' => 'assets/media/multi-vendor-sku/og-multi-vendor-sku.jpg',
 			),
@@ -212,9 +213,11 @@ add_action( 'wp_body_open', 'amatec_gtm_body' );
 
 /* ------------------------------------------------------------------
  * Contact form backend — stores every submission as a private
- * "Contact Message" (WP Admin → Contact Messages) AND emails the admin.
+ * "Contact Message" (WP Admin → Contact Messages), alerts the admin through
+ * the n8n webhook (inc/contact-alerts.php: email + Slack DM) and also emails
+ * the admin directly as a backup.
  * Front-end posts JSON to /wp-json/amatec/v1/contact (see initContactForm).
- * Recipient: AMATEC_CONTACT_TO if defined, else the site admin email.
+ * Backup email recipient: AMATEC_CONTACT_TO if defined, else the site admin email.
  * ------------------------------------------------------------------ */
 function amatec_register_messages_cpt() {
 	register_post_type( 'amatec_message', array(
@@ -285,7 +288,19 @@ function amatec_handle_contact( WP_REST_Request $request ) {
 		update_post_meta( $post_id, 'cf_ip', sanitize_text_field( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 	}
 
-	// 2) Email the admin (best effort).
+	// 2) Alert the admin: n8n webhook → email through Microsoft 365 + Slack DM.
+	$alert = amatec_send_enquiry_alert( array(
+		'name'      => $name,
+		'email'     => $email,
+		'company'   => $company,
+		'phone'     => $phone,
+		'interest'  => $interest,
+		'message'   => $message,
+		'admin_url' => is_wp_error( $post_id ) ? admin_url( 'edit.php?post_type=amatec_message' ) : admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
+		'received'  => current_time( 'Y-m-d H:i' ),
+	) );
+
+	// 3) Email the admin directly as a backup (best effort; often filtered as spoofing).
 	$to     = ( defined( 'AMATEC_CONTACT_TO' ) && AMATEC_CONTACT_TO ) ? AMATEC_CONTACT_TO : get_option( 'admin_email' );
 	$domain = preg_replace( '/^www\./', '', (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
 	$subject = sprintf( '[AMATEC] New enquiry from %s', $name ? $name : $email );
@@ -308,9 +323,15 @@ function amatec_handle_contact( WP_REST_Request $request ) {
 	}
 	$sent = wp_mail( $to, $subject, $body, $headers );
 
+	if ( ! is_wp_error( $post_id ) ) {
+		update_post_meta( $post_id, 'cf_alert', $alert );
+		update_post_meta( $post_id, 'cf_emailed', $sent ? 'yes' : 'no' );
+	}
+
 	return new WP_REST_Response( array(
 		'ok'      => true,
 		'stored'  => ! is_wp_error( $post_id ),
+		'alerted' => 'sent' === $alert,
 		'emailed' => (bool) $sent,
 	), 200 );
 }
