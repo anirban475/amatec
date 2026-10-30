@@ -15,10 +15,9 @@ $flow = array(
 	array( 'icon' => 'shopping-cart', 't' => 'Purchase order side panel', 'd' => 'Pick a vendor on a purchase order and each line gets that vendor\'s SKU. Add a missing SKU from the side panel. The app warns when a line is below the vendor\'s minimum order quantity.' ),
 	array( 'icon' => 'receipt', 't' => 'Bill side panel', 'd' => 'Paste the lines from the vendor\'s bill. The app finds your items by vendor SKU and fills the bill lines. A price change card shows when a price differs from what you paid before.' ),
 	array( 'icon' => 'clipboard-check', 't' => 'Bill Check panel', 'd' => 'On a saved bill, the Bill Check panel checks the bill against its purchase order.' ),
-	array( 'icon' => 'log-out', 't' => 'Uninstall', 'd' => 'Uninstall from Zoho Inventory whenever you like. The app sends Amatec the same five details it sent at install.' ),
 );
 ?>
-<section id="mvs-flow" class="section" style="background:var(--bg-page);">
+<section id="mvs-flow" class="section" style="background:var(--bg-subtle);">
 	<div class="wrap" style="max-width:900px;">
 		<div class="sec-head center" style="max-width:680px;">
 			<div class="eyebrow"><?php esc_html_e( 'INSIDE ZOHO INVENTORY', 'amatec' ); ?></div>

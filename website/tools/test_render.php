@@ -10,6 +10,6 @@ require "$T/inc/aio.php"; require "$T/inc/multi-vendor-sku.php";
 foreach (['home'=>amatec_home_faqs()] + array_combine(['make','n8n','monday','zoho','ai','tchat','stock','mvs'], array_map('amatec_platform_faqs',['make','n8n','monday','zoho','ai','tchat','stock','mvs'])) as $k=>$f) { echo "$k: ".count($f)." faqs\n"; if(!$f) exit("EMPTY $k\n"); }
 ob_start(); $args=['data'=>['faqs'=>amatec_home_faqs()]]; include "$T/template-parts/landing/faq.php"; $h=ob_get_clean();
 preg_match('#<script type="application/ld\+json">(.*?)</script>#s',$h,$m); $j=json_decode($m[1],true); echo "FAQPage valid: ".($j['@type']==='FAQPage' && count($j['mainEntity'])===7 ? 'yes':'NO')."\n";
-ob_start(); $args=['data'=>['faqs'=>amatec_platform_faqs('mvs'),'q_tag'=>'h3']]; include "$T/template-parts/landing/faq.php"; $h=ob_get_clean(); echo "mvs FAQ questions as h3: ".(substr_count($h,'<h3 class="lp-faq-h">')===8 && strpos($h,'[PRICE]')!==false ? 'yes':'NO')."\n";
+ob_start(); $args=['data'=>['faqs'=>amatec_platform_faqs('mvs'),'q_tag'=>'h3']]; include "$T/template-parts/landing/faq.php"; $h=ob_get_clean(); echo "mvs FAQ questions as h3: ".(substr_count($h,'<h3 class="lp-faq-h">')===7 && strpos($h,'[PRICE]')!==false ? 'yes':'NO')."\n";
 ob_start(); include "$T/template-parts/home/summary.php"; $s=ob_get_clean(); echo "summary chars: ".strlen(strip_tags($s))."\n";
 ob_start(); amatec_org_schema(); $o=ob_get_clean(); preg_match('#>(.*)</script>#s',$o,$m); $j=json_decode($m[1],true); echo "Org valid: ".($j['name']==='Amatec'?'yes':'NO')."\n";

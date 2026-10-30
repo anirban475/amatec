@@ -1435,7 +1435,7 @@ textarea.cf-field { min-height: 120px; resize: vertical; line-height: 1.5; }
    ============================================================ */
 .lp-faq-h { margin: 0; font: inherit; }
 .mvs-glance:hover, .mvs-codes:hover, .mvs-table-wrap:hover, .mvs-extras:hover,
-.mvs-data-list:hover, .mvs-flow .body:hover, .mvs-frame:hover { transform: none; }
+.mvs-flow .body:hover, .mvs-frame:hover { transform: none; }
 
 /* answer block + at-a-glance card */
 .mvs-answer-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: start; }
@@ -1532,18 +1532,6 @@ textarea.cf-field { min-height: 120px; resize: vertical; line-height: 1.5; }
 .mvs-flow .h3 { margin-top: 4px; font-size: 18px; }
 .mvs-flow p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--fg2); }
 
-/* data and privacy */
-.mvs-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-weight: 600; color: var(--blue-600); }
-.mvs-link i { width: 16px; height: 16px; transition: transform var(--dur-base) var(--ease-standard); }
-.mvs-link:hover { color: var(--blue-700); }
-.mvs-link:hover i { transform: translateX(3px); }
-.mvs-data-list { list-style: none; margin: 0; padding: 10px 28px; }
-.mvs-data-list li { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--border-subtle);
-  font-size: 15.5px; line-height: 1.55; color: var(--fg1); }
-.mvs-data-list li:first-child { border-top: 0; }
-.mvs-data-list .ic { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
-  background: var(--blue-50); color: var(--blue-600); }
-.mvs-data-list .ic i { width: 18px; height: 18px; }
 
 @media (max-width: 980px) {
   .mvs-answer-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1573,6 +1561,5 @@ textarea.cf-field { min-height: 120px; resize: vertical; line-height: 1.5; }
   .mvs-extras { padding: 24px 20px; }
   .mvs-codes { padding: 22px; }
   .mvs-codes-item .v { font-size: 21px; }
-  .mvs-data-list { padding: 6px 20px; }
   .mvs-flow .body { padding: 16px 18px; }
 }

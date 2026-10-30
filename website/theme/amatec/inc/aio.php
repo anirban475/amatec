@@ -282,10 +282,6 @@ function amatec_platform_faqs( $key ) {
 				'a' => __( 'Yes. Paste the lines from a vendor\'s bill and the app finds your items by the vendor\'s SKU, in upper or lower case, and fills the bill lines. On a saved bill, the Bill Check panel checks the bill against its purchase order.', 'amatec' ),
 			),
 			array(
-				'q' => __( 'Where is my data stored, and what does Amatec receive?', 'amatec' ),
-				'a' => __( 'Your SKUs are stored in your own Zoho Inventory account, and the app does not copy purchase orders, bills, items or vendors out of Zoho. On install and uninstall only, Amatec receives your organization ID, organization name, the installer\'s email, the date and the app version, so it can send a setup guide and give support.', 'amatec' ),
-			),
-			array(
 				'q' => __( 'Which Zoho Inventory editions and regions does it support?', 'amatec' ),
 				'a' => __( 'It works with any Zoho Inventory edition in any Zoho data centre. You install it from Zoho Marketplace, and the interface is in English. A Zoho Books version is planned.', 'amatec' ),
 			),
