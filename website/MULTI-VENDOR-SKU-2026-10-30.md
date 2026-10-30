@@ -1,6 +1,6 @@
 # Multi Vendor SKU page + Privacy Policy section 07 (theme 1.10.0)
 
-Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.in". Not deployed yet.
+Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.in", then updated the same day with the page review fixes and the first real media. Not deployed yet.
 
 ## What changed in `theme/amatec/`
 
@@ -8,21 +8,23 @@ Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.
 |---|---|
 | `page-multi-vendor-sku-for-zoho-inventory.php` | New slug template, same method as Stock Procurement (page 26) |
 | `template-parts/products/mvs-*.php` | New sections: hero, answer + at-a-glance, problem, 3 steps, features + extras, before/after table, video, flow inside Zoho (7 steps), CTA, and a media slot. Removed on Anirban's request: the Uninstall flow step, the data and privacy section, and the FAQ on data storage |
-| `inc/multi-vendor-sku.php` | New. Placeholders (`#marketplace-link`, `[PRICE]`) in one place, media list with alt text, SoftwareApplication JSON-LD in the head. An Offer is added once `offer_price` and `offer_currency` are set |
+| `inc/multi-vendor-sku.php` | New. Marketplace link placeholder and the price ($29 per organization per month, 30 day free trial) in one place, media list with alt text, SoftwareApplication JSON-LD in the head with an Offer of 29 USD per month |
 | `inc/aio.php` | FAQ set `mvs` (7 questions). llms.txt hides lines for draft pages until they are published |
-| `functions.php` | Version 1.10.0. `amatec_site_pages()` takes optional `status`, `desc`, `focuskw`, so the page is created as a draft with its Yoast title, description and keyphrase on upload. `amatec_page_is_live()` gates the Application menu item |
+| `functions.php` | Version 1.10.0. `amatec_site_pages()` takes optional `status`, `desc`, `focuskw`, `ogimage`, so the page is created as a draft with its Yoast title, description, keyphrase and Open Graph / Twitter image, written with the insert (`meta_input`) so Yoast's head tags are right on the first view. `amatec_page_is_live()` gates the Application menu item |
 | `template-parts/landing/faq.php` | Optional `q_tag` wraps each question in an H3 (used on this page only) |
 | `inc/legal-pages.php`, `template-parts/legal/page.php` | Privacy Policy: effective date and "Last updated" chip, "recruitment-related data" removed, section 07 Zoho Marketplace apps (`#zoho-apps`) |
-| `llms.txt`, `assets/css/amatec.css` | Product line for the new page; CSS block at the end of the file |
+| `llms.txt`, `assets/css/amatec.css` | Product line for the new page (with price); CSS block at the end of the file, including the step 2 column fix and `object-fit: cover; object-position: top left` on media |
+| `template-parts/products/mvs-media.php`, `assets/js/amatec.js` | Media slot: WebP with srcset, videos (WebM + MP4, muted, autoplay, loop, playsinline) whose sources load after first paint (hero) or when scrolled near (`initMvsVideos()`), off-screen videos pause, reduced motion keeps the poster. Accepts a raw `.png`, `.jpg` or `.gif` dropped in under the slot name |
+| `assets/media/multi-vendor-sku/` | Built media: 01 (still, hero), 04 and 06 (video + poster), 05, 07, 09 (stills), `og-multi-vendor-sku.jpg` |
 
-Tools: `tools/local-preview/router.php` treats bespoke site pages as published so gated links show locally; `tools/test_render.php` also loads `inc/multi-vendor-sku.php` and checks the `mvs` FAQ set.
+Tools: `tools/local-preview/router.php` treats bespoke site pages as published so gated links show locally, stands in for Yoast's head tags on pages with Yoast settings, and answers byte-range requests (Safari needs them for video); `tools/test_render.php` also loads `inc/multi-vendor-sku.php` and checks the `mvs` FAQ set; `tools/build_mvs_media.py` builds the WebP / MP4 / WebM files from the originals (`python build_mvs_media.py <theme>/assets/media/multi-vendor-sku <originals dir>`).
 
 ## Open placeholders
 
-- `#marketplace-link` and `[PRICE]` in `inc/multi-vendor-sku.php`
+- `#marketplace-link` in `inc/multi-vendor-sku.php`
 - `[RETENTION]` in Privacy Policy section 07 (`inc/legal-pages.php`)
 - Demo video (placeholder block)
-- Media: drop files into `theme/amatec/assets/media/multi-vendor-sku/` as `{name}.webp` for screenshots, or `{name}.mp4` / `{name}.webm` plus a `{name}.webp` poster for animations. Names and alt text are in `amatec_mvs_media()`. Until a file exists the slot shows a grey placeholder with its name.
+- Media still missing: `01-po-autofill.gif` (hero shows the still until it arrives), `02-setup-drop-files`, `03-my-sku-list`, `08-bill-check`, `10-search-import-export`. Add originals and run `build_mvs_media.py`, or drop a file with the slot name into `assets/media/multi-vendor-sku/`. Names and alt text are in `amatec_mvs_media()`.
 
 ## Deploy notes
 
@@ -33,7 +35,10 @@ Tools: `tools/local-preview/router.php` treats bespoke site pages as published s
 
 ## Checks run locally (localhost:8080)
 
-- 1 H1, 9 H2, 7 FAQ questions as H3; FAQPage 7 = visible 7; SoftwareApplication in the head
+- 1 H1, 9 H2, 7 FAQ questions as H3; FAQPage 7 = visible 7; SoftwareApplication (29 USD) in the head; meta description, canonical, og and twitter tags in the head (local Yoast stand-in)
+- Step frames 621 px each at 1440 px, one column (916 px) at 980 px
+- Videos autoplay muted and loop in Chromium at desktop and 375 px; iPhone Safari not tested (no simulator on this Mac)
+- Lighthouse mobile (local, multi-worker PHP server, median of 3): this page 85, Stock Procurement 86. Live Stock Procurement today: 78
 - No dashes, banned words or curly quotes in body copy; focus keyword words in the first 100 words
 - No horizontal scroll at 375 px; table stacks into cards on mobile; FAQ opens and closes; no console errors
 - Draft gate: with the page stubbed as draft, the menu item and llms.txt line are hidden

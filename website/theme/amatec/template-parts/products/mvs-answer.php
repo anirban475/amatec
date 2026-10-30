@@ -13,7 +13,7 @@ $facts = array(
 	array( 'k' => 'Built for', 'v' => 'Distributors, wholesalers, manufacturers, spare parts and industrial supply companies' ),
 	array( 'k' => 'Your data', 'v' => 'Stays in your Zoho Inventory account' ),
 	array( 'k' => 'Language', 'v' => 'English' ),
-	array( 'k' => 'Price', 'v' => $mvs['price'] ),
+	array( 'k' => 'Price', 'v' => $mvs['price'] . ', ' . $mvs['trial'] ),
 	array( 'k' => 'Support', 'v' => $mvs['email'], 'href' => 'mailto:' . $mvs['email'] ),
 	array( 'k' => 'Also by Amatec', 'v' => 'Stock Procurement for Zoho Inventory', 'href' => home_url( '/stock-procurement-for-zoho-inventory/' ) ),
 	array( 'k' => 'Custom work', 'v' => 'Zoho workflow automation', 'href' => home_url( '/zoho-workflow-automation/' ) ),

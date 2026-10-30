@@ -41,9 +41,30 @@ if ( 0 === strpos( $am_path, AM_THEME_URI . '/' ) ) {
 		http_response_code( 404 );
 		exit;
 	}
-	$types = array( 'css' => 'text/css', 'js' => 'application/javascript', 'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'svg' => 'image/svg+xml', 'webp' => 'image/webp', 'woff2' => 'font/woff2' );
+	$types = array( 'css' => 'text/css', 'js' => 'application/javascript', 'png' => 'image/png', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'svg' => 'image/svg+xml', 'webp' => 'image/webp', 'woff2' => 'font/woff2', 'mp4' => 'video/mp4', 'webm' => 'video/webm' );
 	$ext   = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
 	header( 'Content-Type: ' . ( isset( $types[ $ext ] ) ? $types[ $ext ] : 'application/octet-stream' ) );
+	// Byte ranges, which Safari needs before it will play a video.
+	$size = filesize( $file );
+	header( 'Accept-Ranges: bytes' );
+	if ( isset( $_SERVER['HTTP_RANGE'] ) && preg_match( '/bytes=(\d*)-(\d*)/', $_SERVER['HTTP_RANGE'], $r ) ) {
+		$start = '' === $r[1] ? max( 0, $size - (int) $r[2] ) : (int) $r[1];
+		$end   = ( '' === $r[1] || '' === $r[2] ) ? $size - 1 : min( (int) $r[2], $size - 1 );
+		if ( $start > $end || $start >= $size ) {
+			http_response_code( 416 );
+			header( 'Content-Range: bytes */' . $size );
+			exit;
+		}
+		http_response_code( 206 );
+		header( 'Content-Range: bytes ' . $start . '-' . $end . '/' . $size );
+		header( 'Content-Length: ' . ( $end - $start + 1 ) );
+		$fh = fopen( $file, 'rb' );
+		fseek( $fh, $start );
+		echo fread( $fh, $end - $start + 1 );
+		fclose( $fh );
+		exit;
+	}
+	header( 'Content-Length: ' . $size );
 	readfile( $file );
 	exit;
 }
@@ -150,9 +171,33 @@ function wp_get_attachment_image_url() { return false; }
 function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) { $GLOBALS['am_styles'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
 function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false ) { $GLOBALS['am_scripts'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
 function wp_localize_script( $h, $name, $data ) { $GLOBALS['am_inline'][ $h ] = 'var ' . $name . ' = ' . json_encode( $data ) . ';'; }
+// Stand-in for Yoast SEO on bespoke pages that carry Yoast settings in
+// amatec_site_pages() (title, description, Open Graph image).
+function am_seo() {
+	if ( 'page' !== $GLOBALS['am_ctx']['type'] || ! function_exists( 'amatec_site_pages' ) ) { return null; }
+	$pages = amatec_site_pages();
+	$slug  = get_post_field( 'post_name' );
+	if ( empty( $pages[ $slug ][2]['desc'] ) ) { return null; }
+	$o = $pages[ $slug ][2];
+	return array(
+		'title' => $pages[ $slug ][1],
+		'desc'  => $o['desc'],
+		'url'   => 'https://amatec.in/' . $slug . '/',
+		'image' => empty( $o['ogimage'] ) ? '' : 'http://' . $_SERVER['HTTP_HOST'] . get_theme_file_uri( $o['ogimage'] ),
+	);
+}
 function wp_head() {
 	do_action( 'wp_enqueue_scripts' );
-	echo '<title>' . esc_html( $GLOBALS['am_ctx']['title'] ? $GLOBALS['am_ctx']['title'] . ' | AMATEC' : 'AMATEC | Workflow Automation' ) . "</title>\n";
+	$seo = am_seo();
+	echo '<title>' . esc_html( $seo ? $seo['title'] : ( $GLOBALS['am_ctx']['title'] ? $GLOBALS['am_ctx']['title'] . ' | AMATEC' : 'AMATEC | Workflow Automation' ) ) . "</title>\n";
+	if ( $seo ) {
+		echo "<!-- local preview: stands in for Yoast SEO -->\n";
+		printf( "<meta name=\"description\" content=\"%s\">\n<link rel=\"canonical\" href=\"%s\">\n", esc_attr( $seo['desc'] ), esc_url( $seo['url'] ) );
+		$og = array( 'og:locale' => 'en_US', 'og:type' => 'article', 'og:title' => $seo['title'], 'og:description' => $seo['desc'], 'og:url' => $seo['url'], 'og:site_name' => 'Amatec' );
+		if ( $seo['image'] ) { $og += array( 'og:image' => $seo['image'], 'og:image:width' => '1200', 'og:image:height' => '630', 'og:image:type' => 'image/jpeg' ); }
+		foreach ( $og as $k => $v ) { printf( "<meta property=\"%s\" content=\"%s\">\n", $k, esc_attr( $v ) ); }
+		echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
+	}
 	foreach ( $GLOBALS['am_styles'] as $h => $src ) { printf( "<link rel=\"stylesheet\" id=\"%s-css\" href=\"%s\">\n", esc_attr( $h ), esc_url( $src ) ); }
 	do_action( 'wp_head' );
 }

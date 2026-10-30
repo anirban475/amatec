@@ -40,7 +40,7 @@ $mvs = amatec_mvs();
 					<span class="d" style="background:#28C840;"></span>
 					<span class="addr">inventory.zoho.com · purchase order</span>
 				</div>
-				<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => '01-po-autofill', 'eager' => true, 'dark' => true ) ); ?>
+				<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => '01-po-autofill', 'eager' => true, 'dark' => true, 'sizes' => '(max-width: 1000px) 100vw, 960px' ) ); ?>
 			</div>
 		</div>
 	</div>

@@ -23,7 +23,8 @@ require_once get_theme_file_path( 'inc/multi-vendor-sku.php' );
  * Bespoke designed pages (each has its own page-{slug}.php template).
  * slug => array( post title, Yoast SEO title [, options ] ). Options:
  * 'status' (default 'publish'; 'draft' waits for approval in wp-admin),
- * 'desc' (Yoast meta description), 'focuskw' (Yoast focus keyphrase).
+ * 'desc' (Yoast meta description), 'focuskw' (Yoast focus keyphrase),
+ * 'ogimage' (theme path of the Open Graph / Twitter image).
  */
 function amatec_site_pages() {
 	return array(
@@ -42,6 +43,7 @@ function amatec_site_pages() {
 				'status'  => 'draft',
 				'desc'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
 				'focuskw' => 'vendor SKU zoho inventory',
+				'ogimage' => 'assets/media/multi-vendor-sku/og-multi-vendor-sku.jpg',
 			),
 		),
 		'termsandconditions'                   => array( 'Terms & Conditions', 'Terms & Conditions — Amatec' ),
@@ -105,23 +107,28 @@ function amatec_ensure_lp_pages() {
 		if ( get_page_by_path( $slug ) ) {
 			continue;
 		}
-		$opts    = isset( $titles[2] ) ? $titles[2] : array();
-		$page_id = wp_insert_post( array(
+		$opts = isset( $titles[2] ) ? $titles[2] : array();
+		// Yoast meta goes in with the insert (meta_input), so the Yoast indexable
+		// is built with it and the head tags are right on the first view.
+		$meta = array( '_yoast_wpseo_title' => $titles[1] );
+		if ( ! empty( $opts['desc'] ) ) {
+			$meta['_yoast_wpseo_metadesc'] = $opts['desc'];
+		}
+		if ( ! empty( $opts['focuskw'] ) ) {
+			$meta['_yoast_wpseo_focuskw'] = $opts['focuskw'];
+		}
+		if ( ! empty( $opts['ogimage'] ) ) {
+			$meta['_yoast_wpseo_opengraph-image'] = get_theme_file_uri( $opts['ogimage'] );
+			$meta['_yoast_wpseo_twitter-image']   = get_theme_file_uri( $opts['ogimage'] );
+		}
+		wp_insert_post( array(
 			'post_title'   => $titles[0],
 			'post_name'    => $slug,
 			'post_status'  => isset( $opts['status'] ) ? $opts['status'] : 'publish',
 			'post_type'    => 'page',
 			'post_content' => '',
+			'meta_input'   => $meta,
 		) );
-		if ( $page_id && ! is_wp_error( $page_id ) ) {
-			update_post_meta( $page_id, '_yoast_wpseo_title', $titles[1] );
-			if ( ! empty( $opts['desc'] ) ) {
-				update_post_meta( $page_id, '_yoast_wpseo_metadesc', $opts['desc'] );
-			}
-			if ( ! empty( $opts['focuskw'] ) ) {
-				update_post_meta( $page_id, '_yoast_wpseo_focuskw', $opts['focuskw'] );
-			}
-		}
 	}
 
 	update_option( 'amatec_lp_pages_version', AMATEC_VERSION );

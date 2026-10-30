@@ -287,8 +287,8 @@ function amatec_platform_faqs( $key ) {
 			),
 			array(
 				'q' => __( 'How much does it cost and how do I get support?', 'amatec' ),
-				/* translators: 1: price, 2: support email. */
-				'a' => sprintf( __( 'Multi Vendor SKU costs %1$s. For help, email %2$s. Amatec built the app and gives support directly.', 'amatec' ), $mvs['price'], $mvs['email'] ),
+				/* translators: 1: price, 2: free trial, 3: support email. */
+				'a' => sprintf( __( 'Multi Vendor SKU costs %1$s, with a %2$s. For help, email %3$s. Amatec built the app and gives support directly.', 'amatec' ), $mvs['price'], $mvs['trial'], $mvs['email'] ),
 			),
 		),
 	);

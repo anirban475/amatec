@@ -25,8 +25,8 @@ $steps = array(
 		'n'    => '03',
 		't'    => 'SKUs fill on every PO and bill',
 		'd'    => 'Pick a vendor on a new purchase order and that vendor\'s SKU appears on each line. When the vendor\'s bill arrives, paste its lines and the app finds your items by the vendor\'s SKU.',
-		'file' => '01-po-autofill',
-		'bar'  => 'Purchase order',
+		'file' => '06-bill-paste-match',
+		'bar'  => 'Bill · Vendor SKUs panel',
 	),
 );
 ?>
@@ -51,7 +51,7 @@ $steps = array(
 							<span class="d"></span><span class="d"></span><span class="d"></span>
 							<span class="addr"><?php echo esc_html( $s['bar'] ); ?></span>
 						</div>
-						<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => $s['file'] ) ); ?>
+						<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => $s['file'], 'sizes' => '(max-width: 980px) 100vw, 640px' ) ); ?>
 					</div>
 				</li>
 			<?php endforeach; ?>

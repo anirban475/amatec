@@ -4,12 +4,13 @@
  * SoftwareApplication structured data.
  *
  * The page renders from page-multi-vendor-sku-for-zoho-inventory.php and the
- * template-parts/products/mvs-*.php partials. Placeholders that Anirban fills
- * later (Marketplace link, price) live here only.
+ * template-parts/products/mvs-*.php partials. The Marketplace link (still a
+ * placeholder) and the price live here only.
  *
- * Media: drop files into assets/media/multi-vendor-sku/ using the names below.
- * Screenshots as {name}.webp; animations as {name}.mp4 and/or {name}.webm with
- * a {name}.webp poster. Until a file exists the slot shows a grey placeholder.
+ * Media: originals go in mvs-media/source/ (project folder) and
+ * mvs-media/build_media.py writes assets/media/multi-vendor-sku/. A file
+ * dropped straight into that folder under its slot name also works; see
+ * template-parts/products/mvs-media.php.
  *
  * @package AMATEC
  */
@@ -17,7 +18,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * Page settings. Replace the placeholders before publishing.
+ * Page settings. Replace the Marketplace placeholder before publishing.
  *
  * @return array
  */
@@ -26,10 +27,11 @@ function amatec_mvs() {
 		'slug'           => 'multi-vendor-sku-for-zoho-inventory',
 		'name'           => 'Multi Vendor SKU for Zoho Inventory',
 		'marketplace'    => '#marketplace-link',
-		'price'          => '[PRICE]',
-		// Set both to add an Offer to the SoftwareApplication schema, e.g. '9' and 'USD'.
-		'offer_price'    => '',
-		'offer_currency' => '',
+		'price'          => '$29 per organization per month',
+		'trial'          => '30 day free trial',
+		// Offer in the SoftwareApplication schema; leave either empty to drop it.
+		'offer_price'    => '29',
+		'offer_currency' => 'USD',
 		'email'          => 'hello@amatec.in',
 		'description'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
 	);
@@ -96,9 +98,17 @@ function amatec_mvs_schema() {
 	);
 	if ( '' !== $mvs['offer_price'] && '' !== $mvs['offer_currency'] ) {
 		$data['offers'] = array(
-			'@type'         => 'Offer',
-			'price'         => $mvs['offer_price'],
-			'priceCurrency' => $mvs['offer_currency'],
+			'@type'              => 'Offer',
+			'price'              => $mvs['offer_price'],
+			'priceCurrency'      => $mvs['offer_currency'],
+			'description'        => $mvs['price'] . ', ' . $mvs['trial'],
+			'priceSpecification' => array(
+				'@type'           => 'UnitPriceSpecification',
+				'price'           => $mvs['offer_price'],
+				'priceCurrency'   => $mvs['offer_currency'],
+				'unitText'        => 'per organization per month',
+				'billingDuration' => 'P1M',
+			),
 		);
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
