@@ -4,8 +4,8 @@
  * SoftwareApplication structured data.
  *
  * The page renders from page-multi-vendor-sku-for-zoho-inventory.php and the
- * template-parts/products/mvs-*.php partials. The Marketplace link (still a
- * placeholder) and the price live here only.
+ * template-parts/products/mvs-*.php partials. The Marketplace link, the demo
+ * link and the price live here only.
  *
  * Media: originals go in mvs-media/source/ (project folder) and
  * mvs-media/build_media.py writes assets/media/multi-vendor-sku/. A file
@@ -18,7 +18,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * Page settings. Replace the Marketplace placeholder before publishing.
+ * Page settings.
  *
  * @return array
  */
@@ -26,15 +26,30 @@ function amatec_mvs() {
 	return array(
 		'slug'           => 'multi-vendor-sku-for-zoho-inventory',
 		'name'           => 'Multi Vendor SKU for Zoho Inventory',
-		'marketplace'    => '#marketplace-link',
+		'marketplace'    => '',
+		'demo'           => 'https://cal.com/amatec/vendor-skus-setup',
 		'price'          => '$29 per organization per month',
 		'trial'          => '30 day free trial',
 		// Offer in the SoftwareApplication schema; leave either empty to drop it.
 		'offer_price'    => '29',
 		'offer_currency' => 'USD',
 		'email'          => 'hello@amatec.in',
-		'description'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
+		'description'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Inventory POs and bills and matches vendor bills to your items.',
 	);
+}
+
+/**
+ * The main button in the hero and the closing band: the Marketplace listing
+ * when amatec_mvs()['marketplace'] is set, otherwise a demo booking.
+ *
+ * @return array href, label, icon.
+ */
+function amatec_mvs_primary_cta() {
+	$mvs = amatec_mvs();
+	if ( '' !== $mvs['marketplace'] ) {
+		return array( 'href' => $mvs['marketplace'], 'label' => __( 'Get it on Zoho Marketplace', 'amatec' ), 'icon' => 'external-link' );
+	}
+	return array( 'href' => $mvs['demo'], 'label' => __( 'Book a demo', 'amatec' ), 'icon' => 'calendar-check' );
 }
 
 /**
@@ -80,6 +95,11 @@ function amatec_mvs_schema() {
 		'operatingSystem'     => 'Web',
 		'url'                 => home_url( '/' . $mvs['slug'] . '/' ),
 		'description'         => $mvs['description'],
+		'image'               => get_theme_file_uri( 'assets/media/multi-vendor-sku/og-multi-vendor-sku.jpg' ),
+		'screenshot'          => array(
+			get_theme_file_uri( 'assets/media/multi-vendor-sku/01-po-autofill.webp' ),
+			get_theme_file_uri( 'assets/media/multi-vendor-sku/06-bill-paste-match-card.webp' ),
+		),
 		'inLanguage'          => 'en',
 		'featureList'         => array(
 			'Guided setup from exported Vendors and Bills CSV files',
@@ -100,22 +120,53 @@ function amatec_mvs_schema() {
 	);
 	if ( '' !== $mvs['offer_price'] && '' !== $mvs['offer_currency'] ) {
 		$data['offers'] = array(
-			'@type'              => 'Offer',
-			'price'              => $mvs['offer_price'],
-			'priceCurrency'      => $mvs['offer_currency'],
-			'description'        => $mvs['price'] . ', ' . $mvs['trial'],
-			'priceSpecification' => array(
-				'@type'           => 'UnitPriceSpecification',
-				'price'           => $mvs['offer_price'],
-				'priceCurrency'   => $mvs['offer_currency'],
-				'unitText'        => 'per organization per month',
-				'billingDuration' => 'P1M',
-			),
+			'@type'         => 'Offer',
+			'price'         => $mvs['offer_price'],
+			'priceCurrency' => $mvs['offer_currency'],
+			'description'   => $mvs['price'] . ', ' . $mvs['trial'],
 		);
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
 }
 add_action( 'wp_head', 'amatec_mvs_schema', 20 );
+
+/**
+ * One-time update of the live page's Yoast title and description to the
+ * values in amatec_site_pages() (theme 1.10.2). Only replaces what the theme
+ * wrote when it created the page, so an edit made in the Yoast box stays.
+ */
+function amatec_mvs_update_seo() {
+	if ( '1.10.2' === get_option( 'amatec_mvs_seo' ) ) {
+		return;
+	}
+	$slug  = amatec_mvs()['slug'];
+	$pages = amatec_site_pages();
+	$page  = get_page_by_path( $slug );
+	if ( $page && isset( $pages[ $slug ][2]['desc'] ) ) {
+		$was     = array(
+			'_yoast_wpseo_title'    => 'Multi Vendor SKU: Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
+			'_yoast_wpseo_metadesc' => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
+		);
+		$now     = array(
+			'_yoast_wpseo_title'    => $pages[ $slug ][1],
+			'_yoast_wpseo_metadesc' => $pages[ $slug ][2]['desc'],
+		);
+		$changed = false;
+		foreach ( $now as $key => $value ) {
+			$current = get_post_meta( $page->ID, $key, true );
+			if ( '' === $current || $was[ $key ] === $current ) {
+				update_post_meta( $page->ID, $key, $value );
+				$changed = true;
+			}
+		}
+		if ( $changed ) {
+			// A save makes Yoast rebuild its stored SEO data for the page.
+			wp_update_post( array( 'ID' => $page->ID ) );
+		}
+	}
+	update_option( 'amatec_mvs_seo', '1.10.2' );
+}
+add_action( 'admin_init', 'amatec_mvs_update_seo' );
 
 /**
  * Click-to-enlarge for the step and feature media (figures with data-zoom,
