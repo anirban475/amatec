@@ -354,6 +354,80 @@
   }
 
   /* ---------------------------------------------------------
+     PRODUCT pages — looping demo videos (video[data-mvs-video]).
+     Sources sit in data-src so nothing downloads up front: the hero
+     (data-eager) starts after the page has loaded, the rest when
+     scrolled near. Off-screen videos pause. Reduced motion, or a
+     blocked autoplay (iOS Low Power Mode), leaves the poster showing.
+     --------------------------------------------------------- */
+  function initMvsVideos() {
+    var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-mvs-video]'));
+    if (!vids.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function play(v) {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    function setPoster(v) {
+      if (v.getAttribute('data-poster') && !v.getAttribute('poster')) {
+        v.setAttribute('poster', v.getAttribute('data-poster'));
+      }
+    }
+    function start(v) {
+      setPoster(v);
+      if (reduce || v.getAttribute('data-started')) return;
+      v.setAttribute('data-started', '1');
+      Array.prototype.slice.call(v.querySelectorAll('source[data-src]')).forEach(function (s) {
+        s.src = s.getAttribute('data-src');
+      });
+      v.muted = true;
+      v.load();
+      play(v);
+    }
+
+    var eager = vids.filter(function (v) { return v.getAttribute('data-eager'); });
+    var lazy = vids.filter(function (v) { return !v.getAttribute('data-eager'); });
+
+    function startEager() { eager.forEach(start); }
+    if (document.readyState === 'complete') setTimeout(startEager, 0);
+    else window.addEventListener('load', startEager);
+
+    if (!('IntersectionObserver' in window)) {
+      lazy.forEach(start);
+      return;
+    }
+    // A play() refused while the tab was hidden is retried when it shows again.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      vids.forEach(function (v) {
+        if (v.getAttribute('data-started') && (v.getAttribute('data-eager') || v.getAttribute('data-inview'))) play(v);
+      });
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        v.setAttribute('data-inview', e.isIntersecting ? '1' : '');
+        if (e.isIntersecting) {
+          if (v.getAttribute('data-started')) play(v);
+          else start(v);
+        } else if (v.getAttribute('data-started')) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+    // Posters load further ahead than the video, so the poster is up first.
+    var posterIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        setPoster(e.target);
+        posterIo.unobserve(e.target);
+      });
+    }, { rootMargin: '1000px 0px' });
+    lazy.forEach(function (v) { posterIo.observe(v); io.observe(v); });
+  }
+
+  /* ---------------------------------------------------------
      CONTACT page — message form → POST to REST (store + email),
      then show the success panel ONLY on success.
      --------------------------------------------------------- */
@@ -544,6 +618,7 @@
     initBlogToc();
     initCallbackForm();
     initLpFaq();
+    initMvsVideos();
     initContactForm();
     initNewsletter();
     initMondayBoard();

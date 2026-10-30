@@ -90,8 +90,9 @@ function amatec_legal_pages() {
 		),
 		'privacypolicy' => array(
 			'title' => 'Privacy Policy',
-			'effective' => 'Effective 15 May 2023',
-			'read' => '~1 min read',
+			'effective' => 'Effective 30 October 2026',
+			'updated' => 'Last updated 30 October 2026',
+			'read' => '~2 min read',
 			'lead' => 'Amatec respects your privacy and is committed to protecting your personal information. This policy explains what we collect, how we use it, and the choices you have.',
 			'intro' => 'At Amatec, protecting the data you trust us with is fundamental to how we build and operate our automation services.',
 			'cta_title' => 'Questions about your data?',
@@ -103,7 +104,7 @@ function amatec_legal_pages() {
 					'title' => 'Information We Collect',
 					'list' => array(
 						'Name, email address, and phone number',
-						'Company and recruitment-related data',
+						'Company name and business details',
 						'Payment-related details (processed securely via third-party gateways)',
 					),
 				),
@@ -149,6 +150,19 @@ function amatec_legal_pages() {
 					'body' => array(
 						'You may request access, correction, or deletion of your personal data by contacting us.',
 					),
+				),
+				array(
+					'n' => '07',
+					'id' => 'zoho-apps',
+					'title' => 'Zoho Marketplace apps',
+					'body' => array(
+						'When you install or uninstall an Amatec app from Zoho Marketplace, the app sends us your Zoho organization ID, organization name, the installer\'s email address, the date and the app version.',
+						'We use this to send one setup guide email, to give support, and to manage your subscription. You can unsubscribe from that email at any time.',
+						'The records you work with in the app, such as items, vendors, purchase orders, bills and vendor SKUs, stay in your Zoho account. Our apps read them inside Zoho to do their job. We do not copy or store them.',
+						'We keep install records for as long as the app is installed and [RETENTION] after you uninstall, then delete them.',
+						'To see or delete what we hold about your organization, email us.',
+					),
+					'email' => 'hello@amatec.in',
 				),
 			),
 		),

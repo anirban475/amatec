@@ -112,10 +112,11 @@ function amatec_contact_faqs() {
 /**
  * FAQ sets for the platform, AI and product pages.
  *
- * @param string $key make|n8n|monday|zoho|ai|tchat|stock.
+ * @param string $key make|n8n|monday|zoho|ai|tchat|stock|mvs.
  * @return array
  */
 function amatec_platform_faqs( $key ) {
+	$mvs  = amatec_mvs();
 	$sets = array(
 		'make'   => array(
 			array(
@@ -259,6 +260,37 @@ function amatec_platform_faqs( $key ) {
 				'a' => __( 'Amatec built it and supports it directly. Book a call through our contact page if you need it adapted to your setup.', 'amatec' ),
 			),
 		),
+		'mvs'    => array(
+			array(
+				'q' => __( 'What is Multi Vendor SKU for Zoho Inventory?', 'amatec' ),
+				'a' => __( 'It is a Zoho Inventory extension that stores the SKU each vendor uses for your items. It fills those SKUs on purchase orders and bills, and matches vendor bills back to your items by the vendor\'s SKU. You install it from Zoho Marketplace.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Can one item have a different SKU for each vendor?', 'amatec' ),
+				'a' => __( 'Yes. Save a separate SKU for every vendor you buy the item from. Your "Hex Bolt M8x40" can be "SHK-1000" at one vendor and "BB-77" at another, and each purchase order shows the code for the vendor on that order.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Does it change my own item SKU in Zoho Inventory?', 'amatec' ),
+				'a' => __( 'No. Vendor SKUs are stored separately, in a custom module called Vendor SKUs and a custom item field called Vendor SKU. The SKU field on your item stays as it is.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'How do I add SKUs for items I already buy?', 'amatec' ),
+				'a' => __( 'Export Vendors and Bills from Zoho Inventory as CSV files and drop both into setup. The app lists every item you have bought from each vendor, with how often you bought it and the last price. Type each vendor\'s SKU and click Save SKUs. To load many at once, use Bulk Import with a CSV file.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Does it work with bills from vendors?', 'amatec' ),
+				'a' => __( 'Yes. Paste the lines from a vendor\'s bill and the app finds your items by the vendor\'s SKU, in upper or lower case, and fills the bill lines. On a saved bill, the Bill Check panel checks the bill against its purchase order.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Which Zoho Inventory editions and regions does it support?', 'amatec' ),
+				'a' => __( 'It works with any Zoho Inventory edition in any Zoho data centre. You install it from Zoho Marketplace, and the interface is in English. A Zoho Books version is planned.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'How much does it cost and how do I get support?', 'amatec' ),
+				/* translators: 1: price, 2: free trial, 3: support email. */
+				'a' => sprintf( __( 'Multi Vendor SKU costs %1$s, with a %2$s. For help, email %3$s. Amatec built the app and gives support directly.', 'amatec' ), $mvs['price'], $mvs['trial'], $mvs['email'] ),
+			),
+		),
 	);
 	return isset( $sets[ $key ] ) ? $sets[ $key ] : array();
 }
@@ -323,10 +355,17 @@ function amatec_llms_txt( $wp ) {
 	if ( ! file_exists( $file ) ) {
 		return;
 	}
+	// Hide lines for pages that start as drafts until they are published.
+	$body = file_get_contents( $file );
+	foreach ( amatec_site_pages() as $slug => $titles ) {
+		if ( isset( $titles[2]['status'] ) && 'draft' === $titles[2]['status'] && ! amatec_page_is_live( $slug ) ) {
+			$body = preg_replace( '#^.*\]\(https?://[^)]*/' . preg_quote( $slug, '#' ) . '/\).*\R#m', '', $body );
+		}
+	}
 	status_header( 200 );
 	header( 'Content-Type: text/plain; charset=utf-8' );
 	header( 'X-Robots-Tag: noindex' );
-	readfile( $file );
+	echo $body; // phpcs:ignore WordPress.Security.EscapeOutput -- plain-text file shipped with the theme.
 	$cases = function_exists( 'amatec_cs_llms_lines' ) ? amatec_cs_llms_lines() : array();
 	if ( $cases ) {
 		echo "\n## Case studies\n\n" . implode( "\n", $cases ) . "\n";
