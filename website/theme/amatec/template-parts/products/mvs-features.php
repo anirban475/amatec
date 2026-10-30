@@ -38,6 +38,7 @@ $extras = array(
 						array(
 							'file'  => $f['file'],
 							'ratio' => '16 / 10',
+							'zoom'  => true,
 							'sizes' => '(max-width: 640px) 100vw, (max-width: 980px) 50vw, 380px',
 						)
 					); ?>
@@ -64,7 +65,7 @@ $extras = array(
 					<?php endforeach; ?>
 				</ul>
 			</div>
-			<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => '10-search-import-export', 'sizes' => '(max-width: 980px) 100vw, 560px' ) ); ?>
+			<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => '10-search-import-export', 'zoom' => true, 'sizes' => '(max-width: 980px) 100vw, 560px' ) ); ?>
 		</div>
 	</div>
 </section>
