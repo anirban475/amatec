@@ -116,3 +116,89 @@ function amatec_mvs_schema() {
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
 }
 add_action( 'wp_head', 'amatec_mvs_schema', 20 );
+
+/**
+ * Click-to-enlarge for the step and feature media (figures with data-zoom,
+ * see template-parts/products/mvs-media.php): a native <dialog> shows the
+ * full-size file and closes on Esc, a click outside it or the close button.
+ * Printed on this page only, so other pages carry none of it.
+ */
+function amatec_mvs_zoom_style() {
+	if ( ! is_page( amatec_mvs()['slug'] ) ) {
+		return;
+	}
+	?>
+<style id="mvs-zoom-css">
+.mvs-media[data-zoom]{cursor:zoom-in}
+.mvs-media[data-zoom]:focus-visible{outline:3px solid var(--orange-500);outline-offset:3px}
+.mvs-zoom{padding:0;border:0;border-radius:14px;background:#fff;max-width:94vw;max-height:92vh;overflow:hidden;box-shadow:var(--shadow-xl)}
+.mvs-zoom::backdrop{background:rgba(6,28,48,.84)}
+.mvs-zoom img,.mvs-zoom video{display:block;width:auto;height:auto;max-width:94vw;max-height:92vh}
+.mvs-zoom-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(6,28,48,.72);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.mvs-zoom-x:focus-visible{outline:3px solid var(--orange-500);outline-offset:2px}
+</style>
+	<?php
+}
+add_action( 'wp_head', 'amatec_mvs_zoom_style', 30 );
+
+function amatec_mvs_zoom_script() {
+	if ( ! is_page( amatec_mvs()['slug'] ) ) {
+		return;
+	}
+	?>
+<script id="mvs-zoom-js">
+(function () {
+  var figs = Array.prototype.slice.call(document.querySelectorAll('.mvs-media[data-zoom]'));
+  if (!figs.length || typeof HTMLDialogElement !== 'function') return;
+  var dlg = document.createElement('dialog');
+  dlg.className = 'mvs-zoom';
+  dlg.innerHTML = '<button type="button" class="mvs-zoom-x" aria-label="<?php echo esc_js( __( 'Close', 'amatec' ) ); ?>">&times;</button>';
+  document.body.appendChild(dlg);
+
+  function open(fig) {
+    var v = fig.querySelector('video');
+    var el;
+    if (v) {
+      el = document.createElement('video');
+      el.muted = true; el.loop = true; el.autoplay = true; el.playsInline = true;
+      el.setAttribute('playsinline', '');
+      el.width = v.width; el.height = v.height;
+      el.poster = v.getAttribute('poster') || v.getAttribute('data-poster') || '';
+      Array.prototype.slice.call(v.querySelectorAll('source')).forEach(function (s) {
+        var n = document.createElement('source');
+        n.src = s.getAttribute('data-src') || s.src;
+        n.type = s.type;
+        el.appendChild(n);
+      });
+    } else {
+      el = document.createElement('img');
+      el.src = fig.getAttribute('data-zoom');
+      el.alt = (fig.querySelector('img') || {}).alt || '';
+    }
+    el.className = 'mvs-zoom-media';
+    dlg.appendChild(el);
+    dlg.setAttribute('aria-label', fig.getAttribute('aria-label') || '');
+    dlg.showModal();
+    if (v) { var p = el.play(); if (p && p.catch) p.catch(function () {}); }
+  }
+
+  // Removing the media on close also stops the enlarged video.
+  dlg.addEventListener('close', function () {
+    var m = dlg.querySelector('.mvs-zoom-media');
+    if (m) dlg.removeChild(m);
+  });
+  // A click on the backdrop lands on the dialog itself.
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg || e.target.className === 'mvs-zoom-x') dlg.close();
+  });
+  figs.forEach(function (f) {
+    f.addEventListener('click', function () { open(f); });
+    f.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(f); }
+    });
+  });
+})();
+</script>
+	<?php
+}
+add_action( 'wp_footer', 'amatec_mvs_zoom_script', 30 );

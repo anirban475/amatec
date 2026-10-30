@@ -51,7 +51,7 @@ $steps = array(
 							<span class="d"></span><span class="d"></span><span class="d"></span>
 							<span class="addr"><?php echo esc_html( $s['bar'] ); ?></span>
 						</div>
-						<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => $s['file'], 'sizes' => '(max-width: 980px) 100vw, 640px' ) ); ?>
+						<?php get_template_part( 'template-parts/products/mvs-media', null, array( 'file' => $s['file'], 'ratio' => '32 / 15', 'zoom' => true, 'sizes' => '(max-width: 980px) 100vw, 640px' ) ); ?>
 					</div>
 				</li>
 			<?php endforeach; ?>

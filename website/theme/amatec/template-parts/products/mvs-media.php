@@ -5,7 +5,8 @@
  * Args: 'file' (name from amatec_mvs_media()), 'eager' (true for the hero),
  * 'dark' (true on navy sections), 'still' (show the still even when a video
  * exists), 'ratio' (CSS aspect-ratio, e.g. '5 / 2'; default = the file's own),
- * 'sizes' (img sizes attribute).
+ * 'sizes' (img sizes attribute), 'zoom' (click or Enter opens the full-size
+ * file in an overlay; see amatec_mvs_zoom_script()).
  *
  * Files come from assets/media/multi-vendor-sku/ (built by
  * mvs-media/build_media.py): {name}.webp plus optional {name}-800w.webp /
@@ -73,8 +74,14 @@ if ( $gif ) {
 
 $ratio = ! empty( $args['ratio'] ) ? $args['ratio'] : ( ( $size || $videos ) ? $w . ' / ' . $h : '' );
 $img   = $gif ? $gif : $still;
+$zoom  = '';
+if ( ! empty( $args['zoom'] ) && ( $videos || $img ) ) {
+	/* translators: %s: media description. */
+	$label = sprintf( __( 'Enlarge: %s', 'amatec' ), $item['alt'] );
+	$zoom  = ' data-zoom="' . esc_url( $img ? get_theme_file_uri( $img ) : '' ) . '" tabindex="0" role="button" aria-label="' . esc_attr( $label ) . '"';
+}
 ?>
-<figure class="mvs-media<?php echo $dark ? ' on-dark' : ''; ?>"<?php echo $ratio ? ' style="--mvs-ratio:' . esc_attr( $ratio ) . ';"' : ''; ?>>
+<figure class="mvs-media<?php echo $dark ? ' on-dark' : ''; ?>"<?php echo $ratio ? ' style="--mvs-ratio:' . esc_attr( $ratio ) . ';"' : ''; ?><?php echo $zoom; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above. ?>>
 	<?php if ( $videos ) : ?>
 		<video class="mvs-shot" data-mvs-video<?php echo $eager ? ' data-eager="1"' : ''; ?> muted autoplay loop playsinline preload="none"
 			width="<?php echo esc_attr( $w ); ?>" height="<?php echo esc_attr( $h ); ?>"
