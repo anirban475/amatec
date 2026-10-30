@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $flow = array(
-	array( 'icon' => 'download', 't' => 'Install from Zoho Marketplace', 'd' => 'You install Multi Vendor SKU in Zoho Inventory from Zoho Marketplace. The app sends Amatec your organization ID, organization name, the installer\'s email, the date and the app version.' ),
+	array( 'icon' => 'download', 't' => 'Install from Zoho Marketplace', 'd' => 'You install Multi Vendor SKU in Zoho Inventory from Zoho Marketplace.' ),
 	array( 'icon' => 'layout-list', 't' => 'Vendor SKUs tab', 'd' => 'The app\'s own tab in Zoho Inventory. Run the guided setup here, work through My SKU list, and search, import or export your SKUs.' ),
 	array( 'icon' => 'database', 't' => 'Vendor SKUs module', 'd' => 'Every SKU you save is a record in a custom module called Vendor SKUs, inside your own Zoho Inventory account.' ),
 	array( 'icon' => 'tag', 't' => 'Vendor SKU item field', 'd' => 'A custom item field called Vendor SKU, also stored in your Zoho Inventory account.' ),
