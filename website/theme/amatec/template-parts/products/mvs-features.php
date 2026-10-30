@@ -6,15 +6,14 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-// Row 1 screens are wide Zoho pages (side panel on the right), row 2 are close-ups:
-// one ratio per row keeps the cards level; images crop from the top left.
+// Every card's media box is 16:10 (images crop from the top left), so all six cards match.
 $features = array(
-	array( 'file' => '04-vendor-switch', 'ratio' => '5 / 2', 't' => 'SKUs switch with the vendor', 'd' => 'Pick a vendor on a new PO and its SKU appears on each line. Change the vendor and the SKUs switch to the new vendor\'s codes.' ),
-	array( 'file' => '05-duplicate-block', 'ratio' => '5 / 2', 't' => 'Add a missing SKU from the PO', 'd' => 'Add a SKU from the PO side panel without leaving the order. The app blocks a SKU that the same vendor already uses for another item.' ),
-	array( 'file' => '06-bill-paste-match', 'ratio' => '5 / 2', 'still' => true, 't' => 'Match vendor bills by SKU', 'd' => 'Paste the lines from a vendor\'s bill. The app finds your items by the vendor\'s SKU, in upper or lower case, and fills the bill lines.' ),
-	array( 'file' => '07-price-change-card', 'ratio' => '16 / 10', 't' => 'Spot a price change', 'd' => 'A card shows when a vendor\'s price differs from what you paid before.' ),
-	array( 'file' => '08-bill-check', 'ratio' => '16 / 10', 't' => 'Check a bill against its PO', 'd' => 'On a saved bill, the Bill Check side panel checks the bill against its purchase order.' ),
-	array( 'file' => '09-po-pdf-column', 'ratio' => '16 / 10', 't' => 'Vendor SKU on the PO PDF', 'd' => 'The vendor\'s SKU prints on the purchase order you send, so the vendor recognises every line.' ),
+	array( 'file' => '04-vendor-switch', 't' => 'SKUs switch with the vendor', 'd' => 'Pick a vendor on a new PO and its SKU appears on each line. Change the vendor and the SKUs switch to the new vendor\'s codes.' ),
+	array( 'file' => '05-duplicate-block', 't' => 'Add a missing SKU from the PO', 'd' => 'Add a SKU from the PO side panel without leaving the order. The app blocks a SKU that the same vendor already uses for another item.' ),
+	array( 'file' => '06-bill-paste-match-card', 't' => 'Match vendor bills by SKU', 'd' => 'Paste the lines from a vendor\'s bill. The app finds your items by the vendor\'s SKU, in upper or lower case, and fills the bill lines.' ),
+	array( 'file' => '07-price-change-card', 't' => 'Spot a price change', 'd' => 'A card shows when a vendor\'s price differs from what you paid before.' ),
+	array( 'file' => '08-bill-check', 't' => 'Check a bill against its PO', 'd' => 'On a saved bill, the Bill Check side panel checks the bill against its purchase order.' ),
+	array( 'file' => '09-po-pdf-column', 't' => 'Vendor SKU on the PO PDF', 'd' => 'The vendor\'s SKU prints on the purchase order you send, so the vendor recognises every line.' ),
 );
 $extras = array(
 	array( 'icon' => 'triangle-alert', 't' => 'Minimum order warning', 'd' => 'Warns when a PO line is below the vendor\'s minimum order quantity.' ),
@@ -30,7 +29,7 @@ $extras = array(
 			<p class="lead"><?php esc_html_e( 'The six features buyers use most, then three more that come with the app.', 'amatec' ); ?></p>
 		</div>
 
-		<div class="mvs-feat-grid">
+		<div class="mvs-feat-grid" style="grid-auto-rows:1fr;">
 			<?php foreach ( $features as $f ) : ?>
 				<div class="card mvs-feat">
 					<?php get_template_part(
@@ -38,8 +37,7 @@ $extras = array(
 						null,
 						array(
 							'file'  => $f['file'],
-							'ratio' => $f['ratio'],
-							'still' => ! empty( $f['still'] ),
+							'ratio' => '16 / 10',
 							'sizes' => '(max-width: 640px) 100vw, (max-width: 980px) 50vw, 380px',
 						)
 					); ?>

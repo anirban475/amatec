@@ -34,7 +34,7 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'amatec', '
 SRC = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, 'source')
 SLOTS = [
     '01-po-autofill', '02-setup-drop-files', '03-my-sku-list', '04-vendor-switch',
-    '05-duplicate-block', '06-bill-paste-match', '07-price-change-card', '08-bill-check',
+    '05-duplicate-block', '06-bill-paste-match', '06-bill-paste-match-card', '07-price-change-card', '08-bill-check',
     '09-po-pdf-column', '10-search-import-export',
 ]
 WIDTHS = (1000, 800)
@@ -55,8 +55,8 @@ def find_crop(gif_path, still):
     frames = [f.convert('RGB') for f in ImageSequence.Iterator(Image.open(gif_path))]
     gw, gh = frames[0].size
     sw, sh = still.size
-    if (sw, sh) == (gw, gh):
-        return 0, 0
+    if sw >= gw or sh >= gh:
+        return None
     k = 8
     small = still.resize((sw // k, sh // k))
     best = None
@@ -92,8 +92,8 @@ def build_video(name, gif, still_path):
         gw, gh = g.size
     if still_path:
         still = Image.open(still_path).convert('RGB')
-        dx, dy = find_crop(gif, still)
-        w, h = still.size
+        crop = find_crop(gif, still)
+        dx, dy, w, h = (crop[0], crop[1], still.width, still.height) if crop else (0, 0, gw, gh)
     else:
         dx, dy, w, h = 0, 0, gw, gh
     w, h = w - w % 2, h - h % 2

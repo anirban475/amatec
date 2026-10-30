@@ -168,8 +168,17 @@ function wp_update_nav_menu_item() {}
 function wp_get_attachment_image_url() { return false; }
 
 // assets
-function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) { $GLOBALS['am_styles'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
-function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false ) { $GLOBALS['am_scripts'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
+// Theme files get their modification time in ?ver, so a browser never runs a
+// stale copy after an edit (the theme version does not change between edits).
+function am_ver( $src, $ver ) {
+	if ( 0 === strpos( $src, AM_THEME_URI . '/' ) ) {
+		$file = AM_THEME_DIR . substr( $src, strlen( AM_THEME_URI ) );
+		if ( is_file( $file ) ) { $ver = ( $ver ? $ver : '0' ) . '.' . filemtime( $file ); }
+	}
+	return $ver;
+}
+function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) { $ver = am_ver( $src, $ver ); $GLOBALS['am_styles'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
+function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false ) { $ver = am_ver( $src, $ver ); $GLOBALS['am_scripts'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
 function wp_localize_script( $h, $name, $data ) { $GLOBALS['am_inline'][ $h ] = 'var ' . $name . ' = ' . json_encode( $data ) . ';'; }
 // Stand-in for Yoast SEO on bespoke pages that carry Yoast settings in
 // amatec_site_pages() (title, description, Open Graph image).

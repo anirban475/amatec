@@ -369,10 +369,13 @@
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
     }
-    function start(v) {
+    function setPoster(v) {
       if (v.getAttribute('data-poster') && !v.getAttribute('poster')) {
         v.setAttribute('poster', v.getAttribute('data-poster'));
       }
+    }
+    function start(v) {
+      setPoster(v);
       if (reduce || v.getAttribute('data-started')) return;
       v.setAttribute('data-started', '1');
       Array.prototype.slice.call(v.querySelectorAll('source[data-src]')).forEach(function (s) {
@@ -413,7 +416,15 @@
         }
       });
     }, { rootMargin: '300px 0px' });
-    lazy.forEach(function (v) { io.observe(v); });
+    // Posters load further ahead than the video, so the poster is up first.
+    var posterIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        setPoster(e.target);
+        posterIo.unobserve(e.target);
+      });
+    }, { rootMargin: '1000px 0px' });
+    lazy.forEach(function (v) { posterIo.observe(v); io.observe(v); });
   }
 
   /* ---------------------------------------------------------

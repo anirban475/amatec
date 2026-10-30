@@ -1,6 +1,6 @@
 # Multi Vendor SKU page + Privacy Policy section 07 (theme 1.10.0)
 
-Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.in", then updated the same day with the page review fixes and the first real media. Not deployed yet.
+Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.in", then updated the same day with the page review fixes and the media. Every slot now has real media. Not deployed yet.
 
 ## What changed in `theme/amatec/`
 
@@ -15,7 +15,8 @@ Built 30 Oct 2026 from the brief "Build the Multi Vendor SKU app page on amatec.
 | `inc/legal-pages.php`, `template-parts/legal/page.php` | Privacy Policy: effective date and "Last updated" chip, "recruitment-related data" removed, section 07 Zoho Marketplace apps (`#zoho-apps`) |
 | `llms.txt`, `assets/css/amatec.css` | Product line for the new page (with price); CSS block at the end of the file, including the step 2 column fix and `object-fit: cover; object-position: top left` on media |
 | `template-parts/products/mvs-media.php`, `assets/js/amatec.js` | Media slot: WebP with srcset, videos (WebM + MP4, muted, autoplay, loop, playsinline) whose sources load after first paint (hero) or when scrolled near (`initMvsVideos()`), off-screen videos pause, reduced motion keeps the poster. Accepts a raw `.png`, `.jpg` or `.gif` dropped in under the slot name |
-| `assets/media/multi-vendor-sku/` | Built media: 01 (still, hero), 04 and 06 (video + poster), 05, 07, 09 (stills), `og-multi-vendor-sku.jpg` |
+| `assets/media/multi-vendor-sku/` | Built media: videos (WebM + MP4 + WebP poster) for 01 hero, 02, 03 and 06 steps, 04 feature, 10 extras; 16:10 stills for features 05, 06 (`06-bill-paste-match-card`), 07, 08, 09; `og-multi-vendor-sku.jpg` |
+| `template-parts/products/mvs-features.php` | Every feature card media box is 16:10 (cover, top left) and the grid uses equal row heights, so all 6 cards are the same height |
 
 Tools: `tools/local-preview/router.php` treats bespoke site pages as published so gated links show locally, stands in for Yoast's head tags on pages with Yoast settings, and answers byte-range requests (Safari needs them for video); `tools/test_render.php` also loads `inc/multi-vendor-sku.php` and checks the `mvs` FAQ set; `tools/build_mvs_media.py` builds the WebP / MP4 / WebM files from the originals (`python build_mvs_media.py <theme>/assets/media/multi-vendor-sku <originals dir>`).
 
@@ -24,7 +25,7 @@ Tools: `tools/local-preview/router.php` treats bespoke site pages as published s
 - `#marketplace-link` in `inc/multi-vendor-sku.php`
 - `[RETENTION]` in Privacy Policy section 07 (`inc/legal-pages.php`)
 - Demo video (placeholder block)
-- Media still missing: `01-po-autofill.gif` (hero shows the still until it arrives), `02-setup-drop-files`, `03-my-sku-list`, `08-bill-check`, `10-search-import-export`. Add originals and run `build_mvs_media.py`, or drop a file with the slot name into `assets/media/multi-vendor-sku/`. Names and alt text are in `amatec_mvs_media()`.
+- Media: none missing. To replace one, add the original and run `build_mvs_media.py`, or drop a file with the slot name into `assets/media/multi-vendor-sku/`. Names and alt text are in `amatec_mvs_media()`. Note: `01-po-autofill.png` and `04-vendor-switch-still.png` are pixel-identical, so the hero and feature 04 share a poster.
 
 ## Deploy notes
 
@@ -37,7 +38,7 @@ Tools: `tools/local-preview/router.php` treats bespoke site pages as published s
 
 - 1 H1, 9 H2, 7 FAQ questions as H3; FAQPage 7 = visible 7; SoftwareApplication (29 USD) in the head; meta description, canonical, og and twitter tags in the head (local Yoast stand-in)
 - Step frames 621 px each at 1440 px, one column (916 px) at 980 px
-- Videos autoplay muted and loop in Chromium at desktop and 375 px; iPhone Safari not tested (no simulator on this Mac)
+- Headless Chrome 156 at 1440 and 375 px: all 6 feature cards the same height (383 / 411 px), media 362x227 / 333x209, no placeholders, no sideways scroll; every video's poster is set while it is still 650 px away, then it plays muted in a loop in view. iPhone Safari not tested (no simulator on this Mac)
 - Lighthouse mobile (local, multi-worker PHP server, median of 3): this page 85, Stock Procurement 86. Live Stock Procurement today: 78
 - No dashes, banned words or curly quotes in body copy; focus keyword words in the first 100 words
 - No horizontal scroll at 375 px; table stacks into cards on mobile; FAQ opens and closes; no console errors
