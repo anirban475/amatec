@@ -607,14 +607,21 @@
   /* ---------------------------------------------------------
      Boot
      --------------------------------------------------------- */
+  // Heavy extras (the WebGL hero, the Cal.com embed) wait for the page
+  // load, so they never hold up the first paint of the content.
+  function afterLoad(fn) {
+    if (document.readyState === 'complete') setTimeout(fn, 0);
+    else window.addEventListener('load', function () { setTimeout(fn, 0); });
+  }
+
   function boot() {
     drawIcons();
     initNav();
     initScrollButtons();
     initStepper();
     initRevealSafety();
-    initMeshGradient();
-    initCal();
+    afterLoad(initMeshGradient);
+    afterLoad(initCal);
     initBlogToc();
     initCallbackForm();
     initLpFaq();
