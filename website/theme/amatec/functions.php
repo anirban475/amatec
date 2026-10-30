@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.10.0' );
+define( 'AMATEC_VERSION', '1.10.1' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -398,24 +398,35 @@ function amatec_handle_subscribe( WP_REST_Request $request ) {
 
 /* ------------------------------------------------------------------
  * Styles & scripts
+ * Built for mobile PageSpeed: no render-blocking request in <head>.
+ * The build scripts live in pagespeed/ (repo: website/tools/pagespeed/).
+ * - Fonts (Sora, IBM Plex Sans, IBM Plex Mono) are self-hosted in
+ *   assets/fonts with assets/css/fonts.css (build_fonts.py).
+ * - fonts.css + amatec.css are printed inline (amatec_inline_css()).
+ * - Icons come from assets/js/icons.js, the Lucide icons the theme uses
+ *   from one pinned release (build_icons.js; re-run it after adding an
+ *   icon, or the page falls back to the full Lucide bundle).
+ * Set AMATEC_INLINE_CSS to false to load amatec.css as a file again.
  * ------------------------------------------------------------------ */
+if ( ! defined( 'AMATEC_INLINE_CSS' ) ) {
+	define( 'AMATEC_INLINE_CSS', true );
+}
+
 function amatec_assets() {
-	// Google Fonts — Sora (display), IBM Plex Sans (body), IBM Plex Mono (mono).
-	wp_enqueue_style(
-		'amatec-fonts',
-		'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap',
-		array(),
-		null
-	);
+	if ( AMATEC_INLINE_CSS ) {
+		wp_register_style( 'amatec-main', false, array(), AMATEC_VERSION );
+		wp_enqueue_style( 'amatec-main' );
+		wp_add_inline_style( 'amatec-main', amatec_inline_css() );
+	} else {
+		wp_enqueue_style( 'amatec-fonts', get_theme_file_uri( 'assets/css/fonts.css' ), array(), AMATEC_VERSION );
+		wp_enqueue_style( 'amatec-main', get_theme_file_uri( 'assets/css/amatec.css' ), array( 'amatec-fonts' ), AMATEC_VERSION );
+	}
 
-	// Theme stylesheet (the real one lives in assets/css).
-	wp_enqueue_style( 'amatec-main', get_theme_file_uri( 'assets/css/amatec.css' ), array( 'amatec-fonts' ), AMATEC_VERSION );
+	// Lucide icons — the design system renders icons via data-lucide.
+	wp_enqueue_script( 'amatec-icons', get_theme_file_uri( 'assets/js/icons.js' ), array(), AMATEC_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
-	// Lucide icons (CDN) — the design system renders icons via data-lucide.
-	wp_enqueue_script( 'amatec-lucide', 'https://unpkg.com/lucide@latest', array(), null, true );
-
-	// Theme interactions (depends on lucide so createIcons exists).
-	wp_enqueue_script( 'amatec-main', get_theme_file_uri( 'assets/js/amatec.js' ), array( 'amatec-lucide' ), AMATEC_VERSION, true );
+	// Theme interactions (depends on the icons so lucide.createIcons exists).
+	wp_enqueue_script( 'amatec-main', get_theme_file_uri( 'assets/js/amatec.js' ), array( 'amatec-icons' ), AMATEC_VERSION, array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
 	// Contact-form endpoint + nonce for the AJAX submit.
 	wp_localize_script( 'amatec-main', 'AMATEC_CF', array(
@@ -425,6 +436,77 @@ function amatec_assets() {
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'amatec_assets' );
+
+/**
+ * fonts.css + amatec.css as one string for an inline <style>. Comments and
+ * whitespace are stripped; nothing else changes, so no rule can break.
+ * Read on each uncached request, so edits to the files show at once.
+ *
+ * @return string
+ */
+function amatec_inline_css() {
+	$css = '';
+	foreach ( array( 'fonts', 'amatec' ) as $name ) {
+		$file = get_theme_file_path( 'assets/css/' . $name . '.css' );
+		if ( is_readable( $file ) ) {
+			$css .= file_get_contents( $file ) . "\n";
+		}
+	}
+	// url(../fonts/…) is relative to assets/css; inline it must be absolute.
+	$css = str_replace( 'url(../', 'url(' . get_theme_file_uri( 'assets/' ), $css );
+	$css = preg_replace( '#/\*.*?\*/#s', '', $css );
+	$css = preg_replace( '/\s+/', ' ', $css );
+	$css = preg_replace( '/\s*([{};,])\s*/', '$1', $css );
+	return trim( $css );
+}
+
+/**
+ * Preload the two fonts above the fold (Sora headings, IBM Plex Sans body)
+ * so they arrive with the first paint instead of after it.
+ */
+function amatec_preload_fonts() {
+	foreach ( array( 'sora-latin', 'ibm-plex-sans-latin' ) as $font ) {
+		printf(
+			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+			esc_url( get_theme_file_uri( 'assets/fonts/' . $font . '.woff2' ) )
+		);
+	}
+}
+add_action( 'wp_head', 'amatec_preload_fonts', 2 );
+
+/* ------------------------------------------------------------------
+ * Plugin assets that should not hold up the first paint. Checked on live
+ * 30 Oct 2026: no page renders a FormLayer form or inline jQuery, and the
+ * only front-end user of jQuery is FormLayer's footer script.
+ * ------------------------------------------------------------------ */
+function amatec_jquery_in_footer() {
+	if ( is_admin() ) {
+		return;
+	}
+	// A script in <head> that lists jQuery as a dependency still pulls it
+	// back into <head>, so this cannot break the load order.
+	foreach ( array( 'jquery', 'jquery-core', 'jquery-migrate' ) as $handle ) {
+		wp_script_add_data( $handle, 'group', 1 );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'amatec_jquery_in_footer', 100 );
+
+/**
+ * FormLayer's CSS and the Dashicons font it needs load without blocking
+ * rendering. Logged-in users with the admin bar keep them as they were.
+ *
+ * @param string $tag    The <link> tag.
+ * @param string $handle Style handle.
+ * @return string
+ */
+function amatec_async_plugin_styles( $tag, $handle ) {
+	if ( is_admin() || is_admin_bar_showing() || ! in_array( $handle, array( 'dashicons', 'formlayer-frontend' ), true ) ) {
+		return $tag;
+	}
+	$async = preg_replace( '/ media=([\'"])all\1/', ' media="print" onload="this.media=\'all\'"', $tag, 1 );
+	return $async === $tag ? $tag : $async . '<noscript>' . trim( $tag ) . "</noscript>\n";
+}
+add_filter( 'style_loader_tag', 'amatec_async_plugin_styles', 10, 2 );
 
 /**
  * True when the page with this slug exists and is published. Links to pages
@@ -524,12 +606,24 @@ function amatec_logo( $context = 'header' ) {
 		}
 	}
 	// Bundled brand logos ship with the theme (footer version is already white).
+	// The files are 1200x480 but show 42 px (header) or 54 px (footer) tall, so
+	// srcset offers the 420 px copy (build_logos.py) for screens up
+	// to 3x. The header logo is the LCP element on most pages: fetch it first.
 	$file = 'footer' === $context ? 'assets/img/amatec-logo-full-white.png' : 'assets/img/amatec-logo-full.png';
 	if ( file_exists( get_theme_file_path( $file ) ) ) {
-		printf(
-			'<img class="logo" src="%s" alt="%s" />',
+		$small  = str_replace( '.png', '-420.png', $file );
+		$srcset = file_exists( get_theme_file_path( $small ) ) ? sprintf(
+			' srcset="%s 420w, %s 1200w" sizes="%s"',
+			esc_url( get_theme_file_uri( $small ) ),
 			esc_url( get_theme_file_uri( $file ) ),
-			esc_attr( get_bloginfo( 'name' ) )
+			'footer' === $context ? '135px' : '105px'
+		) : '';
+		printf(
+			'<img class="logo" src="%s"%s width="1200" height="480" alt="%s"%s />',
+			esc_url( get_theme_file_uri( $file ) ),
+			$srcset,
+			esc_attr( get_bloginfo( 'name' ) ),
+			'footer' === $context ? ' loading="lazy" decoding="async"' : ' fetchpriority="high"'
 		);
 		return;
 	}

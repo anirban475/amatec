@@ -177,8 +177,20 @@ function am_ver( $src, $ver ) {
 	}
 	return $ver;
 }
-function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) { $ver = am_ver( $src, $ver ); $GLOBALS['am_styles'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
-function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false ) { $ver = am_ver( $src, $ver ); $GLOBALS['am_scripts'][ $h ] = $ver ? $src . '?ver=' . $ver : $src; }
+function wp_register_style( $h, $src = '', $deps = array(), $ver = false ) { $ver = am_ver( $src, $ver ); $GLOBALS['am_styles'][ $h ] = ( $src && $ver ) ? $src . '?ver=' . $ver : $src; }
+function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) {
+	if ( '' !== $src || ! isset( $GLOBALS['am_styles'][ $h ] ) ) { wp_register_style( $h, $src, $deps, $ver ); }
+}
+function wp_script_add_data() { return true; }
+function is_admin_bar_showing() { return false; }
+// Inline CSS prints after the handle's <link>, or alone for a handle registered without a file.
+function wp_add_inline_style( $h, $css ) { $GLOBALS['am_inline_css'][ $h ] = $css; }
+// $args may be WordPress's array( 'in_footer' => …, 'strategy' => 'defer'|'async' ).
+function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false, $args = array() ) {
+	$ver                         = am_ver( $src, $ver );
+	$GLOBALS['am_scripts'][ $h ] = $ver ? $src . '?ver=' . $ver : $src;
+	if ( is_array( $args ) && ! empty( $args['strategy'] ) ) { $GLOBALS['am_script_strategy'][ $h ] = $args['strategy']; }
+}
 function wp_localize_script( $h, $name, $data ) { $GLOBALS['am_inline'][ $h ] = 'var ' . $name . ' = ' . json_encode( $data ) . ';'; }
 // Stand-in for Yoast SEO on bespoke pages that carry Yoast settings in
 // amatec_site_pages() (title, description, Open Graph image).
@@ -207,13 +219,24 @@ function wp_head() {
 		foreach ( $og as $k => $v ) { printf( "<meta property=\"%s\" content=\"%s\">\n", $k, esc_attr( $v ) ); }
 		echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
 	}
-	foreach ( $GLOBALS['am_styles'] as $h => $src ) { printf( "<link rel=\"stylesheet\" id=\"%s-css\" href=\"%s\">\n", esc_attr( $h ), esc_url( $src ) ); }
+	// Theme wp_head callbacks before priority 8 print ahead of the styles, as in WordPress.
+	$early = array();
+	foreach ( isset( $GLOBALS['am_actions']['wp_head'] ) ? $GLOBALS['am_actions']['wp_head'] : array() as $prio => $cbs ) {
+		if ( $prio < 8 ) { $early[ $prio ] = $cbs; unset( $GLOBALS['am_actions']['wp_head'][ $prio ] ); }
+	}
+	ksort( $early );
+	foreach ( $early as $cbs ) { foreach ( $cbs as $cb ) { call_user_func( $cb ); } }
+	foreach ( $GLOBALS['am_styles'] as $h => $src ) {
+		if ( $src ) { printf( "<link rel=\"stylesheet\" id=\"%s-css\" href=\"%s\">\n", esc_attr( $h ), esc_url( $src ) ); }
+		if ( isset( $GLOBALS['am_inline_css'][ $h ] ) ) { printf( "<style id=\"%s-inline-css\">\n%s\n</style>\n", esc_attr( $h ), $GLOBALS['am_inline_css'][ $h ] ); }
+	}
 	do_action( 'wp_head' );
 }
 function wp_footer() {
 	foreach ( $GLOBALS['am_scripts'] as $h => $src ) {
 		if ( isset( $GLOBALS['am_inline'][ $h ] ) ) { echo '<script>' . $GLOBALS['am_inline'][ $h ] . "</script>\n"; }
-		printf( "<script id=\"%s-js\" src=\"%s\"></script>\n", esc_attr( $h ), esc_url( $src ) );
+		$strategy = isset( $GLOBALS['am_script_strategy'][ $h ] ) ? ' ' . $GLOBALS['am_script_strategy'][ $h ] : '';
+		printf( "<script id=\"%s-js\" src=\"%s\"%s></script>\n", esc_attr( $h ), esc_url( $src ), $strategy );
 	}
 	do_action( 'wp_footer' );
 }
