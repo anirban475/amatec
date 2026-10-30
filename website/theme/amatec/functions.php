@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.9.2' );
+define( 'AMATEC_VERSION', '1.10.0' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -17,10 +17,13 @@ require_once get_theme_file_path( 'inc/lp-pages.php' );
 require_once get_theme_file_path( 'inc/legal-pages.php' );
 require_once get_theme_file_path( 'inc/aio.php' );
 require_once get_theme_file_path( 'inc/case-studies.php' );
+require_once get_theme_file_path( 'inc/multi-vendor-sku.php' );
 
 /**
  * Bespoke designed pages (each has its own page-{slug}.php template).
- * slug => array( post title, Yoast SEO title ).
+ * slug => array( post title, Yoast SEO title [, options ] ). Options:
+ * 'status' (default 'publish'; 'draft' waits for approval in wp-admin),
+ * 'desc' (Yoast meta description), 'focuskw' (Yoast focus keyphrase).
  */
 function amatec_site_pages() {
 	return array(
@@ -32,6 +35,15 @@ function amatec_site_pages() {
 		'zoho-workflow-automation'             => array( 'Zoho Workflow Automation', 'Zoho Workflow Automation — Amatec' ),
 		'stock-procurement-for-zoho-inventory' => array( 'Stock Procurement for Zoho Inventory', 'Stock Procurement for Zoho Inventory — Amatec' ),
 		't-chat-zoho-extension'                => array( 'T-Chat for Zoho CRM', 'T-Chat for Zoho CRM — Amatec' ),
+		'multi-vendor-sku-for-zoho-inventory'  => array(
+			'Multi Vendor SKU for Zoho Inventory',
+			'Multi Vendor SKU: Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
+			array(
+				'status'  => 'draft',
+				'desc'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
+				'focuskw' => 'vendor SKU zoho inventory',
+			),
+		),
 		'termsandconditions'                   => array( 'Terms & Conditions', 'Terms & Conditions — Amatec' ),
 		'privacypolicy'                        => array( 'Privacy Policy', 'Privacy Policy — Amatec' ),
 		'refundpolicy'                         => array( 'Refund Policy', 'Refund Policy — Amatec' ),
@@ -93,15 +105,22 @@ function amatec_ensure_lp_pages() {
 		if ( get_page_by_path( $slug ) ) {
 			continue;
 		}
+		$opts    = isset( $titles[2] ) ? $titles[2] : array();
 		$page_id = wp_insert_post( array(
 			'post_title'   => $titles[0],
 			'post_name'    => $slug,
-			'post_status'  => 'publish',
+			'post_status'  => isset( $opts['status'] ) ? $opts['status'] : 'publish',
 			'post_type'    => 'page',
 			'post_content' => '',
 		) );
 		if ( $page_id && ! is_wp_error( $page_id ) ) {
 			update_post_meta( $page_id, '_yoast_wpseo_title', $titles[1] );
+			if ( ! empty( $opts['desc'] ) ) {
+				update_post_meta( $page_id, '_yoast_wpseo_metadesc', $opts['desc'] );
+			}
+			if ( ! empty( $opts['focuskw'] ) ) {
+				update_post_meta( $page_id, '_yoast_wpseo_focuskw', $opts['focuskw'] );
+			}
 		}
 	}
 
@@ -400,6 +419,18 @@ function amatec_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'amatec_assets' );
 
+/**
+ * True when the page with this slug exists and is published. Links to pages
+ * that start life as drafts (see amatec_site_pages()) are gated on this.
+ *
+ * @param string $slug Page slug.
+ * @return bool
+ */
+function amatec_page_is_live( $slug ) {
+	$page = get_page_by_path( $slug );
+	return $page && 'publish' === get_post_status( $page );
+}
+
 /* ------------------------------------------------------------------
  * Site navigation data — single source of truth for the mega-menu
  * (Nav) and the footer sitemap. Mirrors the AMATEC sitemap.
@@ -438,9 +469,14 @@ function amatec_site_menu() {
 		),
 		array(
 			'label' => 'Application', 'href' => '#applications', 'eyebrow' => 'Our products',
-			'items' => array(
-				array( 'label' => 'Stock Procurement for Zoho Inventory', 'icon' => 'package', 'href' => home_url( '/stock-procurement-for-zoho-inventory/' ) ),
-				array( 'label' => 'T-Chat for Zoho CRM', 'icon' => 'message-square', 'href' => home_url( '/t-chat-zoho-extension/' ) ),
+			'items' => array_merge(
+				array(
+					array( 'label' => 'Stock Procurement for Zoho Inventory', 'icon' => 'package', 'href' => home_url( '/stock-procurement-for-zoho-inventory/' ) ),
+					array( 'label' => 'T-Chat for Zoho CRM', 'icon' => 'message-square', 'href' => home_url( '/t-chat-zoho-extension/' ) ),
+				),
+				amatec_page_is_live( 'multi-vendor-sku-for-zoho-inventory' )
+					? array( array( 'label' => 'Multi Vendor SKU for Zoho Inventory', 'icon' => 'tags', 'href' => home_url( '/multi-vendor-sku-for-zoho-inventory/' ) ) )
+					: array()
 			),
 		),
 		array(

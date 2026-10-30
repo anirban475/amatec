@@ -133,7 +133,11 @@ function register_nav_menus() {}
 function register_post_type() {}
 function register_post_meta() {}
 function register_rest_route() {}
-function get_page_by_path() { return null; }
+// Bespoke site pages count as published, so links gated on amatec_page_is_live() show.
+function get_page_by_path( $slug = '' ) {
+	return function_exists( 'amatec_site_pages' ) && isset( amatec_site_pages()[ $slug ] ) ? (object) array( 'post_name' => $slug, 'post_status' => 'publish' ) : null;
+}
+function get_post_status( $p = null ) { return is_object( $p ) && isset( $p->post_status ) ? $p->post_status : false; }
 function wp_insert_post() { return 0; }
 function update_post_meta() {}
 function wp_mail() { return false; }

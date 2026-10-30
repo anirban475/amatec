@@ -1,12 +1,14 @@
 <?php
 /**
  * Landing FAQ — single-open accordion (first item open; toggled by initLpFaq).
+ * Optional $data['q_tag'] ('h3') wraps each question button in a heading.
  *
  * @package AMATEC
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-$data = $args['data'];
+$data  = $args['data'];
+$q_tag = isset( $data['q_tag'] ) && in_array( $data['q_tag'], array( 'h3', 'h4' ), true ) ? $data['q_tag'] : '';
 ?>
 <section id="lp-faq" class="section" style="background:var(--bg-page);">
 	<div class="wrap" style="max-width:880px;">
@@ -18,10 +20,12 @@ $data = $args['data'];
 		<div class="lp-faq" data-lp-faq>
 			<?php foreach ( $data['faqs'] as $i => $f ) : ?>
 				<div class="lp-faq-item<?php echo 0 === $i ? ' open' : ''; ?>">
+					<?php echo $q_tag ? '<' . $q_tag . ' class="lp-faq-h">' : ''; ?>
 					<button class="lp-faq-q" type="button" aria-expanded="<?php echo 0 === $i ? 'true' : 'false'; ?>">
 						<span class="q"><?php echo esc_html( $f['q'] ); ?></span>
 						<span class="toggle" aria-hidden="true"><span></span><span></span></span>
 					</button>
+					<?php echo $q_tag ? '</' . $q_tag . '>' : ''; ?>
 					<div class="lp-faq-a" <?php echo 0 === $i ? '' : 'hidden'; ?>>
 						<p><?php echo esc_html( $f['a'] ); ?></p>
 					</div>

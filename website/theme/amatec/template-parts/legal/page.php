@@ -37,6 +37,9 @@ $legal_links = array(
 
 		<div class="reveal" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;animation-delay:.1s;">
 			<span class="chip legal-chip"><i data-lucide="calendar-check"></i> <?php echo esc_html( $page['effective'] ); ?></span>
+			<?php if ( ! empty( $page['updated'] ) ) : ?>
+				<span class="chip legal-chip"><i data-lucide="history"></i> <?php echo esc_html( $page['updated'] ); ?></span>
+			<?php endif; ?>
 			<span class="chip legal-chip"><i data-lucide="clock"></i> <?php echo esc_html( $page['read'] ); ?></span>
 		</div>
 

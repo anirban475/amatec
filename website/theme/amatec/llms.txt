@@ -25,6 +25,7 @@
 
 - [T-Chat for Zoho CRM](https://amatec.in/t-chat-zoho-extension/): Twilio SMS and MMS inside Zoho CRM records. Listed on the Zoho Marketplace as Twilio Chat for Zoho CRM.
 - [Stock Procurement for Zoho Inventory](https://amatec.in/stock-procurement-for-zoho-inventory/): Turns a production target into a raw-material purchase list for composite items.
+- [Multi Vendor SKU for Zoho Inventory](https://amatec.in/multi-vendor-sku-for-zoho-inventory/): Saves each vendor's SKU for your items and fills it on purchase orders and bills in Zoho Inventory. Matches vendor bills back to your items by the vendor's SKU.
 
 ## Solutions by function
 
