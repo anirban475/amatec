@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.10.1' );
+define( 'AMATEC_VERSION', '1.10.2' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -38,10 +38,10 @@ function amatec_site_pages() {
 		't-chat-zoho-extension'                => array( 'T-Chat for Zoho CRM', 'T-Chat for Zoho CRM — Amatec' ),
 		'multi-vendor-sku-for-zoho-inventory'  => array(
 			'Multi Vendor SKU for Zoho Inventory',
-			'Multi Vendor SKU: Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
+			'Vendor SKUs on POs and Bills in Zoho Inventory | Amatec',
 			array(
 				'status'  => 'draft',
-				'desc'    => 'Save each vendor\'s SKU for your items once. Multi Vendor SKU fills them on purchase orders and bills in Zoho Inventory and matches vendor bills back to your items.',
+				'desc'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Inventory POs and bills and matches vendor bills to your items.',
 				'focuskw' => 'vendor SKU zoho inventory',
 				'ogimage' => 'assets/media/multi-vendor-sku/og-multi-vendor-sku.jpg',
 			),
