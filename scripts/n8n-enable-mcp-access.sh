@@ -13,7 +13,13 @@ if [ -z "$API_KEY" ]; then
   echo "Error: Failed to retrieve API key for label '$KEY_LABEL'" >&2
   exit 1
 fi
-trap 'unset API_KEY' EXIT
+
+TMP_PAYLOAD=""
+cleanup() {
+  [ -n "$TMP_PAYLOAD" ] && [ -f "$TMP_PAYLOAD" ] && rm -f "$TMP_PAYLOAD"
+  unset API_KEY
+}
+trap cleanup EXIT
 
 BASE_URL="https://n8n.amatec.in/api/v1/workflows/$WORKFLOW_ID"
 
@@ -50,24 +56,28 @@ if [ "$BEFORE_MCP" = "true" ]; then
 fi
 
 # 2. Prepare PUT payload
-PUT_PAYLOAD=$(echo "$GET_BODY" | jq -c '{
+TMP_PAYLOAD=$(mktemp)
+echo "$GET_BODY" | jq -c '{
   name: .name,
   nodes: .nodes,
   connections: .connections,
-  settings: (.settings + {availableInMCP: true})
+  settings: ((.settings + {availableInMCP: true}) | del(.binaryMode, .timeSavedMode))
 } + (if .staticData != null then {staticData: .staticData} else {} end)
   + (if .pinData != null then {pinData: .pinData} else {} end)
   + (if .description != null then {description: .description} else {} end)
-')
+' > "$TMP_PAYLOAD"
 
 # 3. Send PUT request
 PUT_RESP=$(curl -s -w "\n%{http_code}" -X PUT \
   -H "X-N8N-API-KEY: $API_KEY" \
   -H "Content-Type: application/json" \
-  -d "$PUT_PAYLOAD" \
+  --data-binary "@$TMP_PAYLOAD" \
   "$BASE_URL")
 PUT_CODE=$(echo "$PUT_RESP" | tail -n1)
 PUT_BODY=$(echo "$PUT_RESP" | sed '$d')
+
+rm -f "$TMP_PAYLOAD"
+TMP_PAYLOAD=""
 
 if [ "$PUT_CODE" != "200" ]; then
   echo "Error: PUT failed with HTTP $PUT_CODE: $PUT_BODY" >&2
