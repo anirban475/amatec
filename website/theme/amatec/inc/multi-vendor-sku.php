@@ -266,6 +266,7 @@ a.mvs-yt::after{content:"";position:absolute;inset:0;background:linear-gradient(
 a.mvs-yt .ph,a.mvs-yt .yt-tag{z-index:1}
 a.mvs-yt:hover .play{transform:scale(1.06)}
 a.mvs-yt .play{transition:transform var(--dur-base) var(--ease-standard)}
+a.mvs-yt .play svg{transform:translateX(2px)}
 </style>
 	<?php
 }
