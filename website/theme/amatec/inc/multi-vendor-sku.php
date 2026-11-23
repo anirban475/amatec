@@ -357,7 +357,7 @@ function amatec_mvs_schema() {
 			'@type'         => 'Offer',
 			'price'         => $mvs['offer_price'],
 			'priceCurrency' => $mvs['offer_currency'],
-			'description'   => $mvs['price'] . ', ' . $mvs['trial'],
+			'description'   => implode( ', ', array_filter( array( $mvs['price'], $mvs['trial'] ) ) ),
 		);
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";

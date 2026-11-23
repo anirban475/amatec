@@ -65,9 +65,9 @@ When a listing is approved:
      Zoho Marketplace", and the "Install from" row links to the listing.
 Leave 'demo' as it is; it is used again if 'marketplace' is ever emptied.
 
-Books page placeholders: 'price' is [PRICE] until the price is set (then also
-set 'offer_price' for the schema), and 'trial' stays empty unless the
-Marketplace listing has a free trial.
+Books page price: 'price' (shown on the page) and 'offer_price' (schema) are
+set to $29. 'trial' stays empty until the Marketplace listing is published
+with a free trial.
 
 == Logo ==
 Appearance → Customize → Site Identity → Logo. If no logo is set, an "amatec"

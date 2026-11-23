@@ -9,9 +9,9 @@
  * mvs-media/source-books/ (project folder), built into
  * assets/media/multi-vendor-sku-books/ by mvs-media/build_media.py --books.
  *
- * Open placeholders:
- *   'price'        [PRICE] until the price is set; then also set 'offer_price'
- *                  so the schema gets an Offer.
+ * Open items:
+ *   'trial'        empty until the Marketplace listing is published with a
+ *                  free trial.
  *   'marketplace'  the Zoho Marketplace listing URL once Zoho approves it. It
  *                  turns the main button into "Get it on Zoho Marketplace".
  *
@@ -33,13 +33,13 @@ function amatec_mvs_books() {
 		// Marketplace link slot: empty until Zoho approves the listing.
 		'marketplace'    => '',
 		'demo'           => 'https://cal.com/amatec/vendor-skus-setup',
-		// Placeholder until the price is set. Never put a guessed number here.
-		'price'          => '[PRICE]',
-		// Free trial, e.g. '30 day free trial'. Fill it only if the Marketplace
-		// listing has one; the price FAQ then says "with a ...".
+		// Price set by Anirban on 23 Nov 2026 ($29, same model as the Inventory app).
+		'price'          => '$29 per organization per month',
+		// Free trial, e.g. '30 day free trial'. Fill it only once the Marketplace
+		// listing is published with one; the price FAQ then says "with a ...".
 		'trial'          => '',
-		// Offer in the SoftwareApplication schema; empty = no Offer until the price is set.
-		'offer_price'    => '',
+		// Offer in the SoftwareApplication schema; leave either empty to drop it.
+		'offer_price'    => '29',
 		'offer_currency' => 'USD',
 		'email'          => 'hello@amatec.in',
 		// Demo video on YouTube (https://youtu.be/o4oe3qTwOQ0, 23 Nov 2026). The
