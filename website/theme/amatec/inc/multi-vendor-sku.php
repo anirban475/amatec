@@ -34,6 +34,29 @@ function amatec_mvs() {
 		'offer_price'    => '29',
 		'offer_currency' => 'USD',
 		'email'          => 'hello@amatec.in',
+		// Demo video on YouTube; leave 'video_id' empty to show the placeholder.
+		'video_id'       => 'EDrB33dqJx8',
+		'video_title'    => 'Multi Vendor SKU Zoho Inventory Explainer',
+		'video_text'     => 'Save each vendor\'s SKU for your items once, and Multi Vendor SKU fills it on every Zoho Inventory purchase order and bill. This video walks through the full flow, from setup to bills.',
+		'video_date'     => '2026-11-22T04:57:25-08:00',
+		'video_duration' => 'PT5M52S',
+		// Chapters from the YouTube description: start second => title.
+		'video_chapters' => array(
+			0   => 'Intro',
+			10  => 'One item, a different code at every vendor',
+			34  => 'What the extension adds to Zoho Inventory',
+			89  => 'Install',
+			114 => 'Setup from your Vendors and Bills exports',
+			158 => 'Vendor SKU auto fill on purchase orders',
+			188 => 'Vendor change and quick add',
+			214 => 'Vendor SKU on the PO PDF',
+			226 => 'Matching vendor bills by vendor SKU',
+			253 => 'Bill Check against the purchase order',
+			264 => 'Vendor SKUs module and item view',
+			280 => 'Search, delete, bulk import and export',
+			303 => 'App settings',
+			326 => 'Uninstall',
+		),
 		'description'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Inventory POs and bills and matches vendor bills to your items.',
 	);
 }
@@ -127,8 +150,58 @@ function amatec_mvs_schema() {
 		);
 	}
 	echo '<script type="application/ld+json">' . wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
+
+	if ( '' === $mvs['video_id'] ) {
+		return;
+	}
+	$id     = $mvs['video_id'];
+	$watch  = 'https://www.youtube.com/watch?v=' . $id;
+	$starts = array_keys( $mvs['video_chapters'] );
+	$total  = amatec_mvs_video_seconds();
+	$clips  = array();
+	foreach ( $starts as $i => $start ) {
+		$clips[] = array(
+			'@type'       => 'Clip',
+			'name'        => $mvs['video_chapters'][ $start ],
+			'startOffset' => $start,
+			'endOffset'   => isset( $starts[ $i + 1 ] ) ? $starts[ $i + 1 ] : $total,
+			'url'         => $watch . '&t=' . $start . 's',
+		);
+	}
+	$video = array(
+		'@context'     => 'https://schema.org',
+		'@type'        => 'VideoObject',
+		'name'         => $mvs['video_title'],
+		'description'  => $mvs['video_text'],
+		'thumbnailUrl' => array(
+			'https://i.ytimg.com/vi/' . $id . '/maxresdefault.jpg',
+			'https://i.ytimg.com/vi/' . $id . '/hqdefault.jpg',
+		),
+		'uploadDate'   => $mvs['video_date'],
+		'duration'     => $mvs['video_duration'],
+		'embedUrl'     => 'https://www.youtube.com/embed/' . $id,
+		'publisher'    => array(
+			'@type' => 'Organization',
+			'@id'   => $home . '#organization',
+			'name'  => 'Amatec',
+			'url'   => $home,
+		),
+		'hasPart'      => $clips,
+	);
+	echo '<script type="application/ld+json">' . wp_json_encode( $video, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . "</script>\n";
 }
 add_action( 'wp_head', 'amatec_mvs_schema', 20 );
+
+/**
+ * Length of the demo video in seconds, from its ISO 8601 duration.
+ *
+ * @return int
+ */
+function amatec_mvs_video_seconds() {
+	$m = array();
+	preg_match( '/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/', amatec_mvs()['video_duration'], $m );
+	return ( isset( $m[1] ) ? (int) $m[1] * 3600 : 0 ) + ( isset( $m[2] ) ? (int) $m[2] * 60 : 0 ) + ( isset( $m[3] ) ? (int) $m[3] : 0 );
+}
 
 /**
  * One-time update of the live page's Yoast title and description to the
@@ -187,6 +260,12 @@ function amatec_mvs_zoom_style() {
 .mvs-zoom img,.mvs-zoom video{display:block;width:auto;height:auto;max-width:94vw;max-height:92vh}
 .mvs-zoom-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:rgba(6,28,48,.72);color:#fff;font-size:24px;line-height:1;cursor:pointer}
 .mvs-zoom-x:focus-visible{outline:3px solid var(--orange-500);outline-offset:2px}
+.mvs-yt{overflow:hidden}
+.mvs-yt .mvs-yt-thumb,.mvs-yt iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+a.mvs-yt::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,28,48,.25),rgba(6,28,48,.55))}
+a.mvs-yt .ph,a.mvs-yt .yt-tag{z-index:1}
+a.mvs-yt:hover .play{transform:scale(1.06)}
+a.mvs-yt .play{transition:transform var(--dur-base) var(--ease-standard)}
 </style>
 	<?php
 }
@@ -253,3 +332,37 @@ function amatec_mvs_zoom_script() {
 	<?php
 }
 add_action( 'wp_footer', 'amatec_mvs_zoom_script', 30 );
+
+/**
+ * Click-to-play demo video: the page shows only the YouTube thumbnail, and the
+ * player (youtube-nocookie.com) loads when someone clicks, so the video costs
+ * nothing until then. Without JavaScript the link opens the video on YouTube.
+ */
+function amatec_mvs_video_script() {
+	if ( ! is_page( amatec_mvs()['slug'] ) || '' === amatec_mvs()['video_id'] ) {
+		return;
+	}
+	?>
+<script id="mvs-video-js">
+(function () {
+  Array.prototype.slice.call(document.querySelectorAll('a.mvs-yt[data-yt]')).forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + a.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1';
+      f.title = a.getAttribute('data-title') || '';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      f.allowFullscreen = true;
+      var box = document.createElement('div');
+      box.className = 'media yt mvs-yt';
+      box.appendChild(f);
+      a.parentNode.replaceChild(box, a);
+      f.focus();
+    });
+  });
+})();
+</script>
+	<?php
+}
+add_action( 'wp_footer', 'amatec_mvs_video_script', 30 );
