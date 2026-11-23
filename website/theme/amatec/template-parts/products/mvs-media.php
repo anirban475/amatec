@@ -28,7 +28,7 @@ $eager      = ! empty( $args['eager'] );
 $dark       = ! empty( $args['dark'] );
 $still_only = ! empty( $args['still'] );
 $sizes      = ! empty( $args['sizes'] ) ? $args['sizes'] : '100vw';
-$dir        = 'assets/media/multi-vendor-sku/';
+$dir        = amatec_mvs()['media_dir'];
 $animated   = 'animation' === $item['type'] && ! $still_only;
 
 $still = '';
