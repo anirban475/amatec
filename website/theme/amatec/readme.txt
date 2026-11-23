@@ -48,6 +48,20 @@ Edit the data-cal-link attribute in:
   template-parts/home/contact.php  and  template-parts/about/cta.php
 to your own Cal.com event link if different.
 
+== Multi Vendor SKU page: Marketplace button ==
+Until Zoho approves the Marketplace listing, the main button in the hero and
+in the closing band reads "Book a demo" and opens
+https://cal.com/amatec/vendor-skus-setup in a new tab. The "Install from" row
+in the At a glance card shows "Zoho Marketplace" as plain text.
+
+When the listing is approved:
+  1. Open inc/multi-vendor-sku.php and find the function amatec_mvs().
+  2. Set 'marketplace' to the listing URL (it is an empty string now).
+  3. Upload the theme. Both buttons switch back to "Get it on Zoho
+     Marketplace", the closing band text says "Install Multi Vendor SKU from
+     Zoho Marketplace", and the "Install from" row links to the listing.
+Leave 'demo' as it is; it is used again if 'marketplace' is ever emptied.
+
 == Logo ==
 Appearance → Customize → Site Identity → Logo. If no logo is set, an "amatec"
 wordmark is shown.

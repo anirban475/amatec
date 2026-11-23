@@ -6,7 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-$mvs = amatec_mvs();
+$cta = amatec_mvs_primary_cta();
 ?>
 <section id="mvs-hero" class="lp-hero" style="text-align:center;">
 	<div class="dotgrid" aria-hidden="true"></div>
@@ -28,7 +28,7 @@ $mvs = amatec_mvs();
 		</p>
 
 		<div class="reveal" style="display:flex;gap:14px;margin-top:32px;justify-content:center;flex-wrap:wrap;animation-delay:.15s;">
-			<a href="<?php echo esc_url( $mvs['marketplace'] ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-accent"><i data-lucide="external-link"></i> <?php esc_html_e( 'Get it on Zoho Marketplace', 'amatec' ); ?></a>
+			<a href="<?php echo esc_url( $cta['href'] ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-accent"><i data-lucide="<?php echo esc_attr( $cta['icon'] ); ?>"></i> <?php echo esc_html( $cta['label'] ); ?></a>
 			<a href="#mvs-steps" class="btn btn-outline-light"><i data-lucide="arrow-down"></i> <?php esc_html_e( 'See how it works', 'amatec' ); ?></a>
 		</div>
 

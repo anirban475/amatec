@@ -29,7 +29,7 @@ $extras = array(
 			<p class="lead"><?php esc_html_e( 'The six features buyers use most, then three more that come with the app.', 'amatec' ); ?></p>
 		</div>
 
-		<div class="mvs-feat-grid" style="grid-auto-rows:1fr;">
+		<div class="mvs-feat-grid">
 			<?php foreach ( $features as $f ) : ?>
 				<div class="card mvs-feat">
 					<?php get_template_part(
