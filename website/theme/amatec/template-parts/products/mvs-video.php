@@ -9,6 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $mvs     = amatec_mvs();
+$section = $mvs['video'];
 $vid     = $mvs['video_id'];
 $minutes = max( 1, (int) round( amatec_mvs_video_seconds() / 60 ) );
 ?>
@@ -18,14 +19,16 @@ $minutes = max( 1, (int) round( amatec_mvs_video_seconds() / 60 ) );
 	<div class="wrap section inner">
 		<div class="sec-head center on-dark" style="max-width:680px;">
 			<div class="eyebrow on-dark"><?php esc_html_e( 'DEMO', 'amatec' ); ?></div>
-			<h2 class="h2"><?php esc_html_e( 'Watch Multi Vendor SKU in Zoho Inventory', 'amatec' ); ?></h2>
+			<h2 class="h2"><?php echo esc_html( $section['h2'] ); ?></h2>
 			<p class="lead">
 				<?php
-				if ( $vid ) {
+				if ( $vid && ! empty( $section['lead_video'] ) ) {
+					echo esc_html( $section['lead_video'] );
+				} elseif ( $vid ) {
 					/* translators: %d: video length in minutes. */
 					echo esc_html( sprintf( __( 'A %d minute walkthrough of the full flow, from setup to matching vendor bills.', 'amatec' ), $minutes ) );
 				} else {
-					esc_html_e( 'A short demo video is on the way. Until then, the steps above show each screen.', 'amatec' );
+					echo esc_html( $section['lead_empty'] );
 				}
 				?>
 			</p>
@@ -37,7 +40,7 @@ $minutes = max( 1, (int) round( amatec_mvs_video_seconds() / 60 ) );
 					<span class="d" style="background:#FF5F57;"></span>
 					<span class="d" style="background:#FEBC2E;"></span>
 					<span class="d" style="background:#28C840;"></span>
-					<span class="addr">inventory.zoho.com · multi-vendor-sku</span>
+					<span class="addr"><?php echo esc_html( $section['bar'] ); ?></span>
 				</div>
 				<?php if ( $vid ) : ?>
 					<a class="media yt mvs-yt" href="<?php echo esc_url( 'https://www.youtube.com/watch?v=' . $vid ); ?>" target="_blank" rel="noopener noreferrer"

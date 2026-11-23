@@ -48,19 +48,26 @@ Edit the data-cal-link attribute in:
   template-parts/home/contact.php  and  template-parts/about/cta.php
 to your own Cal.com event link if different.
 
-== Multi Vendor SKU page: Marketplace button ==
-Until Zoho approves the Marketplace listing, the main button in the hero and
+== Multi Vendor SKU pages: Marketplace button ==
+There are two pages, one per Zoho app, built from the same partials:
+  Zoho Inventory  settings in inc/multi-vendor-sku.php, amatec_mvs_inventory()
+  Zoho Books      settings in inc/multi-vendor-sku-books.php, amatec_mvs_books()
+Until Zoho approves a Marketplace listing, the main button in the hero and
 in the closing band reads "Book a demo" and opens
 https://cal.com/amatec/vendor-skus-setup in a new tab. The "Install from" row
 in the At a glance card shows "Zoho Marketplace" as plain text.
 
-When the listing is approved:
-  1. Open inc/multi-vendor-sku.php and find the function amatec_mvs().
+When a listing is approved:
+  1. Open that app's settings file (above).
   2. Set 'marketplace' to the listing URL (it is an empty string now).
   3. Upload the theme. Both buttons switch back to "Get it on Zoho
      Marketplace", the closing band text says "Install Multi Vendor SKU from
      Zoho Marketplace", and the "Install from" row links to the listing.
 Leave 'demo' as it is; it is used again if 'marketplace' is ever emptied.
+
+Books page price: 'price' (shown on the page) and 'offer_price' (schema) are
+set to $29. 'trial' stays empty until the Marketplace listing is published
+with a free trial.
 
 == Logo ==
 Appearance → Customize → Site Identity → Logo. If no logo is set, an "amatec"

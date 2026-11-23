@@ -112,12 +112,13 @@ function amatec_contact_faqs() {
 /**
  * FAQ sets for the platform, AI and product pages.
  *
- * @param string $key make|n8n|monday|zoho|ai|tchat|stock|mvs.
+ * @param string $key make|n8n|monday|zoho|ai|tchat|stock|mvs|mvs-books.
  * @return array
  */
 function amatec_platform_faqs( $key ) {
-	$mvs  = amatec_mvs();
-	$sets = array(
+	$mvs   = amatec_mvs( 'inventory' );
+	$books = amatec_mvs( 'books' );
+	$sets  = array(
 		'make'   => array(
 			array(
 				'q' => __( 'What is a Make.com scenario?', 'amatec' ),
@@ -283,12 +284,54 @@ function amatec_platform_faqs( $key ) {
 			),
 			array(
 				'q' => __( 'Which Zoho Inventory editions and regions does it support?', 'amatec' ),
-				'a' => __( 'It works with any Zoho Inventory edition in any Zoho data centre. You install it from Zoho Marketplace, and the interface is in English. A Zoho Books version is planned.', 'amatec' ),
+				// The Books page starts as a draft; say it exists only once it is published.
+				'a' => amatec_page_is_live( $books['slug'] )
+					? __( 'It works with any Zoho Inventory edition in any Zoho data centre. You install it from Zoho Marketplace, and the interface is in English. If you run Zoho Books without Zoho Inventory, use Multi Vendor SKU for Zoho Books instead.', 'amatec' )
+					: __( 'It works with any Zoho Inventory edition in any Zoho data centre. You install it from Zoho Marketplace, and the interface is in English. A Zoho Books version is planned.', 'amatec' ),
 			),
 			array(
 				'q' => __( 'How much does it cost and how do I get support?', 'amatec' ),
 				/* translators: 1: price, 2: free trial, 3: support email. */
 				'a' => sprintf( __( 'Multi Vendor SKU costs %1$s, with a %2$s. For help, email %3$s. Amatec built the app and gives support directly.', 'amatec' ), $mvs['price'], $mvs['trial'], $mvs['email'] ),
+			),
+		),
+		'mvs-books' => array(
+			array(
+				'q' => __( 'What is Multi Vendor SKU for Zoho Books?', 'amatec' ),
+				'a' => __( 'It is a Zoho Books extension that stores the SKU each vendor uses for your items. It fills those SKUs on purchase orders and bills, and matches vendor bills back to your items by the vendor\'s SKU. You install it from Zoho Marketplace.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Can one item have a different SKU for each vendor?', 'amatec' ),
+				'a' => __( 'Yes. Each item can have its own SKU at every vendor you buy it from. When you pick a vendor on a purchase order, the app fills that vendor\'s SKU on the line.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Does it change my own item SKU in Zoho Books?', 'amatec' ),
+				'a' => __( 'No. Your own item SKU stays as it is. Vendor SKUs are saved separately, in the Vendor SKUs module and the Vendor SKU item field.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'How do I add SKUs for items I already buy?', 'amatec' ),
+				'a' => __( 'Export Vendors and Bills from Zoho Books as CSV files and drop both into setup in the Vendor SKUs tab. The app lists every item you have bought from each vendor, most bought first, and you type each vendor\'s SKU once. You can also add a SKU from the purchase order panel or load many from a CSV file with Bulk Import.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Does it work with bills from vendors?', 'amatec' ),
+				'a' => __( 'Yes. On a new bill, paste the lines from the vendor\'s bill in the Bill panel. The app finds your items by the vendor\'s SKU and fills the bill lines. On a saved bill, Bill Check compares the bill with its purchase order.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Do I need Zoho Inventory?', 'amatec' ),
+				'a' => __( 'No. This version runs in Zoho Books on its own, with purchase orders turned on. If your business runs on Zoho Inventory, use Multi Vendor SKU for Zoho Inventory instead.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'Where is my data stored, and what does Amatec receive?', 'amatec' ),
+				'a' => __( 'Your vendor SKUs stay in your own Zoho Books account. On install and uninstall only, the app sends Amatec your organization ID and name, the installer\'s email (install only), the date and the app version, so we can send a setup guide and give support.', 'amatec' ),
+			),
+			array(
+				'q' => __( 'How much does it cost and how do I get support?', 'amatec' ),
+				// "with a free trial" only once the Marketplace listing has one ('trial' set).
+				'a' => '' !== $books['trial']
+					/* translators: 1: price, 2: free trial, 3: support email. */
+					? sprintf( __( '%1$s, with a %2$s. For setup help, book a call or email %3$s. The team that built the app answers.', 'amatec' ), $books['price'], $books['trial'], $books['email'] )
+					/* translators: 1: price, 2: support email. */
+					: sprintf( __( '%1$s. For setup help, book a call or email %2$s. The team that built the app answers.', 'amatec' ), $books['price'], $books['email'] ),
 			),
 		),
 	);

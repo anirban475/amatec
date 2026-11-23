@@ -8,11 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $mvs     = amatec_mvs();
 $cta     = amatec_mvs_primary_cta();
-$assures = array(
-	array( 'icon' => 'puzzle', 't' => 'Runs inside Zoho Inventory' ),
-	array( 'icon' => 'database', 't' => 'Your SKUs stay in your Zoho account' ),
-	array( 'icon' => 'life-buoy', 't' => 'Support from the team that built it' ),
-);
+$section = $mvs['cta'];
+$assures = $section['assures'];
 ?>
 <section id="mvs-cta" class="prod-cta">
 	<div class="dotgrid" aria-hidden="true"></div>
@@ -24,9 +21,9 @@ $assures = array(
 		<p class="lead" style="margin-top:18px;color:var(--blue-100);max-width:600px;margin-left:auto;margin-right:auto;">
 			<?php
 			if ( '' !== $mvs['marketplace'] ) {
-				esc_html_e( 'Install Multi Vendor SKU from Zoho Marketplace, or talk to the team that built it about your purchasing process in Zoho.', 'amatec' );
+				echo esc_html( $section['text_marketplace'] );
 			} else {
-				esc_html_e( 'Book a demo to see Multi Vendor SKU in Zoho Inventory, or talk to the team that built it about your purchasing process in Zoho.', 'amatec' );
+				echo esc_html( $section['text_demo'] );
 			}
 			?>
 		</p>

@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'AMATEC_VERSION', '1.10.4' );
+define( 'AMATEC_VERSION', '1.11.0' );
 
 /* ------------------------------------------------------------------
  * Landing-page content (services / industries / solutions).
@@ -18,6 +18,7 @@ require_once get_theme_file_path( 'inc/legal-pages.php' );
 require_once get_theme_file_path( 'inc/aio.php' );
 require_once get_theme_file_path( 'inc/case-studies.php' );
 require_once get_theme_file_path( 'inc/multi-vendor-sku.php' );
+require_once get_theme_file_path( 'inc/multi-vendor-sku-books.php' );
 require_once get_theme_file_path( 'inc/contact-alerts.php' );
 
 /**
@@ -45,6 +46,16 @@ function amatec_site_pages() {
 				'desc'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Inventory POs and bills and matches vendor bills to your items.',
 				'focuskw' => 'vendor SKU zoho inventory',
 				'ogimage' => 'assets/media/multi-vendor-sku/og-multi-vendor-sku.jpg',
+			),
+		),
+		'multi-vendor-sku-for-zoho-books'      => array(
+			'Multi Vendor SKU for Zoho Books',
+			'Vendor SKUs on POs and Bills in Zoho Books | Amatec',
+			array(
+				'status'  => 'draft',
+				'desc'    => 'Save each vendor\'s SKU once. Multi Vendor SKU fills it on Zoho Books purchase orders and bills and matches vendor bills to your items.',
+				'focuskw' => 'vendor SKU zoho books',
+				'ogimage' => 'assets/media/multi-vendor-sku-books/og-multi-vendor-sku-books.jpg',
 			),
 		),
 		'termsandconditions'                   => array( 'Terms & Conditions', 'Terms & Conditions — Amatec' ),
@@ -105,10 +116,19 @@ function amatec_ensure_lp_pages() {
 	// Bespoke pages (contact, AI, platforms, products, legal) — their layout
 	// comes from page-{slug}.php templates, so only the page row is needed.
 	foreach ( amatec_site_pages() as $slug => $titles ) {
-		if ( get_page_by_path( $slug ) ) {
+		$opts     = isset( $titles[2] ) ? $titles[2] : array();
+		$existing = get_page_by_path( $slug );
+		if ( $existing ) {
+			// A page made by hand or over REST before the theme arrived: give
+			// it the share image when it has none (Yoast's box can't be set
+			// over REST on this site).
+			if ( ! empty( $opts['ogimage'] ) && '' === get_post_meta( $existing->ID, '_yoast_wpseo_opengraph-image', true ) ) {
+				update_post_meta( $existing->ID, '_yoast_wpseo_opengraph-image', get_theme_file_uri( $opts['ogimage'] ) );
+				update_post_meta( $existing->ID, '_yoast_wpseo_twitter-image', get_theme_file_uri( $opts['ogimage'] ) );
+				wp_update_post( array( 'ID' => $existing->ID ) );
+			}
 			continue;
 		}
-		$opts = isset( $titles[2] ) ? $titles[2] : array();
 		// Yoast meta goes in with the insert (meta_input), so the Yoast indexable
 		// is built with it and the head tags are right on the first view.
 		$meta = array( '_yoast_wpseo_title' => $titles[1] );
@@ -586,6 +606,9 @@ function amatec_site_menu() {
 				),
 				amatec_page_is_live( 'multi-vendor-sku-for-zoho-inventory' )
 					? array( array( 'label' => 'Multi Vendor SKU for Zoho Inventory', 'icon' => 'tags', 'href' => home_url( '/multi-vendor-sku-for-zoho-inventory/' ) ) )
+					: array(),
+				amatec_page_is_live( 'multi-vendor-sku-for-zoho-books' )
+					? array( array( 'label' => 'Multi Vendor SKU for Zoho Books', 'icon' => 'tags', 'href' => home_url( '/multi-vendor-sku-for-zoho-books/' ) ) )
 					: array()
 			),
 		),
